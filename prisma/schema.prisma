@@ -1,0 +1,326 @@
+// Sky - CEDA Innovation Portal data model.
+// Local development uses SQLite (zero setup). `node scripts/select-provider.mjs`
+// switches the provider to PostgreSQL when DATABASE_URL is a postgres URL.
+// Enum-like fields are strings so the same schema works on both databases;
+// allowed values live in src/lib/domain.ts.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         String    @default("INNOVATOR") // INNOVATOR | EVALUATOR | ADJUDICATOR | ADMIN | DPO
+  phone        String?
+  district     String?
+  gender       String?
+  dateOfBirth  DateTime?
+  title        String? // job title for staff
+  orgId        String?
+  org          Organisation? @relation(fields: [orgId], references: [id])
+  restricted   Boolean   @default(false) // processing restricted on data subject request
+  anonymisedAt DateTime?
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+
+  submissions   Submission[]    @relation("Owner")
+  assignments   Assignment[]
+  feedback      Feedback[]
+  decisions     Decision[]
+  notifications Notification[]
+  consents      Consent[]
+  dataRequests  DataRequest[]   @relation("Requester")
+  handledRequests DataRequest[] @relation("Handler")
+  auditLogs     AuditLog[]
+  stageEvents   StageEvent[]
+}
+
+model Organisation {
+  id                  String   @id @default(cuid())
+  name                String
+  uin                 String   @unique // CIPA Unique Identification Number, e.g. BW00001234567
+  incorporatedOn      DateTime?
+  youthShareholdingPct Int
+  citizenOwned        Boolean  @default(true)
+  district            String
+  sector              String
+  employees           Int      @default(1)
+  verified            Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  members             User[]
+  submissions         Submission[]
+}
+
+model Consent {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purpose     String // PROCESSING | EVALUATION_SHARING | SHOWCASE | MARKETING
+  version     String
+  granted     Boolean
+  grantedAt   DateTime  @default(now())
+  withdrawnAt DateTime?
+  @@index([userId])
+}
+
+model Call {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  theme       String
+  tagline     String
+  description String
+  prizePool   Int      @default(0) // BWP
+  opensAt     DateTime
+  closesAt    DateTime
+  status      String   @default("OPEN") // DRAFT | OPEN | REVIEW | CLOSED
+  formSchema  String // JSON array of field definitions
+  colour      String   @default("sky")
+  createdAt   DateTime @default(now())
+  stages      Stage[]
+  criteria    Criterion[]
+  submissions Submission[]
+}
+
+model Stage {
+  id          String @id @default(cuid())
+  callId      String
+  call        Call   @relation(fields: [callId], references: [id], onDelete: Cascade)
+  order       Int
+  name        String
+  kind        String // SCREENING | PANEL | ADJUDICATION | AWARD
+  description String
+  minReviewers Int   @default(1)
+  blind       Boolean @default(true)
+  submissions Submission[]
+  assignments Assignment[]
+  decisions   Decision[]
+  @@unique([callId, order])
+}
+
+model Criterion {
+  id          String @id @default(cuid())
+  callId      String
+  call        Call   @relation(fields: [callId], references: [id], onDelete: Cascade)
+  order       Int
+  name        String
+  description String
+  weight      Int // percentage points; weights per call add to 100
+  maxScore    Int    @default(10)
+  scores      Score[]
+  feedback    Feedback[]
+}
+
+model Submission {
+  id             String    @id @default(cuid())
+  reference      String    @unique // SKY-26-0001
+  callId         String
+  call           Call      @relation(fields: [callId], references: [id])
+  orgId          String
+  org            Organisation @relation(fields: [orgId], references: [id])
+  ownerId        String
+  owner          User      @relation("Owner", fields: [ownerId], references: [id])
+  title          String
+  summary        String
+  sector         String
+  status         String    @default("DRAFT") // DRAFT | SUBMITTED | IN_REVIEW | CHANGES_REQUESTED | ADVANCED | DECLINED | AWARDED | WITHDRAWN
+  stageId        String?
+  stage          Stage?    @relation(fields: [stageId], references: [id])
+  currentVersion Int       @default(0)
+  draft          String? // JSON working copy
+  submittedAt    DateTime?
+  awardAmount    Int?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  versions       SubmissionVersion[]
+  files          SubmissionFile[]
+  events         StageEvent[]
+  assignments    Assignment[]
+  feedback       Feedback[]
+  decisions      Decision[]
+  @@index([callId])
+  @@index([ownerId])
+}
+
+model SubmissionVersion {
+  id           String     @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  version      Int
+  payload      String // JSON snapshot, locked
+  sha256       String // hash of canonical payload + file hashes
+  signature    String // HMAC receipt signature
+  note         String?
+  createdAt    DateTime   @default(now())
+  @@unique([submissionId, version])
+}
+
+model SubmissionFile {
+  id           String     @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  slot         String
+  fileName     String
+  mimeType     String
+  size         Int
+  sha256       String // hash of the original bytes
+  iv           String
+  authTag      String
+  data         Bytes // AES-256-GCM encrypted bytes
+  uploadedAt   DateTime   @default(now())
+  @@index([submissionId])
+}
+
+model StageEvent {
+  id           String     @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  stageName    String
+  status       String
+  label        String
+  note         String?
+  actorId      String?
+  actor        User?      @relation(fields: [actorId], references: [id])
+  createdAt    DateTime   @default(now())
+  @@index([submissionId])
+}
+
+model Assignment {
+  id            String     @id @default(cuid())
+  submissionId  String
+  submission    Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  stageId       String
+  stage         Stage      @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  evaluatorId   String
+  evaluator     User       @relation(fields: [evaluatorId], references: [id])
+  status        String     @default("PENDING") // PENDING | CONFLICT | IN_PROGRESS | DONE
+  coiDeclaredAt DateTime?
+  conflictNote  String?
+  overall       String? // overall comment
+  completedAt   DateTime?
+  dueAt         DateTime?
+  createdAt     DateTime   @default(now())
+  scores        Score[]
+  @@unique([submissionId, stageId, evaluatorId])
+}
+
+model Score {
+  id           String     @id @default(cuid())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  criterionId  String
+  criterion    Criterion  @relation(fields: [criterionId], references: [id], onDelete: Cascade)
+  value        Int
+  comment      String?
+  @@unique([assignmentId, criterionId])
+}
+
+model Feedback {
+  id           String     @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  authorId     String
+  author       User       @relation(fields: [authorId], references: [id])
+  criterionId  String?
+  criterion    Criterion? @relation(fields: [criterionId], references: [id])
+  body         String
+  kind         String     @default("COMMENT") // COMMENT | CHANGE_REQUEST | RESPONSE
+  visibility   String     @default("APPLICANT") // APPLICANT | PANEL
+  resolved     Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  @@index([submissionId])
+}
+
+model Decision {
+  id           String     @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  stageId      String
+  stage        Stage      @relation(fields: [stageId], references: [id])
+  deciderId    String
+  decider      User       @relation(fields: [deciderId], references: [id])
+  outcome      String // ADVANCE | DECLINE | AWARD | REQUEST_CHANGES
+  rationale    String
+  awardAmount  Int?
+  createdAt    DateTime   @default(now())
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  href      String?
+  kind      String    @default("INFO") // INFO | SUCCESS | ACTION | WARNING
+  channels  String    @default("IN_APP,EMAIL")
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+  @@index([userId, readAt])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  seq       Int      @unique
+  actorId   String?
+  actor     User?    @relation(fields: [actorId], references: [id])
+  actorRole String?
+  action    String
+  entity    String?
+  entityId  String?
+  meta      String?
+  prevHash  String
+  hash      String
+  createdAt DateTime @default(now())
+}
+
+model DataRequest {
+  id         String    @id @default(cuid())
+  reference  String    @unique
+  userId     String
+  user       User      @relation("Requester", fields: [userId], references: [id], onDelete: Cascade)
+  type       String // ACCESS | RECTIFICATION | ERASURE | RESTRICTION | OBJECTION | PORTABILITY
+  details    String
+  status     String    @default("OPEN") // OPEN | IN_PROGRESS | COMPLETED | REJECTED
+  dueAt      DateTime
+  handlerId  String?
+  handler    User?     @relation("Handler", fields: [handlerId], references: [id])
+  resolution String?
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+}
+
+model BreachIncident {
+  id                   String    @id @default(cuid())
+  reference            String    @unique
+  title                String
+  description          String
+  severity             String // LOW | MEDIUM | HIGH
+  affectedCount        Int       @default(0)
+  dataTypes            String
+  discoveredAt         DateTime
+  containedAt          DateTime?
+  commissionNotifiedAt DateTime?
+  subjectsNotifiedAt   DateTime?
+  status               String    @default("OPEN") // OPEN | CONTAINED | REPORTED | CLOSED
+  isDrill              Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+}
+
+model RetentionPolicy {
+  id        String    @id @default(cuid())
+  dataType  String    @unique
+  label     String
+  months    Int
+  action    String // ANONYMISE | DELETE | ARCHIVE
+  basis     String
+  lastRunAt DateTime?
+}
