@@ -1,17 +1,19 @@
-import { PublicFooter, PublicHeader } from "@/components/public-chrome";
+import { PublicFooter, PublicHero } from "@/components/public-chrome";
 import { CONSENT_PURPOSES, CONSENT_VERSION } from "@/lib/domain";
 
 export const metadata = { title: "Privacy notice" };
 
 export default function PrivacyNotice() {
   return (
-    <div>
-      <div className="sky-gradient"><PublicHeader /></div>
-      <article className="mx-auto max-w-3xl px-4 py-12 md:px-8">
-        <div className="req-badge">Data Protection Act 2024</div>
-        <h1 className="mt-3 text-4xl font-semibold text-navy-900">Privacy notice</h1>
-        <p className="mt-2 text-sm text-slate-500">Version {CONSENT_VERSION} · Prototype text for the CEDA hackathon, to be confirmed by CEDA's Data Protection Officer.</p>
-        <div className="mt-8 space-y-8 text-slate-700">
+    <div className="bg-slate-50">
+      <PublicHero
+        narrow
+        eyebrow="Data Protection Act 2024"
+        title={<>Privacy <span className="font-serif text-[1.08em] text-sky-300 italic">notice.</span></>}
+        body={`Version ${CONSENT_VERSION} · Prototype text for the CEDA hackathon, to be confirmed by CEDA's Data Protection Officer.`}
+      />
+      <article className="mx-auto max-w-5xl px-4 py-14 md:px-8">
+        <div className="card max-w-3xl space-y-8 p-8 text-[15px] leading-relaxed text-slate-700 md:p-10">
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Who is responsible</h2>
             <p className="mt-2">The Citizen Entrepreneurial Development Agency (CEDA) is the data controller for Sky. CEDA's Data Protection Officer can be reached through the privacy centre in your account. You may also complain to the Information and Data Protection Commission.</p>
