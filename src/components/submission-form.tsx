@@ -107,7 +107,7 @@ export function SubmissionForm({
       <div className="space-y-6">
         {sections.map(([section, list], si) => (
           <section key={section} className="card p-6">
-            <h2 className="text-lg font-bold text-navy-900">{si + 1}. {section}</h2>
+            <h2 className="text-lg font-semibold text-navy-900">{si + 1}. {section}</h2>
             <div className="mt-5 space-y-5">
               {list.map((f) => {
                 const err = errors[f.key];
@@ -146,7 +146,7 @@ export function SubmissionForm({
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <div className="card p-5">
           <div className="text-sm font-semibold text-navy-900">Completeness</div>
-          <div className="font-display mt-1 text-3xl font-bold text-navy-900">{pct}%</div>
+          <div className="font-display mt-1 text-3xl font-semibold text-navy-900">{pct}%</div>
           <div className="mt-2 h-2 rounded-full bg-slate-100"><div className="h-2 rounded-full bg-sky-500 transition-all" style={{ width: `${pct}%` }} /></div>
           <div className="mt-2 text-xs text-slate-500">{done} of {required.length} required answers</div>
           <div className="mt-4 flex items-center gap-2 text-xs text-slate-500" aria-live="polite">

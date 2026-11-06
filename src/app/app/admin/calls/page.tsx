@@ -21,8 +21,8 @@ export default async function CallsAdmin() {
             <section key={c.id} className="card p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <div className="text-xs font-semibold text-sky-700 uppercase">{c.theme}</div>
-                  <h2 className="text-lg font-bold text-navy-900">{c.title}</h2>
+                  <div className="eyebrow text-sky-700">{c.theme}</div>
+                  <h2 className="text-lg font-semibold text-navy-900">{c.title}</h2>
                   <div className="text-sm text-slate-500">{fmtDate(c.opensAt)} to {fmtDate(c.closesAt)} · {pula(c.prizePool)} · {c._count.submissions} ideas</div>
                 </div>
                 <form action={setCallStatus} className="flex items-center gap-2">
@@ -34,9 +34,9 @@ export default async function CallsAdmin() {
                 </form>
               </div>
               <div className="mt-5 grid gap-5 md:grid-cols-3">
-                <div><div className="text-xs font-semibold text-slate-500 uppercase">Form</div><div className="mt-1 text-sm text-navy-900">{fields.length} questions, {fields.filter((f) => f.required).length} required, {fields.filter((f) => f.type === "file").length} documents</div></div>
-                <div><div className="text-xs font-semibold text-slate-500 uppercase">Rubric</div><ul className="mt-1 space-y-0.5 text-sm">{c.criteria.map((k) => <li key={k.id} className="flex justify-between"><span className="text-navy-900">{k.name}</span><span className="font-mono text-slate-500">{k.weight}%</span></li>)}</ul></div>
-                <div><div className="text-xs font-semibold text-slate-500 uppercase">Stages</div><ol className="mt-1 flex flex-wrap gap-1.5">{c.stages.map((s, i) => <li key={s.id}><Tone tone="sky">{i + 1}. {s.name}</Tone></li>)}</ol></div>
+                <div><div className="eyebrow text-slate-400">Form</div><div className="mt-1 text-sm text-navy-900">{fields.length} questions, {fields.filter((f) => f.required).length} required, {fields.filter((f) => f.type === "file").length} documents</div></div>
+                <div><div className="eyebrow text-slate-400">Rubric</div><ul className="mt-1 space-y-0.5 text-sm">{c.criteria.map((k) => <li key={k.id} className="flex justify-between"><span className="text-navy-900">{k.name}</span><span className="font-mono text-slate-500">{k.weight}%</span></li>)}</ul></div>
+                <div><div className="eyebrow text-slate-400">Stages</div><ol className="mt-1 flex flex-wrap gap-1.5">{c.stages.map((s, i) => <li key={s.id}><Tone tone="sky">{i + 1}. {s.name}</Tone></li>)}</ol></div>
               </div>
             </section>
           );

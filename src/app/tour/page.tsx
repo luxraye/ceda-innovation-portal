@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check, PlayCircle } from "lucide-react";
-import { PublicFooter, PublicHeader } from "@/components/public-chrome";
+import { PublicFooter, PublicHero } from "@/components/public-chrome";
 import { DemoButton } from "@/components/demo-button";
 import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "@/lib/demo";
 import { ROLE_INFO, type Role } from "@/lib/domain";
@@ -130,96 +130,117 @@ const SECTIONS: Section[] = [
 export default function Tour() {
   const demo = process.env.DEMO_MODE === "true";
   return (
-    <div>
-      <section className="sky-gradient">
-        <PublicHeader />
-        <div className="mx-auto max-w-5xl px-4 pt-8 pb-16 md:px-8">
-          <div className="req-badge mb-4">Judge's guide</div>
-          <h1 className="text-4xl font-extrabold text-navy-900 md:text-5xl">Sky in two minutes, mapped to the CEDA brief.</h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-700">
-            Each section below is one requirement from section 3.2 of the hackathon guidelines, in plain words. Press the button to sign
-            in as the right person and land on the screen that proves it. Gold badges inside the app show which requirement each screen
-            answers.
-          </p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {[
-              ["One idea, five stages", "Submit, screen, panel, committee, award"],
-              ["Five roles, five workspaces", "Each sees only what they should"],
-              ["Every action on record", "Sealed submissions and a hash-chained audit trail"],
-            ].map(([a, b]) => (
-              <div key={a} className="card p-4">
-                <div className="font-semibold text-navy-900">{a}</div>
-                <div className="text-sm text-slate-600">{b}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-5xl space-y-6 px-4 py-14 md:px-8">
-        <nav className="flex flex-wrap gap-2" aria-label="Jump to requirement">
-          {SECTIONS.map((s) => (
-            <a key={s.id} href={`#${s.id}`} className="chip border border-slate-200 bg-white text-slate-700 hover:border-sky-300">
-              {s.code} {s.id === "b2" ? "committee" : ""}
-            </a>
+    <div className="bg-slate-50">
+      <PublicHero
+        narrow
+        eyebrow="Judge's guide"
+        title={
+          <>
+            Sky in two minutes, <span className="font-serif text-[1.08em] text-sky-300 italic">mapped to the CEDA brief.</span>
+          </>
+        }
+        body="Each section below is one requirement from section 3.2 of the hackathon guidelines, in plain words. Press the button to sign in as the right person and land on the screen that proves it. Gold badges inside the app show which requirement each screen answers."
+      >
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl bg-white/[0.08] ring-1 ring-white/[0.08] sm:grid-cols-3">
+          {[
+            ["One idea, five stages", "Submit, screen, panel, committee, award"],
+            ["Five roles, five workspaces", "Each sees only what they should"],
+            ["Every action on record", "Sealed submissions, hash-chained audit trail"],
+          ].map(([a, b]) => (
+            <div key={a} className="bg-navy-950/80 p-5 backdrop-blur">
+              <div className="font-medium text-white">{a}</div>
+              <div className="mt-1 text-sm text-white/45">{b}</div>
+            </div>
           ))}
-        </nav>
-        {SECTIONS.map((s, i) => (
-          <section key={s.id} id={s.id} className="card scroll-mt-6 overflow-hidden">
-            <div className="grid md:grid-cols-[1fr_1.3fr]">
-              <div className="bg-gradient-to-br from-sky-600 to-sky-800 p-7 text-white">
-                <div className="flex items-center gap-2 text-xs font-semibold text-gold-300">
-                  <span className="font-mono">{s.code}</span> · Step {i + 1} of {SECTIONS.length}
-                </div>
-                <h2 className="mt-3 text-2xl font-bold">{s.title}</h2>
-                <p className="mt-3 text-sm text-sky-100">{s.plain}</p>
-                {demo && (
-                  <DemoButton email={s.demo.email} next={s.demo.next} className="btn-gold mt-6">
-                    <PlayCircle className="h-4 w-4" /> {s.demo.label}
-                  </DemoButton>
-                )}
-              </div>
-              <ul className="space-y-4 p-7">
-                {s.how.map((h) => (
-                  <li key={h} className="flex gap-3 text-sm text-slate-700">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-700">
-                      <Check className="h-3.5 w-3.5" />
-                    </span>
-                    {h}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ))}
+        </div>
+      </PublicHero>
 
-        {demo && (
-          <section className="card p-7">
-            <h2 className="text-xl font-bold text-navy-900">Demo accounts</h2>
-            <p className="mt-1 text-sm text-slate-600">
-              Every account uses the password <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono">{DEMO_PASSWORD}</code>. All
-              people and companies are fictional.
-            </p>
-            <div className="mt-5 divide-y divide-slate-100">
-              {DEMO_ACCOUNTS.map((a) => (
-                <div key={a.email} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <div className="font-semibold text-navy-900">
-                      {a.name} <span className="chip ml-1 bg-sky-100 text-sky-800">{ROLE_INFO[a.role as Role].label}</span>
-                    </div>
-                    <div className="text-sm text-slate-600">{a.note}</div>
-                    <div className="font-mono text-xs text-slate-500">{a.email}</div>
-                  </div>
-                  <DemoButton email={a.email} className="btn-ghost shrink-0">
-                    Sign in <ArrowRight className="h-4 w-4" />
-                  </DemoButton>
-                </div>
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:px-8 lg:grid-cols-[200px_1fr]">
+        <nav className="hidden lg:block" aria-label="Jump to requirement">
+          <div className="sticky top-8">
+            <div className="eyebrow text-slate-400">Requirements</div>
+            <ol className="mt-4 space-y-0.5 border-l border-slate-200">
+              {SECTIONS.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className="-ml-px flex items-center gap-2.5 border-l border-transparent py-1.5 pl-4 text-[13px] text-slate-500 transition hover:border-sky-500 hover:text-navy-900"
+                  >
+                    <span className="w-14 shrink-0 font-mono text-[11px] text-sky-700">{s.code}</span>
+                    <span className="truncate">{s.id === "b2" ? "Committee" : s.title.split(" ").slice(0, 3).join(" ")}</span>
+                  </a>
+                </li>
               ))}
-            </div>
-          </section>
-        )}
-        <div className="text-center">
-          <Link href="/" className="text-sm font-medium text-sky-700 hover:underline">Back to the home page</Link>
+            </ol>
+          </div>
+        </nav>
+
+        <div className="space-y-5">
+          {SECTIONS.map((s, i) => (
+            <section key={s.id} id={s.id} className="card scroll-mt-8 overflow-hidden">
+              <div className="grid md:grid-cols-[1.05fr_1fr]">
+                <div className="relative p-7 md:p-8">
+                  <div className="flex items-center gap-3">
+                    <span className="req-badge">{s.code}</span>
+                    <span className="font-mono text-[11px] text-slate-400">
+                      {String(i + 1).padStart(2, "0")} / {String(SECTIONS.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h2 className="mt-5 text-2xl leading-tight text-navy-950">{s.title}</h2>
+                  <p className="mt-3 text-[15px] leading-relaxed text-slate-600">{s.plain}</p>
+                  {demo && (
+                    <DemoButton email={s.demo.email} next={s.demo.next} className="mt-7">
+                      <PlayCircle className="h-4 w-4" /> {s.demo.label}
+                    </DemoButton>
+                  )}
+                </div>
+                <ul className="space-y-4 border-t border-slate-100 bg-slate-50/70 p-7 md:border-t-0 md:border-l md:p-8">
+                  {s.how.map((h) => (
+                    <li key={h} className="flex gap-3 text-sm leading-relaxed text-slate-700">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(15_111_255/0.5)]">
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      </span>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))}
+
+          {demo && (
+            <section className="card overflow-hidden">
+              <div className="border-b border-slate-100 p-7">
+                <h2 className="text-xl text-navy-950">Demo accounts</h2>
+                <p className="mt-1 text-sm text-slate-600">
+                  Every account uses the password <code className="kbd">{DEMO_PASSWORD}</code>. All people and companies are fictional.
+                </p>
+              </div>
+              <div className="divide-y divide-slate-100">
+                {DEMO_ACCOUNTS.map((a) => (
+                  <div key={a.email} className="flex flex-col gap-3 px-7 py-4 transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-4">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-sky-100 to-sky-200 text-xs font-semibold text-sky-800 ring-1 ring-sky-300/60">
+                        {a.name.split(" ").map((w) => w[0]).slice(-2).join("")}
+                      </span>
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2 font-medium text-navy-900">
+                          {a.name} <span className="chip bg-sky-50 text-sky-800 ring-sky-200">{ROLE_INFO[a.role as Role].label}</span>
+                        </div>
+                        <div className="text-sm text-slate-500">{a.note}</div>
+                      </div>
+                    </div>
+                    <DemoButton email={a.email} className="btn-ghost shrink-0">
+                      Sign in <ArrowRight className="h-3.5 w-3.5" />
+                    </DemoButton>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+          <div className="pt-4 text-center">
+            <Link href="/" className="text-sm font-medium text-sky-700 hover:underline">Back to the home page</Link>
+          </div>
         </div>
       </div>
       <PublicFooter />

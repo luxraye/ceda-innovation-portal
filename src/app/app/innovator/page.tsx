@@ -46,7 +46,7 @@ export default async function InnovatorHome() {
         </Link>
       ))}
 
-      <h2 className="mt-10 mb-4 text-lg font-bold text-navy-900">My ideas</h2>
+      <h2 className="mt-10 mb-4 text-lg font-semibold text-navy-900">My ideas</h2>
       {subs.length === 0 ? (
         <Empty title="No ideas yet" body="Pick an open call and start your first submission. Your draft saves as you go." action={<Link href="/calls" className="btn-primary">See open calls</Link>} />
       ) : (
@@ -56,7 +56,7 @@ export default async function InnovatorHome() {
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <div className="font-mono text-xs text-slate-500">{s.reference} · {s.call.title}</div>
-                  <div className="mt-1 text-lg font-bold text-navy-900">{s.title}</div>
+                  <div className="mt-1 text-lg font-semibold text-navy-900">{s.title}</div>
                 </div>
                 <div className="flex items-center gap-2">
                   {s._count.feedback > 0 && <span className="chip bg-sky-50 text-sky-700">{s._count.feedback} feedback</span>}
@@ -72,11 +72,11 @@ export default async function InnovatorHome() {
         </div>
       )}
 
-      <h2 className="mt-10 mb-4 text-lg font-bold text-navy-900">Open calls</h2>
+      <h2 className="mt-10 mb-4 text-lg font-semibold text-navy-900">Open calls</h2>
       <div className="grid gap-4 md:grid-cols-3">
         {calls.map((c) => (
           <Link key={c.id} href={`/calls/${c.slug}`} className="card p-5 hover:border-sky-300">
-            <div className="text-xs font-semibold text-sky-700 uppercase">{c.theme}</div>
+            <div className="eyebrow text-sky-700">{c.theme}</div>
             <div className="mt-1 font-semibold text-navy-900">{c.title}</div>
             <div className="mt-3 text-xs text-slate-500">Closes {fmtDate(c.closesAt)} · {daysUntil(c.closesAt)} days left</div>
           </Link>

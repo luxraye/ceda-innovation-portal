@@ -49,7 +49,7 @@ export default async function Review({ params }: { params: Promise<{ id: string 
               <span><span className="font-semibold text-navy-900">I have a conflict</span><span className="block text-slate-600">The idea stays closed to you and the programme team reassigns it.</span></span>
             </label>
             <textarea name="note" className="input" rows={2} placeholder="If you have a conflict, briefly say why (optional)" />
-            <button className="btn-primary w-full py-3">Confirm declaration</button>
+            <button className="btn-primary btn-lg w-full">Confirm declaration</button>
             <p className="text-center text-xs text-slate-500">Your declaration is time-stamped in the audit trail.</p>
           </form>
         </div>

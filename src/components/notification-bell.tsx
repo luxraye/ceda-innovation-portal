@@ -60,19 +60,19 @@ export function NotificationBell() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="relative rounded-xl border border-slate-200 bg-white p-2 text-slate-600 hover:text-sky-700"
+        className="relative flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-navy-950"
         aria-label={`Notifications, ${data.unread} unread`}
         aria-expanded={open}
       >
-        <Bell className="h-5 w-5" />
+        <Bell className="h-4 w-4" />
         {data.unread > 0 && (
-          <span className={`absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold-500 px-1 text-[11px] font-bold text-navy-950 ${pulse ? "animate-pulse-ring" : ""}`}>
+          <span className={`absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-sky-600 px-1 text-[10px] font-semibold text-white ring-2 ring-slate-50 ${pulse ? "animate-pulse-ring" : ""}`}>
             {data.unread}
           </span>
         )}
       </button>
       {open && (
-        <div className="absolute right-0 z-50 mt-2 w-[22rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+        <div className="absolute right-0 z-50 mt-2 w-[23rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl bg-white shadow-[0_0_0_1px_rgb(11_18_32/0.08),0_24px_48px_-12px_rgb(11_18_32/0.25)]">
           <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
             <div>
               <div className="text-sm font-semibold text-navy-900">Notifications</div>

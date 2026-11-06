@@ -24,7 +24,7 @@ export default async function Verify({ searchParams }: { searchParams: Promise<{
       <div className="sky-gradient"><PublicHeader /></div>
       <div className="mx-auto max-w-xl px-4 py-14">
         <div className="req-badge">3.2(d) Data integrity</div>
-        <h1 className="mt-3 text-3xl font-bold text-navy-900">Verify a submission receipt</h1>
+        <h1 className="mt-3 text-3xl font-semibold text-navy-900">Verify a submission receipt</h1>
         <p className="mt-2 text-slate-600">Enter the reference and SHA-256 fingerprint from a Sky receipt. Nothing about the idea itself is shown.</p>
         <form className="card mt-6 space-y-4 p-6">
           <div><label className="label" htmlFor="ref">Reference</label><input id="ref" name="ref" defaultValue={ref} className="input font-mono" placeholder="SKY-26-0001" required /></div>

@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { LoginForm } from "./login-form";
 import { DemoButton } from "@/components/demo-button";
+import { AuthAside } from "@/components/auth-aside";
 import { DEMO_ACCOUNTS } from "@/lib/demo";
 import { ROLE_INFO, type Role } from "@/lib/domain";
 
@@ -11,36 +13,51 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const { next } = await searchParams;
   const demo = process.env.DEMO_MODE === "true";
   return (
-    <div className="sky-gradient min-h-screen">
-      <div className="mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 py-10 md:px-8 lg:grid-cols-2">
-        <div className="card p-8">
-          <Logo />
-          <h1 className="mt-8 text-2xl font-bold text-navy-900">Welcome back</h1>
-          <p className="mt-1 text-sm text-slate-600">Sign in to follow your ideas, or to review the ones assigned to you.</p>
-          <LoginForm next={next ?? ""} />
-          <p className="mt-6 text-sm text-slate-600">
-            New to Sky? <Link href="/register" className="font-semibold text-sky-700 hover:underline">Create an account</Link>
-          </p>
-        </div>
-        {demo && (
-          <div>
-            <div className="req-badge">For hackathon judges</div>
-            <h2 className="mt-3 text-2xl font-bold text-navy-900">Step into any role</h2>
-            <p className="mt-1 text-sm text-slate-600">One click signs you in as a demo user. Judge mode badges switch on so you can see which requirement each screen meets.</p>
-            <div className="mt-5 space-y-3">
-              {DEMO_ACCOUNTS.map((a) => (
-                <div key={a.email} className="flex items-center justify-between gap-3 rounded-2xl border border-white bg-white/70 p-4 backdrop-blur">
-                  <div className="min-w-0">
-                    <div className="font-semibold text-navy-900">{ROLE_INFO[a.role as Role].label}</div>
-                    <div className="truncate text-xs text-slate-600">{a.name} · {a.note}</div>
-                  </div>
-                  <DemoButton email={a.email} next={next} className="shrink-0 px-3 py-2">Enter</DemoButton>
-                </div>
-              ))}
-            </div>
+    <div className="grid min-h-screen bg-white lg:grid-cols-[1fr_1.1fr]">
+      <AuthAside
+        title={
+          <>
+            Welcome back to <span className="font-serif text-[1.08em] text-sky-300 italic">Sky.</span>
+          </>
+        }
+        body="Follow your ideas through every stage, or review the ones assigned to you. Everything you do here is recorded on a tamper-evident trail."
+      />
+      <main className="flex items-center justify-center px-4 py-12 md:px-10">
+        <div className="w-full max-w-md">
+          <div className="lg:hidden">
+            <Logo />
           </div>
-        )}
-      </div>
+          <h1 className="mt-10 text-3xl text-navy-950 lg:mt-0">Sign in</h1>
+          <p className="mt-2 text-sm text-slate-500">Use the email you registered with.</p>
+          <LoginForm next={next ?? ""} />
+          <p className="mt-6 text-sm text-slate-500">
+            New to Sky? <Link href="/register" className="font-medium text-sky-700 hover:underline">Create an account</Link>
+          </p>
+
+          {demo && (
+            <div className="mt-12">
+              <div className="flex items-center gap-3">
+                <span className="req-badge">For hackathon judges</span>
+                <span className="h-px flex-1 bg-slate-200" />
+              </div>
+              <p className="mt-3 text-sm text-slate-500">One click signs you in as a demo user, with judge mode on.</p>
+              <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-slate-200">
+                {DEMO_ACCOUNTS.map((a) => (
+                  <div key={a.email} className="flex items-center justify-between gap-3 border-b border-slate-100 bg-white px-4 py-3 last:border-0 hover:bg-slate-50">
+                    <div className="min-w-0">
+                      <div className="text-sm font-medium text-navy-950">{ROLE_INFO[a.role as Role].label}</div>
+                      <div className="truncate text-xs text-slate-500">{a.name} · {a.note}</div>
+                    </div>
+                    <DemoButton email={a.email} next={next} className="btn-ghost h-8 shrink-0 px-3 text-[13px]">
+                      Enter <ArrowRight className="h-3.5 w-3.5" />
+                    </DemoButton>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

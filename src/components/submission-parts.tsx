@@ -52,7 +52,7 @@ export function AnswerList({ fields, answers, files, hideIdentity = false }: { f
     <div className="space-y-6">
       {[...sections.entries()].map(([section, list]) => (
         <section key={section}>
-          <h3 className="mb-3 text-xs font-semibold tracking-wide text-slate-500 uppercase">{section}</h3>
+          <h3 className="mb-3 eyebrow flex items-center gap-3 text-slate-400 after:h-px after:flex-1 after:bg-slate-100">{section}</h3>
           <dl className="space-y-4">
             {list.map((f) => {
               if (f.type === "file") {

@@ -83,4 +83,4 @@ Set `DATABASE_URL` to a PostgreSQL URL; the build switches the Prisma provider a
 
 ## Stack
 
-Next.js 15 (App Router, server actions) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 6 (SQLite locally, PostgreSQL in production) · jose · bcrypt · Recharts · lucide-react.
+Next.js 15 (App Router, server actions) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 6 (SQLite locally, PostgreSQL in production) · jose · bcrypt · Recharts · three.js (landing globe, built from Natural Earth data via `scripts/build-globe.mjs`) · Motion · Geist and Instrument Serif type · lucide-react.

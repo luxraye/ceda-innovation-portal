@@ -42,7 +42,7 @@ export default async function DpoHome() {
       </div>
 
       <section id="breaches" className="mt-8">
-        <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-bold text-navy-900">Breach register</h2><Tone tone="rose">Notify the Commission within 72 hours where feasible</Tone></div>
+        <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-semibold text-navy-900">Breach register</h2><Tone tone="rose">Notify the Commission within 72 hours where feasible</Tone></div>
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
           <div className="space-y-3">
             {breaches.length === 0 && <div className="card p-5 text-sm text-slate-500">No incidents recorded.</div>}
@@ -61,7 +61,7 @@ export default async function DpoHome() {
                     {!b.commissionNotifiedAt && b.status !== "CLOSED" ? (
                       <div className={`rounded-xl px-3 py-2 text-center ${late ? "bg-rose-600 text-white" : "bg-gold-300/40 text-earth-700"}`}>
                         <div className="flex items-center gap-1 text-[11px] font-semibold uppercase"><Clock className="h-3 w-3" /> Commission</div>
-                        <div className="font-display text-xl font-bold">{late ? `${Math.floor(h - 72)}h late` : `${Math.floor(left)}h ${Math.floor((left % 1) * 60)}m`}</div>
+                        <div className="font-display text-xl font-semibold">{late ? `${Math.floor(h - 72)}h late` : `${Math.floor(left)}h ${Math.floor((left % 1) * 60)}m`}</div>
                       </div>
                     ) : b.commissionNotifiedAt ? <Tone tone="emerald">Reported {fmtDateTime(b.commissionNotifiedAt)}</Tone> : null}
                   </div>
@@ -103,7 +103,7 @@ export default async function DpoHome() {
       </section>
 
       <section id="requests" className="mt-10">
-        <h2 className="mb-3 text-lg font-bold text-navy-900">Data subject requests</h2>
+        <h2 className="mb-3 text-lg font-semibold text-navy-900">Data subject requests</h2>
         <div className="card divide-y divide-slate-100">
           {requests.length === 0 && <p className="p-5 text-sm text-slate-500">No requests.</p>}
           {requests.map((r) => {

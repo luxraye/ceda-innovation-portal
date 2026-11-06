@@ -40,7 +40,7 @@ export function ScoringPanel({ assignmentId, criteria, existing, overall: initia
       <div className="flex items-center justify-between bg-navy-900 px-5 py-4 text-white">
         <div>
           <div className="text-xs text-sky-200">Weighted score</div>
-          <div className="font-display text-3xl font-bold">{total.toFixed(1)}<span className="text-base text-sky-200"> / 100</span></div>
+          <div className="font-display text-3xl font-semibold">{total.toFixed(1)}<span className="text-base text-sky-200"> / 100</span></div>
         </div>
         <div className="text-right text-xs text-sky-200">{scored} of {criteria.length} criteria scored</div>
       </div>

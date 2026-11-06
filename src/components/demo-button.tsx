@@ -8,7 +8,7 @@ export function DemoButton({ email, next, children, className }: { email: string
     <form action={demoLogin}>
       <input type="hidden" name="email" value={email} />
       <input type="hidden" name="next" value={next ?? ""} />
-      <button className={cn("btn-primary", className)}>{children}</button>
+      <button className={cn(className?.includes("btn-") ? "" : "btn-primary", className)}>{children}</button>
     </form>
   );
 }

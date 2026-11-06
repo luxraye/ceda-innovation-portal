@@ -23,10 +23,12 @@ export default async function Reports({ searchParams }: { searchParams: Promise<
         title="Reports"
         subtitle={`Participation, outcomes and timelines${call ? ` for ${call.title}` : " across all calls"}. Exports are pseudonymised: no names or contact details.`}
         actions={
-          <div className="no-print flex flex-wrap gap-2">
-            <Link href="/app/reports" className={!call ? "btn-primary py-2" : "btn-ghost py-2"}>All calls</Link>
-            {calls.map((c) => <Link key={c.id} href={`/app/reports?call=${c.slug}`} className={call?.id === c.id ? "btn-primary py-2" : "btn-ghost py-2"}>{c.title.replace(/ 2026$/, "")}</Link>)}
-            <a href={`/api/reports/export${call ? `?call=${call.id}` : ""}`} className="btn-ghost py-2">Export CSV</a>
+          <div className="no-print flex flex-wrap items-center gap-2">
+            <div className="seg">
+              <Link href="/app/reports" className={!call ? "seg-on" : "seg-item"}>All calls</Link>
+              {calls.map((c) => <Link key={c.id} href={`/app/reports?call=${c.slug}`} className={call?.id === c.id ? "seg-on" : "seg-item"}>{c.title.replace(/ 2026$/, "").replace(/ (Challenge|Innovation Call)$/, "")}</Link>)}
+            </div>
+            <a href={`/api/reports/export${call ? `?call=${call.id}` : ""}`} className="btn-ghost">Export CSV</a>
             <PrintButton />
           </div>
         }

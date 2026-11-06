@@ -16,8 +16,8 @@ export function LoginForm({ next }: { next: string }) {
         <label className="label" htmlFor="password">Password</label>
         <input id="password" name="password" type="password" autoComplete="current-password" required className="input" />
       </div>
-      {state?.error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700" role="alert">{state.error}</p>}
-      <button className="btn-primary w-full py-3" disabled={pending}>{pending ? "Signing in..." : "Sign in"}</button>
+      {state?.error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 ring-1 ring-rose-200" role="alert">{state.error}</p>}
+      <button className="btn-primary btn-lg w-full" disabled={pending}>{pending ? "Signing in..." : "Sign in"}</button>
     </form>
   );
 }

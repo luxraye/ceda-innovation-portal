@@ -33,7 +33,7 @@ export default async function Apply({ params }: { params: Promise<{ callId: stri
         <div className="mt-6">
           {elig.eligible ? (
             <form action={start}>
-              <button className="btn-primary w-full py-3">Start my application</button>
+              <button className="btn-primary btn-lg w-full">Start my application</button>
               <p className="mt-2 text-center text-xs text-slate-500">Your answers save as a draft until you press submit.</p>
             </form>
           ) : (

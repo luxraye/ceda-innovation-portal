@@ -113,7 +113,7 @@ export function CallBuilder({ defaults }: { defaults: { fields: FormField[]; cri
         <div className="mt-4 space-y-2">
           {stages.map((s, i) => (
             <div key={i} className="grid items-center gap-2 rounded-xl border border-slate-200 p-3 md:grid-cols-[2rem_14rem_12rem_1fr_7rem_auto]">
-              <span className="font-display font-bold text-sky-600">{i + 1}</span>
+              <span className="font-display font-semibold text-sky-600">{i + 1}</span>
               <input className="input py-1.5 text-sm" value={s.name} onChange={(e) => setStages(stages.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} aria-label="Stage name" />
               <select className="input py-1.5 text-sm" value={s.kind} onChange={(e) => setStages(stages.map((x, j) => (j === i ? { ...x, kind: e.target.value } : x)))} aria-label="Stage type">
                 <option value="SCREENING">Screening</option><option value="PANEL">Panel scoring</option><option value="ADJUDICATION">Committee</option><option value="AWARD">Award</option>

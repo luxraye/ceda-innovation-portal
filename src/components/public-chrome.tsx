@@ -1,27 +1,41 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Logo } from "./logo";
 import { getSession } from "@/lib/auth";
 import { ROLE_INFO } from "@/lib/domain";
 
-export async function PublicHeader({ dark = false }: { dark?: boolean }) {
+const LINKS = [
+  { href: "/#how", label: "How it works" },
+  { href: "/calls", label: "Open calls" },
+  { href: "/#trust", label: "Your data" },
+  { href: "/tour", label: "Judge's guide" },
+];
+
+/** Public header. Sits on the night surface used across the public site. */
+export async function PublicHeader() {
   const session = await getSession();
-  const link = dark ? "text-sky-100 hover:text-white" : "text-slate-600 hover:text-sky-700";
   return (
-    <header className="relative z-20 mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 md:px-8">
-      <Logo dark={dark} />
-      <nav className="hidden items-center gap-7 text-sm font-medium md:flex" aria-label="Main">
-        <Link href="/#how" className={link}>How it works</Link>
-        <Link href="/calls" className={link}>Open calls</Link>
-        <Link href="/#trust" className={link}>Your data</Link>
-        <Link href="/tour" className={link}>Judge's guide</Link>
+    <header className="relative z-30 mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 md:px-8">
+      <Logo dark />
+      <nav
+        className="hidden items-center gap-1 rounded-full bg-white/[0.04] p-1 text-[13px] ring-1 ring-white/10 backdrop-blur-md md:flex"
+        aria-label="Main"
+      >
+        {LINKS.map((l) => (
+          <Link key={l.href} href={l.href} className="rounded-full px-3.5 py-1.5 text-white/65 transition hover:bg-white/[0.07] hover:text-white">
+            {l.label}
+          </Link>
+        ))}
       </nav>
       <div className="flex items-center gap-2">
         {session ? (
-          <Link href={ROLE_INFO[session.role].home} className="btn-primary">My workspace</Link>
+          <Link href={ROLE_INFO[session.role].home} className="btn-light">
+            My workspace <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
         ) : (
           <>
-            <Link href="/login" className={dark ? "btn text-white hover:bg-white/10" : "btn-ghost"}>Sign in</Link>
-            <Link href="/register" className="btn-primary hidden sm:inline-flex">Apply now</Link>
+            <Link href="/login" className="btn-quiet text-white/75 hover:bg-white/10 hover:text-white">Sign in</Link>
+            <Link href="/register" className="btn-light hidden sm:inline-flex">Apply now</Link>
           </>
         )}
       </div>
@@ -31,39 +45,82 @@ export async function PublicHeader({ dark = false }: { dark?: boolean }) {
 
 export function PublicFooter() {
   return (
-    <footer className="night-gradient text-sky-100/80">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
-        <div className="md:col-span-2">
+    <footer className="night relative overflow-hidden border-t border-white/[0.06]">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-12 md:px-8">
+        <div className="md:col-span-6">
           <Logo dark />
-          <p className="mt-4 max-w-md text-sm">
-            Sky is a prototype of the CEDA Innovation Portal, where youth-owned Botswana companies bring ideas forward and CEDA
-            evaluates, tracks and rewards them in the open.
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55">
+            Sky is a prototype of the CEDA Innovation Portal, where youth-owned Botswana companies bring ideas forward and CEDA evaluates,
+            tracks and rewards them in the open.
           </p>
-          <p className="mt-4 text-xs text-sky-100/60">
-            Built by Local Grow (Pty) Ltd (UIN BW00009995803) for the CEDA Innovation Portal Hackathon, November 2026. Not an
-            official CEDA website. All people, companies and ideas shown are fictional demo data.
+          <p className="mt-5 max-w-md text-xs leading-relaxed text-white/35">
+            Built by Local Grow (Pty) Ltd (UIN BW00009995803) for the CEDA Innovation Portal Hackathon, November 2026. Not an official CEDA
+            website. All people, companies and ideas shown are fictional demo data.
           </p>
         </div>
-        <div>
-          <div className="text-sm font-semibold text-white">Portal</div>
-          <ul className="mt-3 space-y-2 text-sm">
+        <div className="md:col-span-3">
+          <div className="eyebrow text-white/40">Portal</div>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/65">
             <li><Link href="/calls" className="hover:text-white">Open calls</Link></li>
             <li><Link href="/register" className="hover:text-white">Create an account</Link></li>
             <li><Link href="/tour" className="hover:text-white">Judge's guide</Link></li>
             <li><Link href="/privacy" className="hover:text-white">Privacy notice</Link></li>
+            <li><Link href="/verify" className="hover:text-white">Verify a receipt</Link></li>
           </ul>
         </div>
-        <div>
-          <div className="text-sm font-semibold text-white">CEDA programmes</div>
-          <ul className="mt-3 space-y-2 text-sm">
+        <div className="md:col-span-3">
+          <div className="eyebrow text-white/40">CEDA programmes</div>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/65">
             <li>Citizen Entrepreneurial Development Agency</li>
             <li>Marang</li>
             <li>Katlego Ya Mogwebi</li>
-            <li className="text-gold-300">#KaeKapaKae</li>
+            <li className="text-gold-400">#KaeKapaKae</li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10 py-5 text-center text-xs text-sky-100/50">Finance · Develop · Sustain</div>
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 border-t border-white/[0.06] px-4 py-6 text-xs text-white/35 md:flex-row md:px-8">
+        <span>Finance · Develop · Sustain</span>
+        <span className="font-mono">Protected under the Botswana Data Protection Act 2024</span>
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none mx-auto -mb-[0.22em] max-w-7xl px-4 text-center text-[22vw] leading-none font-semibold tracking-[-0.06em] text-white/[0.035] select-none md:px-8 md:text-[15rem]"
+      >
+        Sky
+      </div>
     </footer>
+  );
+}
+
+/** Night hero band used at the top of every public page except the landing page. */
+export async function PublicHero({
+  eyebrow,
+  title,
+  body,
+  children,
+  narrow = false,
+}: {
+  eyebrow?: React.ReactNode;
+  title: React.ReactNode;
+  body?: React.ReactNode;
+  children?: React.ReactNode;
+  narrow?: boolean;
+}) {
+  return (
+    <section className="night noise relative isolate overflow-hidden">
+      <div className="grid-lines absolute inset-0 -z-10" aria-hidden="true" />
+      <div
+        className="absolute inset-0 -z-10 bg-[radial-gradient(50%_70%_at_75%_0%,rgb(15_111_255/0.28),transparent_70%)]"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" aria-hidden="true" />
+      <PublicHeader />
+      <div className={`mx-auto px-4 pt-10 pb-16 md:px-8 md:pt-14 md:pb-20 ${narrow ? "max-w-5xl" : "max-w-7xl"}`}>
+        {eyebrow && <div className="eyebrow animate-rise text-sky-300/80">{eyebrow}</div>}
+        <h1 className="animate-rise mt-4 max-w-4xl text-[40px] leading-[1.02] text-white [animation-delay:60ms] md:text-6xl">{title}</h1>
+        {body && <p className="animate-rise mt-5 max-w-2xl text-lg leading-relaxed text-white/55 [animation-delay:120ms]">{body}</p>}
+        {children && <div className="animate-rise [animation-delay:180ms]">{children}</div>}
+      </div>
+    </section>
   );
 }

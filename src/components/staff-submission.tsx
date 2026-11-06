@@ -70,9 +70,9 @@ export async function StaffSubmission({ user, id, back, error, done }: { user: C
               <>
                 {rank && (
                   <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                    <div className="rounded-xl bg-sky-50 p-4"><div className="text-xs text-slate-500">Normalised score</div><div className="font-display text-2xl font-bold text-navy-900">{rank.normalised}</div><div className="text-[11px] text-slate-500">Adjusted for each judge's scoring habits</div></div>
-                    <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs text-slate-500">Raw weighted average</div><div className="font-display text-2xl font-bold text-navy-900">{rank.raw}</div><ScoreBar value={rank.raw} /></div>
-                    <div className={`rounded-xl p-4 ${rank.flagged ? "bg-gold-300/30" : "bg-slate-50"}`}><div className="text-xs text-slate-500">Panel spread</div><div className="font-display text-2xl font-bold text-navy-900">±{rank.spread}</div><div className="text-[11px] text-slate-500">{rank.flagged ? "Judges disagree. Discuss before deciding." : "Judges broadly agree"}</div></div>
+                    <div className="rounded-xl bg-sky-50 p-4"><div className="text-xs text-slate-500">Normalised score</div><div className="font-display text-2xl font-semibold text-navy-900">{rank.normalised}</div><div className="text-[11px] text-slate-500">Adjusted for each judge's scoring habits</div></div>
+                    <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs text-slate-500">Raw weighted average</div><div className="font-display text-2xl font-semibold text-navy-900">{rank.raw}</div><ScoreBar value={rank.raw} /></div>
+                    <div className={`rounded-xl p-4 ${rank.flagged ? "bg-gold-300/30" : "bg-slate-50"}`}><div className="text-xs text-slate-500">Panel spread</div><div className="font-display text-2xl font-semibold text-navy-900">±{rank.spread}</div><div className="text-[11px] text-slate-500">{rank.flagged ? "Judges disagree. Discuss before deciding." : "Judges broadly agree"}</div></div>
                   </div>
                 )}
                 <div className="mt-5 overflow-x-auto">

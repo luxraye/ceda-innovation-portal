@@ -31,7 +31,7 @@ export default async function AdjudicatorBoard({ searchParams }: { searchParams:
     const r = ranking.get(s.id);
     return (
       <Link href={`/app/adjudicator/submissions/${s.id}`} className="grid grid-cols-[2rem_1fr] items-center gap-4 p-4 hover:bg-sky-50/60 sm:grid-cols-[2rem_1fr_9rem_6rem_6rem]">
-        <span className="font-display text-lg font-bold text-sky-600">{i + 1}</span>
+        <span className="font-display text-lg font-semibold text-sky-600">{i + 1}</span>
         <span className="min-w-0">
           <span className="block truncate font-semibold text-navy-900">{s.title}</span>
           <span className="block truncate text-xs text-slate-500">{s.reference} · {s.org.name} · {s.org.district}</span>
@@ -55,9 +55,9 @@ export default async function AdjudicatorBoard({ searchParams }: { searchParams:
         title="Committee board"
         subtitle="Ideas ranked by normalised panel score. Normalising evens out harsh and generous judges; a high spread means the panel disagreed, so look closer before deciding."
         actions={
-          <div className="flex flex-wrap gap-2">
+          <div className="seg">
             {calls.map((c) => (
-              <Link key={c.id} href={`/app/adjudicator?call=${c.slug}`} className={c.id === call.id ? "btn-primary py-2" : "btn-ghost py-2"}>{c.title.replace(/ 2026$/, "")}</Link>
+              <Link key={c.id} href={`/app/adjudicator?call=${c.slug}`} className={c.id === call.id ? "seg-on" : "seg-item"}>{c.title.replace(/ 2026$/, "").replace(/ (Challenge|Innovation Call)$/, "")}</Link>
             ))}
           </div>
         }
@@ -69,16 +69,16 @@ export default async function AdjudicatorBoard({ searchParams }: { searchParams:
         <Stat label="Committed" value={pula(awardedTotal)} hint={`of ${pula(call.prizePool)} pool`} />
       </div>
       <section className="mt-8">
-        <h2 className="mb-3 text-lg font-bold text-navy-900">At committee stage <Tone tone="gold" className="ml-2">Your decision</Tone></h2>
+        <h2 className="mb-3 text-lg font-semibold text-navy-900">At committee stage <Tone tone="gold" className="ml-2">Your decision</Tone></h2>
         <div className="card divide-y divide-slate-100 overflow-hidden"><Head />{sortByRank(atCommittee).map((s, i) => <Row key={s.id} s={s} i={i} />)}{atCommittee.length === 0 && <p className="p-5 text-sm text-slate-500">Nothing waiting for the committee.</p>}</div>
       </section>
       <section className="mt-8">
-        <h2 className="mb-3 text-lg font-bold text-navy-900">Panel review complete</h2>
+        <h2 className="mb-3 text-lg font-semibold text-navy-900">Panel review complete</h2>
         <div className="card divide-y divide-slate-100 overflow-hidden"><Head />{sortByRank(panelReady).map((s, i) => <Row key={s.id} s={s} i={i} />)}{panelReady.length === 0 && <p className="p-5 text-sm text-slate-500">No finished panels right now.</p>}</div>
       </section>
       {awarded.length > 0 && (
         <section className="mt-8">
-          <h2 className="mb-3 text-lg font-bold text-navy-900">Awarded</h2>
+          <h2 className="mb-3 text-lg font-semibold text-navy-900">Awarded</h2>
           <div className="card divide-y divide-slate-100 overflow-hidden">{sortByRank(awarded).map((s, i) => <Row key={s.id} s={s} i={i} />)}</div>
         </section>
       )}

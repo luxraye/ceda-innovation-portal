@@ -27,22 +27,22 @@ export function StageTracker({
           <li key={s.id} className="relative flex flex-1 flex-col items-center text-center">
             {i > 0 && (
               <span
-                className={cn("absolute top-4 right-1/2 h-0.5 w-full -translate-y-1/2", i <= currentIdx || finished ? "bg-sky-500" : "bg-slate-200")}
+                className={cn("absolute top-3.5 right-1/2 h-px w-full -translate-y-1/2", i <= currentIdx || finished ? "bg-sky-500" : "bg-slate-200")}
                 aria-hidden="true"
               />
             )}
             <span
               className={cn(
-                "relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-bold",
-                done && "border-sky-600 bg-sky-600 text-white",
-                active && !stopped && "animate-pulse-ring border-sky-600 bg-white text-sky-700",
-                active && stopped && "border-rose-500 bg-rose-50 text-rose-600",
-                !done && !active && "border-slate-200 bg-white text-slate-400",
+                "relative z-10 flex h-7 w-7 items-center justify-center rounded-full font-mono text-[11px] font-medium",
+                done && "bg-gradient-to-b from-sky-500 to-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(15_111_255/0.5)]",
+                active && !stopped && "animate-pulse-ring bg-white text-sky-700 ring-2 ring-sky-500",
+                active && stopped && "bg-rose-50 text-rose-600 ring-2 ring-rose-400",
+                !done && !active && "bg-white text-slate-400 ring-1 ring-slate-200",
               )}
             >
-              {done ? <Check className="h-4 w-4" /> : i + 1}
+              {done ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : i + 1}
             </span>
-            <span className={cn("mt-2 px-1 text-[11px] leading-tight font-medium sm:text-xs", active ? "text-navy-900" : "text-slate-500")}>
+            <span className={cn("mt-2.5 px-1 text-[11px] leading-tight sm:text-xs", active ? "font-medium text-navy-950" : "text-slate-500")}>
               {s.name}
             </span>
             {active && <span className="sr-only">(current stage)</span>}

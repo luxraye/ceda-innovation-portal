@@ -30,7 +30,7 @@ export default async function Pipeline({ searchParams }: { searchParams: Promise
         eyebrow={<><Req k="c" /><Req k="b" /></>}
         title="Pipeline board"
         subtitle="Every idea in every stage. Cards turn amber after 7 days without movement."
-        actions={<div className="flex flex-wrap gap-2">{calls.map((c) => <Link key={c.id} href={`/app/admin/pipeline?call=${c.slug}`} className={c.id === call.id ? "btn-primary py-2" : "btn-ghost py-2"}>{c.title.replace(/ 2026$/, "")}</Link>)}</div>}
+        actions={<div className="seg">{calls.map((c) => <Link key={c.id} href={`/app/admin/pipeline?call=${c.slug}`} className={c.id === call.id ? "seg-on" : "seg-item"}>{c.title.replace(/ 2026$/, "").replace(/ (Challenge|Innovation Call)$/, "")}</Link>)}</div>}
       />
       <div className="flex gap-4 overflow-x-auto pb-4">
         {[...columns, { stage: { id: "closed", name: "Closed", kind: "CLOSED" }, items: closed }].map((col) => (
