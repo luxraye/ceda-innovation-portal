@@ -72,12 +72,13 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
   return (
     <div className="min-h-screen bg-slate-50 lg:grid lg:grid-cols-[248px_1fr]">
-      <aside className="no-print sticky top-0 hidden h-screen flex-col border-r border-slate-200/80 bg-[#fbfbfc] px-3 py-4 lg:flex">
+      <aside className="night-gradient no-print sticky top-0 hidden h-screen flex-col overflow-hidden border-r border-white/5 px-3 py-4 text-white lg:flex">
+        <div className="grid-lines pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <div className="px-2.5 pt-1 pb-5">
-          <Logo href={ROLE_INFO[role].home} />
+          <Logo href={ROLE_INFO[role].home} dark />
         </div>
-        <div className="eyebrow px-3 pt-2 pb-2 text-slate-400">Workspace</div>
-        <nav className="space-y-0.5" aria-label="Workspace">
+        <div className="eyebrow relative px-3 pt-2 pb-2 text-white/35">Workspace</div>
+        <nav className="relative space-y-0.5" aria-label="Workspace">
           {nav.map((n) => {
             const on = n.href === active;
             return (
@@ -87,20 +88,20 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
                 aria-current={on ? "page" : undefined}
                 className={`group flex h-9 items-center gap-2.5 rounded-lg px-3 text-[13.5px] transition ${
                   on
-                    ? "bg-white font-medium text-navy-950 shadow-[0_0_0_1px_rgb(11_18_32/0.08),0_1px_2px_rgb(11_18_32/0.06)]"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-navy-950"
+                    ? "bg-white/[0.08] font-medium text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1),inset_2px_0_0_var(--color-sky-400),0_8px_20px_-12px_rgb(15_111_255/0.8)]"
+                    : "text-white/60 hover:bg-white/5 hover:text-white"
                 }`}
               >
-                <n.icon className={`h-4 w-4 ${on ? "text-sky-600" : "text-slate-400 group-hover:text-slate-600"}`} />
+                <n.icon className={`h-4 w-4 ${on ? "text-sky-300" : "text-white/40 group-hover:text-white/70"}`} />
                 {n.label}
               </Link>
             );
           })}
         </nav>
-        <div className="mt-auto space-y-2">
+        <div className="relative mt-auto space-y-2">
           <Link
             href="/tour"
-            className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl bg-navy-950 p-3 text-[13px] text-white shadow-[0_8px_20px_-10px_rgb(5_8_15/0.6)]"
+            className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl bg-white/[0.04] p-3 text-[13px] text-white ring-1 ring-white/10 transition hover:bg-white/[0.08]"
           >
             <span className="pointer-events-none absolute -top-8 -right-6 h-20 w-20 rounded-full bg-sky-500/40 blur-2xl" aria-hidden="true" />
             <span className="relative flex h-7 w-7 items-center justify-center rounded-lg bg-gold-400/15 ring-1 ring-gold-400/40">
@@ -112,12 +113,12 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
             </span>
           </Link>
           <div className="flex items-center gap-2.5 rounded-xl p-2">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-sky-100 to-sky-200 text-[11px] font-semibold text-sky-800 ring-1 ring-sky-300/60">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-sky-400 to-sky-700 text-[11px] font-semibold text-white ring-1 ring-white/20">
               {initials(user.name)}
             </span>
             <div className="min-w-0 text-xs">
-              <div className="truncate font-medium text-navy-950">{user.name}</div>
-              <div className="truncate text-slate-500">{user.org?.name ?? ROLE_INFO[role].label}</div>
+              <div className="truncate font-medium text-white">{user.name}</div>
+              <div className="truncate text-white/45">{user.org?.name ?? ROLE_INFO[role].label}</div>
             </div>
           </div>
         </div>

@@ -3,7 +3,8 @@ import { AlertTriangle } from "lucide-react";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { callRanking } from "@/lib/ranking";
-import { PageHeader, Req, ScoreBar, Stat, StatusBadge, Tone } from "@/components/ui";
+import { NightEyebrow, PageHeader, Req, ScoreBar, Stat, StatusBadge, Tone, WorkspaceHero } from "@/components/ui";
+import { PHOTOS } from "@/lib/photos";
 import { pula } from "@/lib/format";
 
 export const metadata = { title: "Committee board" };
@@ -50,17 +51,15 @@ export default async function AdjudicatorBoard({ searchParams }: { searchParams:
 
   return (
     <div>
-      <PageHeader
-        eyebrow={<><Req k="b" /><Req k="d" /></>}
-        title="Committee board"
-        subtitle="Ideas ranked by normalised panel score. Normalising evens out harsh and generous judges; a high spread means the panel disagreed, so look closer before deciding."
-        actions={
-          <div className="seg">
-            {calls.map((c) => (
-              <Link key={c.id} href={`/app/adjudicator?call=${c.slug}`} className={c.id === call.id ? "seg-on" : "seg-item"}>{c.title.replace(/ 2026$/, "").replace(/ (Challenge|Innovation Call)$/, "")}</Link>
-            ))}
-          </div>
-        }
+      <WorkspaceHero
+        photo={PHOTOS.delta}
+        eyebrow={<><NightEyebrow>Committee board</NightEyebrow><Req k="b" /><Req k="d" /></>}
+        title={`${atCommittee.length} ideas await`}
+        accent="your decision."
+        subtitle="Ranked by normalised panel score, which evens out harsh and generous judges. A high spread means the panel disagreed, so look closer before deciding."
+        actions={calls.map((c) => (
+          <Link key={c.id} href={`/app/adjudicator?call=${c.slug}`} className={c.id === call.id ? "btn-light" : "btn-glass"}>{c.title.replace(/ 2026$/, "").replace(/ (Challenge|Innovation Call)$/, "")}</Link>
+        ))}
       />
       <div className="grid gap-4 sm:grid-cols-4">
         <Stat label="Awaiting committee" value={atCommittee.length} accent />
