@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { cn } from "@/lib/format";
 import { REQUIREMENTS, SUBMISSION_STATUS, type RequirementKey } from "@/lib/domain";
+import { AzurePhoto } from "./photo";
 
 const TONES: Record<string, string> = {
   slate: "bg-slate-50 text-slate-600 ring-slate-200",
@@ -139,4 +140,44 @@ export function ScoreBar({ value, max = 100 }: { value: number; max?: number }) 
       <div className="h-full rounded-full bg-gradient-to-r from-sky-300 to-sky-600" style={{ width: `${pct}%` }} />
     </div>
   );
+}
+
+/** Night-sky banner that opens each workspace, in the same voice as the public site. */
+export function WorkspaceHero({
+  eyebrow,
+  title,
+  accent,
+  subtitle,
+  photo,
+  actions,
+  children,
+}: {
+  eyebrow?: React.ReactNode;
+  title: string;
+  accent?: string;
+  subtitle?: React.ReactNode;
+  photo: string;
+  actions?: React.ReactNode;
+  children?: React.ReactNode;
+}) {
+  return (
+    <section className="group relative isolate mb-8 overflow-hidden rounded-3xl px-6 py-9 md:px-10 md:py-11">
+      <AzurePhoto src={photo} alt="" priority sizes="(min-width: 1024px) 70vw, 100vw" className="absolute inset-0 -z-10" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--color-navy-950)_0%,rgb(5_8_15/0.86)_48%,rgb(5_8_15/0.25)_100%)]" />
+      <div className="grid-lines pointer-events-none absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
+      {eyebrow && <div className="flex flex-wrap items-center gap-2">{eyebrow}</div>}
+      <h1 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-white md:text-[40px] md:leading-[1.08]">
+        {title}
+        {accent && <> <span className="font-serif text-sky-300 italic">{accent}</span></>}
+      </h1>
+      {subtitle && <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-white/65">{subtitle}</p>}
+      {actions && <div className="mt-6 flex flex-wrap gap-3">{actions}</div>}
+      {children}
+    </section>
+  );
+}
+
+/** Small label on a night surface, e.g. "Programme overview". */
+export function NightEyebrow({ children }: { children: React.ReactNode }) {
+  return <span className="eyebrow inline-flex items-center gap-2 text-sky-300"><span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_2px_rgb(94_163_255/0.7)]" />{children}</span>;
 }

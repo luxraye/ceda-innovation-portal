@@ -33,6 +33,13 @@ Good ideas get lost in inboxes: applications arrive as emailed PDFs, applicants 
 
 Press **Judge mode** in any workspace to show gold badges naming the requirement each screen answers. `/tour` walks through everything with one-click role sign-in.
 
+## AI help
+
+- **Pitch Coach** (apply form): checks the innovator's draft against the call's own rubric and returns a readiness score, strengths and the improvements worth making, each linked to the question it refers to. Advice only; it never scores.
+- **Panel Brief** (evaluator review, committee and admin idea pages): evidence and gaps per rubric criterion, questions to ask and claims to verify. Built from the blind answers only, so it can't reveal or guess who applied, and it never scores or recommends.
+
+Set `ANTHROPIC_API_KEY` to use Claude (`claude-opus-5-5` by default, with automatic fallback to another model if a request is refused). Without a key, both features use a built-in checklist with the same layout, so the demo always works. Every use is written to the audit trail and limited to 6 requests a minute per person.
+
 ## Security and integrity
 
 - Sessions are signed JWTs in HttpOnly cookies; passwords are bcrypt-hashed; login is throttled.
