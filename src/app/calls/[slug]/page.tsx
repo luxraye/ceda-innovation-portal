@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { daysUntil, fmtDate, parseJson, pula } from "@/lib/format";
 import { STAGE_KINDS, type FormField } from "@/lib/domain";
+import { themePhoto } from "@/lib/photos";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +34,7 @@ export default async function CallPage({ params }: { params: Promise<{ slug: str
         }
         title={call.title}
         body={call.tagline}
+        photo={themePhoto(call.theme)}
       >
         <div className="mt-9 flex flex-wrap items-center gap-3">
           {call.status === "OPEN" ? (

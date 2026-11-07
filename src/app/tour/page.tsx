@@ -4,6 +4,7 @@ import { PublicFooter, PublicHero } from "@/components/public-chrome";
 import { DemoButton } from "@/components/demo-button";
 import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "@/lib/demo";
 import { ROLE_INFO, type Role } from "@/lib/domain";
+import { PHOTOS } from "@/lib/photos";
 
 export const metadata = { title: "Judge's guide" };
 
@@ -139,6 +140,7 @@ export default function Tour() {
             Sky in two minutes, <span className="font-serif text-[1.08em] text-sky-300 italic">mapped to the CEDA brief.</span>
           </>
         }
+        photo={PHOTOS.city}
         body="Each section below is one requirement from section 3.2 of the hackathon guidelines, in plain words. Press the button to sign in as the right person and land on the screen that proves it. Gold badges inside the app show which requirement each screen answers."
       >
         <div className="mt-10 grid gap-px overflow-hidden rounded-2xl bg-white/[0.08] ring-1 ring-white/[0.08] sm:grid-cols-3">

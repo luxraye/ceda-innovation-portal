@@ -28,6 +28,8 @@ import { daysUntil, pula } from "@/lib/format";
 import { JourneyCard } from "@/components/journey-card";
 import { Globe } from "@/components/globe";
 import { CountUp, Reveal, Spotlight } from "@/components/motion";
+import { AzurePhoto, ParallaxBand, StoryGallery } from "@/components/photo";
+import { PHOTOS, themePhoto } from "@/lib/photos";
 import { DISTRICTS } from "@/lib/domain";
 
 export const dynamic = "force-dynamic";
@@ -101,6 +103,14 @@ const ROLES = [
     points: ["Open a new call without a developer", "Pipeline board across every stage", "Reach, outcomes and timelines"],
     cta: { href: "/tour#f", label: "See the reports" },
   },
+];
+
+const STORIES = [
+  { src: PHOTOS.farmer, kicker: "Agriculture", title: "Smarter farms", body: "Sensors, irrigation and cold chains that help farmers grow more with less water." },
+  { src: PHOTOS.team, kicker: "Youth-led teams", title: "Founders, together", body: "Majority youth-owned companies, aged 18 to 35, with a plan to grow beyond their first customers." },
+  { src: PHOTOS.maker, kicker: "Manufacturing", title: "Made in Botswana", body: "Turning imports into local products, and local products into jobs." },
+  { src: PHOTOS.keyboard, kicker: "Digital economy", title: "Software for every phone", body: "Payments, USSD and apps built for how Batswana actually connect." },
+  { src: PHOTOS.solar, kicker: "Energy", title: "Power off the grid", body: "Pay-as-you-go solar and storage for homes and businesses the grid hasn't reached." },
 ];
 
 const PILLARS = [
@@ -255,6 +265,51 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* People */}
+      <section className="border-t border-white/[0.06]">
+        <div className="mx-auto max-w-7xl px-4 py-24 md:px-8 md:py-32">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <SectionTitle
+              eyebrow="Who Sky is for"
+              title={
+                <>
+                  The people building <span className="font-serif text-[1.08em] text-sky-300 italic">Botswana's next industries.</span>
+                </>
+              }
+            />
+            <Reveal>
+              <p className="max-w-xs text-sm text-white/45">Hover or tap a story. Every call on Sky is open to youth-led teams across all {DISTRICTS.length} districts.</p>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1} className="mt-14">
+            <StoryGallery stories={STORIES} />
+          </Reveal>
+        </div>
+      </section>
+
+      <ParallaxBand src={PHOTOS.delta} className="border-t border-white/[0.06]">
+        <div className="mx-auto max-w-7xl px-4 py-32 md:px-8 md:py-44">
+          <Reveal className="max-w-3xl">
+            <div className="eyebrow text-sky-300/80">From the Delta to the capital</div>
+            <p className="mt-5 text-[34px] leading-[1.1] text-white md:text-[56px]">
+              A good idea shouldn't depend on <span className="font-serif text-[1.08em] text-gold-300 italic">how close you live to Gaborone.</span>
+            </p>
+            <div className="mt-10 flex flex-wrap gap-x-12 gap-y-6">
+              {[
+                { v: <CountUp value={s.reached} suffix={` / ${DISTRICTS.length}`} />, k: "districts with ideas on Sky" },
+                { v: <CountUp value={s.submitted} />, k: "ideas submitted so far" },
+                { v: "100%", k: "applied online, from any phone" },
+              ].map((x) => (
+                <div key={x.k}>
+                  <div className="text-4xl font-semibold tracking-tight text-white tabular-nums">{x.v}</div>
+                  <div className="mt-1 text-sm text-white/55">{x.k}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </ParallaxBand>
+
       {/* How it works */}
       <section id="how" className="relative scroll-mt-10 border-t border-white/[0.06]">
         <div className="mx-auto grid max-w-7xl gap-16 px-4 py-24 md:px-8 md:py-32 lg:grid-cols-[1fr_440px] lg:gap-20">
@@ -381,7 +436,12 @@ export default async function Home() {
               return (
                 <Reveal key={c.id} delay={i * 0.07} className="h-full">
                   <Spotlight className="card-dark group h-full">
-                    <Link href={`/calls/${c.slug}`} className="relative z-10 flex h-full flex-col p-7">
+                    <Link href={`/calls/${c.slug}`} className="relative z-10 flex h-full flex-col">
+                      <div className="relative h-44 overflow-hidden rounded-t-2xl">
+                        <AzurePhoto src={themePhoto(c.theme)} alt="" className="absolute inset-0" />
+                        <span className="absolute inset-0 bg-gradient-to-t from-navy-900 to-transparent" />
+                      </div>
+                      <div className="flex flex-1 flex-col p-7 pt-2">
                       <div className="flex items-center justify-between">
                         <span className="eyebrow text-sky-300/80">{c.theme}</span>
                         <span
@@ -390,7 +450,7 @@ export default async function Home() {
                           {c.status === "OPEN" ? (days > 0 ? `${days} days left` : "Closing today") : "In review"}
                         </span>
                       </div>
-                      <div className="mt-8 text-xl leading-snug font-medium tracking-tight text-white">{c.title}</div>
+                      <div className="mt-5 text-xl leading-snug font-medium tracking-tight text-white">{c.title}</div>
                       <p className="mt-3 flex-1 text-sm leading-relaxed text-white/50">{c.tagline}</p>
                       <div className="mt-8 flex items-end justify-between border-t border-white/[0.07] pt-5">
                         <div>
@@ -400,6 +460,7 @@ export default async function Home() {
                         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 transition group-hover:bg-sky-500 group-hover:ring-sky-400">
                           <ArrowUpRight className="h-4 w-4 text-white" />
                         </span>
+                      </div>
                       </div>
                     </Link>
                   </Spotlight>

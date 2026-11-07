@@ -286,3 +286,11 @@ select.input { @apply pr-8; }
   @apply seg-item bg-white font-medium text-navy-950;
   box-shadow: 0 0 0 1px rgb(11 18 32 / 0.06), 0 1px 3px rgb(11 18 32 / 0.1);
 }
+
+/* Photography in Sky's azure duotone: grey photo tinted azure, full colour when vivid or hovered */
+.azure-photo { overflow: hidden; background: var(--color-navy-900); }
+.azure-photo img { filter: grayscale(1) contrast(1.08) brightness(0.9); transform: scale(1.02); transition: filter 0.9s ease, transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.azure-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, var(--color-sky-600), var(--color-navy-900)); mix-blend-mode: color; opacity: 0.85; transition: opacity 0.9s ease; pointer-events: none; }
+.azure-photo.is-vivid img, .group:hover .azure-photo img { filter: none; transform: scale(1.07); }
+.azure-photo.is-vivid::after, .group:hover .azure-photo::after { opacity: 0.12; }
+@media (prefers-reduced-motion: reduce) { .azure-photo img { transition: none; } }

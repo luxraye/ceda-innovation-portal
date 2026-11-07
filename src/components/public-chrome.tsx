@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Logo } from "./logo";
 import { getSession } from "@/lib/auth";
 import { ROLE_INFO } from "@/lib/domain";
+import { AzurePhoto } from "./photo";
 
 const LINKS = [
   { href: "/#how", label: "How it works" },
@@ -99,12 +100,15 @@ export async function PublicHero({
   body,
   children,
   narrow = false,
+  photo,
 }: {
   eyebrow?: React.ReactNode;
   title: React.ReactNode;
   body?: React.ReactNode;
   children?: React.ReactNode;
   narrow?: boolean;
+  /** Optional background photo, shown in Sky's azure duotone on the right. */
+  photo?: string;
 }) {
   return (
     <section className="night noise relative isolate overflow-hidden">
@@ -113,6 +117,13 @@ export async function PublicHero({
         className="absolute inset-0 -z-10 bg-[radial-gradient(50%_70%_at_75%_0%,rgb(15_111_255/0.28),transparent_70%)]"
         aria-hidden="true"
       />
+      {photo && (
+        <div className="absolute inset-y-0 right-0 -z-10 w-full md:w-[62%]" aria-hidden="true">
+          <AzurePhoto src={photo} alt="" priority sizes="(min-width: 768px) 62vw, 100vw" className="absolute inset-0" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--color-navy-950)_0%,rgb(5_8_15/0.75)_35%,rgb(5_8_15/0.25)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/70" />
+        </div>
+      )}
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" aria-hidden="true" />
       <PublicHeader />
       <div className={`mx-auto px-4 pt-10 pb-16 md:px-8 md:pt-14 md:pb-20 ${narrow ? "max-w-5xl" : "max-w-7xl"}`}>

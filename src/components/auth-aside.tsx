@@ -1,5 +1,7 @@
 import { Logo } from "./logo";
 import { Globe } from "./globe";
+import { AzurePhoto } from "./photo";
+import { PHOTOS } from "@/lib/photos";
 
 const NONE: { name: string; count: number }[] = [];
 
@@ -8,8 +10,9 @@ export function AuthAside({ title, body }: { title: React.ReactNode; body: strin
   return (
     <aside className="night noise relative hidden overflow-hidden lg:flex lg:flex-col">
       <div className="grid-lines absolute inset-0" aria-hidden="true" />
-      <Globe districts={NONE} className="absolute right-[-30%] bottom-[-78%] aspect-square w-[150%]" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-950/30 to-transparent" aria-hidden="true" />
+      <AzurePhoto src={PHOTOS.team} alt="" priority sizes="50vw" className="absolute inset-0" />
+      <Globe districts={NONE} className="absolute right-[-30%] bottom-[-78%] aspect-square w-[150%] opacity-70" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-950/55 to-navy-950/20" aria-hidden="true" />
       <div className="relative z-10 flex h-full flex-col p-10">
         <Logo dark />
         <div className="mt-[14vh] max-w-md">

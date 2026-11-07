@@ -4,6 +4,8 @@ import { PublicFooter, PublicHero } from "@/components/public-chrome";
 import { prisma } from "@/lib/prisma";
 import { daysUntil, fmtDate, pula } from "@/lib/format";
 import { Spotlight } from "@/components/motion";
+import { AzurePhoto } from "@/components/photo";
+import { PHOTOS, themePhoto } from "@/lib/photos";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Open calls" };
@@ -24,13 +26,20 @@ export default async function Calls() {
           </>
         }
         body="Each call is a challenge CEDA wants young Batswana to solve. Read the criteria, then apply. You'll know exactly how you will be judged."
+        photo={PHOTOS.team}
       />
       <div className="mx-auto grid max-w-7xl gap-5 px-4 py-14 md:grid-cols-2 md:px-8">
         {calls.map((c) => {
           const d = daysUntil(c.closesAt);
           return (
-            <Spotlight key={c.id} className="card group">
-              <Link href={`/calls/${c.slug}`} className="relative z-10 flex h-full flex-col p-7 md:p-8">
+            <Spotlight key={c.id} className="card group overflow-hidden">
+              <Link href={`/calls/${c.slug}`} className="relative z-10 flex h-full flex-col">
+                <div className="relative h-52 overflow-hidden">
+                  <AzurePhoto src={themePhoto(c.theme)} alt="" sizes="(min-width: 768px) 50vw, 100vw" className="absolute inset-0" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-navy-950/60 to-transparent" />
+                  <span className="absolute bottom-4 left-7 font-serif text-3xl text-white italic md:left-8">{pula(c.prizePool)}</span>
+                </div>
+                <div className="flex flex-1 flex-col p-7 md:p-8">
                 <div className="flex items-center justify-between">
                   <span className="eyebrow text-sky-700">{c.theme}</span>
                   <span
@@ -64,6 +73,7 @@ export default async function Calls() {
                     </span>
                   </div>
                 </dl>
+                </div>
               </Link>
             </Spotlight>
           );

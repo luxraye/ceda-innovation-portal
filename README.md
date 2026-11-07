@@ -84,3 +84,7 @@ Set `DATABASE_URL` to a PostgreSQL URL; the build switches the Prisma provider a
 ## Stack
 
 Next.js 15 (App Router, server actions) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 6 (SQLite locally, PostgreSQL in production) · jose · bcrypt · Recharts · three.js (landing globe, built from Natural Earth data via `scripts/build-globe.mjs`) · Motion · Geist and Instrument Serif type · lucide-react.
+
+## Photography
+
+Photos in `public/photos` are from Unsplash (free to use under the Unsplash licence) by Ed Wingate, Wynand Uys, Justice Hubane, Iwaria Inc., Daniel Thomas, Christina @ wocintechchat, Ali Mkumbwa, ThisisEngineering, Richard Nyoni and Nathan Wong. Sky shows them in an azure duotone that warms to full colour on hover.
