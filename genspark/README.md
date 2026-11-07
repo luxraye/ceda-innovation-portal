@@ -65,3 +65,7 @@ npm run db:migrate:prod
 npm run build
 npx wrangler pages deploy dist --project-name ceda-innovation-portal
 ```
+
+## Photography
+
+Photos in `public/static/img` are from Unsplash (free to use under the Unsplash licence) by Ed Wingate, Wynand Uys, Justice Hubane, Iwaria Inc., Daniel Thomas, Christina @ wocintechchat, Ali Mkumbwa, ThisisEngineering, Richard Nyoni and Nathan Wong.

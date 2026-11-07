@@ -225,7 +225,7 @@
   // ---------------------------------------------------------------------------
   function authShell(inner) {
     return `<div class="min-h-screen grid lg:grid-cols-2">
-      <section class="hero-bg text-white p-10 lg:p-16 flex flex-col justify-between">
+      <section class="auth-photo text-white p-10 lg:p-16 flex flex-col justify-between"><img src="/static/img/team-laptop.webp" alt="">
         <a href="/" class="flex items-center gap-3"><span class="brand-mark"><i class="fas fa-mountain-sun"></i></span><span class="font-extrabold text-lg">CEDA Innovation Portal</span></a>
         <div><p class="text-xs font-semibold tracking-widest uppercase text-amber-300">#KaeKapaKae</p><h2 class="text-4xl font-extrabold mt-3 leading-tight">From idea to award, <br>one transparent journey.</h2><p class="mt-4 text-white/70 max-w-md">Submit, track and improve your innovation with structured feedback from CEDA experts.</p>
           <div class="mt-8 glass-card p-4 text-sm"><p class="font-semibold mb-2"><i class="fas fa-key text-amber-300 mr-2"></i>Demo accounts (password: <code>Demo@2026</code>)</p>
@@ -294,8 +294,11 @@
     }
   }, { auth: false })
 
+  const CAT_IMG = [[/agri|food/i, 'farmer-field'], [/manufact|mining/i, 'maker-sewing'], [/energy|climate|green/i, 'solar-rural'], [/touris|creative/i, 'elephants'], [/health|social/i, 'founder-macbook'], [/digital|fintech|ict/i, 'engineer']]
+  const catImg = (name) => '/static/img/' + (CAT_IMG.find(([re]) => re.test(name || '')) || [0, 'delta-aerial'])[1] + '.webp'
+
   // Expose for later modules
-  window.CEDA = { state, api, esc, fmtDate, ago, money, nl2br, stageChip, roleChip, recChip, asgChip, scoreColor, STAGE_META, toast, modal, confirmDialog, fd, route, navigate, page, loading, layout, wireLayout, render, setUser }
+  window.CEDA = { catImg, state, api, esc, fmtDate, ago, money, nl2br, stageChip, roleChip, recChip, asgChip, scoreColor, STAGE_META, toast, modal, confirmDialog, fd, route, navigate, page, loading, layout, wireLayout, render, setUser }
 
   // ---------------------------------------------------------------------------
   // Boot

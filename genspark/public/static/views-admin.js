@@ -27,7 +27,13 @@
     const k = a.kpis
     const decided = (k.approved || 0) + (k.rejected || 0)
     page(
-      `<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      `<section class="photo-banner p-6 sm:p-8 mb-6"><img class="photo-banner-img" src="/static/img/city-aerial.webp" alt="">
+        <p class="text-xs font-semibold tracking-widest uppercase text-amber-300">Programme overview</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">${k.in_pipeline} ideas in the pipeline, ${k.open_assignments} evaluations open.</h2>
+        <p class="text-white/70 mt-2 text-sm max-w-xl">Live numbers from every round. Click a pipeline bar or a leaderboard row to drill in.</p>
+        <div class="mt-5 flex flex-wrap gap-2"><a href="#/queue" class="btn-primary"><i class="fas fa-gavel"></i> Adjudication queue</a><a href="#/reports" class="btn-outline-lg !py-2 !px-4 !text-sm"><i class="fas fa-file-export mr-2"></i>Reports</a></div>
+      </section>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         ${kpi('Submissions', k.total_submissions, `${k.submitters} registered innovators`, 'fa-lightbulb')}
         ${kpi('In pipeline', k.in_pipeline, `${k.awaiting_revision} awaiting revision`, 'fa-diagram-project')}
         ${kpi('Approved / awarded', k.approved, decided ? `${Math.round((k.approved / decided) * 100)}% of decided ideas` : 'no decisions yet', 'fa-award')}
@@ -55,7 +61,7 @@
       'Programme dashboard'
     )
     const stages = a.by_stage.filter((s) => s.stage !== 'draft')
-    chart('c-stage', { type: 'bar', data: { labels: stages.map((s) => (STAGE_META[s.stage] || [s.stage])[0]), datasets: [{ data: stages.map((s) => s.n), backgroundColor: stages.map((s) => STAGE_COLOR[s.stage]), borderRadius: 8, maxBarThickness: 48 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: noGrid, y: softGrid } } })
+    chart('c-stage', { type: 'bar', data: { labels: stages.map((s) => (STAGE_META[s.stage] || [s.stage])[0]), datasets: [{ data: stages.map((s) => s.n), backgroundColor: stages.map((s) => STAGE_COLOR[s.stage]), borderRadius: 8, maxBarThickness: 48 }] }, options: { maintainAspectRatio: false, onHover: (e, els) => (e.native.target.style.cursor = els.length ? 'pointer' : 'default'), onClick: (e, els) => { if (!els.length) return; sessionStorage.setItem('ceda_idea_filters', 'stage=' + stages[els[0].index].stage); C.navigate('/ideas') }, plugins: { legend: { display: false } }, scales: { x: noGrid, y: softGrid } } })
     chart('c-cat', { type: 'doughnut', data: { labels: a.by_category.map((c) => c.name), datasets: [{ data: a.by_category.map((c) => c.n), backgroundColor: PALETTE, borderWidth: 2, borderColor: '#fff' }] }, options: { maintainAspectRatio: false, cutout: '62%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } } } })
     let run = 0
     chart('c-time', { type: 'line', data: { labels: a.timeline.map((t) => dayjs(t.day).format('DD MMM')), datasets: [{ label: 'Cumulative', data: a.timeline.map((t) => (run += t.n)), borderColor: '#c2410c', backgroundColor: 'rgba(194,65,12,.12)', fill: true, tension: 0.35, pointRadius: 3 }, { label: 'Per day', data: a.timeline.map((t) => t.n), type: 'bar', backgroundColor: '#fed7aa', borderRadius: 4, maxBarThickness: 18 }] }, options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } }, scales: { x: noGrid, y: softGrid } } })

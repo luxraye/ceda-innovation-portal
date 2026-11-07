@@ -42,8 +42,22 @@ export const landingPage = () => `<!DOCTYPE html>
 </header>
 
 <main>
-  <section id="hero-section" class="relative overflow-hidden hero-bg text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
+  <section id="hero-section" class="relative overflow-hidden text-white bg-ink-900 min-h-[calc(100svh-4rem)] flex items-center">
+    <div class="hero-slides" aria-hidden="true">
+      <div class="hero-slide is-active" style="background-image:url('/static/img/okavango.webp')" data-caption="Okavango Delta · North-West"></div>
+      <div class="hero-slide" style="background-image:url('/static/img/city-aerial.webp')" data-caption="Gaborone · South-East"></div>
+      <div class="hero-slide" style="background-image:url('/static/img/farmer-field.webp')" data-caption="Agribusiness &amp; food security"></div>
+      <div class="hero-slide" style="background-image:url('/static/img/delta-aerial.webp')" data-caption="Okavango Delta from the air"></div>
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="hero-grain" aria-hidden="true"></div>
+    <div class="absolute bottom-6 left-0 right-0 z-10 hidden md:block">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4 text-xs text-white/70">
+        <span id="hero-caption" class="font-semibold tracking-wider uppercase"><i class="fas fa-location-dot text-amber-300 mr-1.5"></i>Okavango Delta · North-West</span>
+        <span class="flex gap-1.5 ml-auto" id="hero-dots">${[0, 1, 2, 3].map((i) => `<button class="hero-dot${i === 0 ? ' is-active' : ''}" data-slide="${i}" aria-label="Show photo ${i + 1}"></button>`).join('')}</span>
+      </div>
+    </div>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
       <div>
         <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-6"><i class="fas fa-bolt text-amber-300"></i> #KaeKapaKae · Innovation Hackathon 2026</p>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">Turn bold ideas into <span class="text-amber-300">funded ventures</span>.</h1>
@@ -59,8 +73,9 @@ export const landingPage = () => `<!DOCTYPE html>
           <div><dt class="text-xs uppercase tracking-wider text-white/60">Approved</dt><dd class="text-3xl font-extrabold" data-stat="approved">—</dd></div>
         </dl>
       </div>
-      <aside class="hidden lg:block">
-        <div class="glass-card p-6 rotate-1">
+      <aside class="hidden lg:block relative" style="perspective:1200px">
+        <figure class="hero-founder" aria-hidden="true"><img src="/static/img/founder-laptop.webp" alt="" loading="eager"><figcaption><strong>Youth-led</strong><span>Founders aged 18 to 35</span></figcaption></figure>
+        <div class="glass-card p-6 tilt" data-tilt>
           <div class="flex items-center justify-between text-sm"><span class="font-semibold">CEDA-2026-0001 · Smart Irrigation Network</span><span class="chip chip-amber">Under review</span></div>
           <ol class="mt-5 space-y-3 text-sm">
             <li class="flex items-center gap-3"><span class="step-dot done"><i class="fas fa-check"></i></span><span>Submitted</span><span class="ml-auto text-white/60">06 Nov</span></li>
@@ -72,6 +87,29 @@ export const landingPage = () => `<!DOCTYPE html>
           <div class="mt-5 rounded-xl bg-white/10 p-4 text-sm"><i class="fas fa-comment-dots text-amber-300 mr-2"></i><span class="text-white/90">"Strong agronomic grounding and credible pilot data. Hardware supply chain needs a second vendor."</span><span class="block text-xs text-white/50 mt-1">Evaluator feedback · shared with submitter</span></div>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <div class="marquee bg-brand-700 text-white" aria-label="Districts the portal reaches">
+    <div class="marquee-track">${[0, 1]
+      .map(() => ['Gaborone', 'Francistown', 'Maun', 'Serowe', 'Kasane', 'Palapye', 'Molepolole', 'Kanye', 'Lobatse', 'Selebi-Phikwe', 'Ghanzi', 'Tsabong', 'Mahalapye', 'Jwaneng'].map((d) => `<span><i class="fas fa-location-dot"></i>${d}</span>`).join(''))
+      .join('')}</div>
+  </div>
+
+  <section id="people" class="max-w-7xl mx-auto px-4 sm:px-6 pt-20">
+    <header class="max-w-2xl reveal"><p class="section-kicker">Who it's for</p><h2 class="section-title">The people building Botswana's next industries</h2><p class="section-lead">Makers, farmers, engineers and founders, aged 18 to 35, in every district. Hover a story to see where their idea could go.</p></header>
+    <div class="story-strip mt-10 reveal">
+      ${[
+        ['farmer-field.webp', 'Agribusiness', 'Climate-smart farming', 'Drip irrigation and soil sensors that cut water use by a third.'],
+        ['maker-sewing.webp', 'Manufacturing', 'Local production', 'Turning imported goods into made-in-Botswana products and jobs.'],
+        ['engineer.webp', 'Digital & fintech', 'Software for everyone', 'Mobile money, USSD and apps that work on any phone.'],
+        ['solar-rural.webp', 'Green energy', 'Power off the grid', 'Pay-as-you-go solar for villages the grid has not reached.'],
+        ['team-laptop.webp', 'Youth teams', 'Founders, together', 'Majority youth-owned companies with a plan to scale.']
+      ]
+        .map(
+          ([img, k, t, d]) => `<article class="story" tabindex="0"><img src="/static/img/${img}" alt="${t}" loading="lazy"><div class="story-body"><span class="story-kicker">${k}</span><h3>${t}</h3><p>${d}</p></div></article>`
+        )
+        .join('')}
     </div>
   </section>
 
@@ -125,8 +163,10 @@ export const landingPage = () => `<!DOCTYPE html>
     <div id="category-grid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
   </section>
 
-  <section id="eligibility" class="bg-ink-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20 grid lg:grid-cols-3 gap-10">
+  <section id="eligibility" class="relative overflow-hidden bg-ink-900 text-white">
+    <div class="parallax-bg" style="background-image:url('/static/img/city-aerial.webp')" data-parallax aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/90 to-ink-900/60" aria-hidden="true"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-24 grid lg:grid-cols-3 gap-10">
       <div><p class="section-kicker text-amber-300">Eligibility</p><h2 class="text-3xl font-extrabold tracking-tight">Who can apply</h2><p class="mt-4 text-white/70">Per the CEDA Innovation Platform Competition Guidelines.</p></div>
       <ul class="lg:col-span-2 grid sm:grid-cols-2 gap-5 text-sm">
         ${[
@@ -137,7 +177,7 @@ export const landingPage = () => `<!DOCTYPE html>
           ['fa-hand-holding-dollar', 'No application fee'],
           ['fa-people-group', 'Team: Front-end & Back-end developers, UI/UX, DevOps, Business/Technical analysts']
         ]
-          .map(([i, t]) => `<li class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-4"><i class="fas ${i} text-amber-300 mt-0.5"></i><span>${t}</span></li>`)
+          .map(([i, t]) => `<li class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-4 backdrop-blur-sm reveal"><i class="fas ${i} text-amber-300 mt-0.5"></i><span>${t}</span></li>`)
           .join('')}
       </ul>
     </div>
@@ -165,13 +205,7 @@ export const landingPage = () => `<!DOCTYPE html>
   </div>
 </footer>
 
-<script>
-  fetch('/api/public/stats').then(r => r.json()).then(d => {
-    for (const k in d.stats) { const el = document.querySelector('[data-stat="' + k + '"]'); if (el) el.textContent = d.stats[k]; }
-    const grid = document.getElementById('category-grid');
-    grid.innerHTML = d.categories.map(c => '<article class="category-card"><span class="feature-icon"><i class="fas ' + c.icon + '"></i></span><h3 class="font-bold mt-4">' + c.name + '</h3><p class="text-sm text-ink-700/80 mt-1">' + (c.description || '') + '</p></article>').join('');
-  }).catch(() => {});
-</script>
+<script src="/static/landing.js"></script>
 </body>
 </html>`
 

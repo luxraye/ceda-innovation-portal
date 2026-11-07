@@ -10,7 +10,7 @@
   const asgCard = (a) => `
     <a href="#/evaluate/${a.id}" class="card block hover:border-brand-300 hover:shadow-md transition">
       <div class="flex items-start gap-4">
-        <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0"><i class="fas ${esc(a.category_icon || 'fa-lightbulb')}"></i></span>
+        <img class="idea-thumb" src="${C.catImg(a.category_name)}" alt="" loading="lazy">
         <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-2 text-xs text-stone-500"><span class="font-mono">${esc(a.ref_code)}</span><span>·</span><span>${esc(a.round_name)}</span>${a.blind_review ? '<span class="chip chip-purple"><i class="fas fa-user-secret"></i>blind</span>' : ''}</div>
           <h3 class="font-bold mt-1 truncate">${esc(a.title)}</h3>
@@ -30,7 +30,7 @@
     const done = assignments.filter((a) => a.status === 'completed')
     const avg = done.length ? (done.reduce((s, a) => s + (a.weighted_score || 0), 0) / done.length).toFixed(1) : '—'
     page(
-      `<section class="hero-bg rounded-3xl text-white p-6 sm:p-8">
+      `<section class="photo-banner p-6 sm:p-10"><img class="photo-banner-img" src="/static/img/grain-hands.webp" alt="">
         <p class="text-xs font-semibold tracking-widest uppercase text-amber-300">Evaluator workspace</p>
         <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">${open.length ? `You have ${open.length} idea${open.length === 1 ? '' : 's'} to score.` : 'You are all caught up.'}</h2>
         <p class="text-white/70 mt-2 max-w-xl text-sm">Score each idea against the round's published criteria. Blind rounds hide the innovator's identity to keep reviews fair. Declare any conflict of interest before you score.</p>

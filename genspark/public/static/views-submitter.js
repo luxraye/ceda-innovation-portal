@@ -43,7 +43,7 @@
   const ideaRow = (i) => `
     <a href="#/ideas/${i.id}" class="card block hover:border-brand-300 hover:shadow-md transition group">
       <div class="flex items-start gap-4">
-        <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0"><i class="fas ${esc(i.category_icon || 'fa-lightbulb')}"></i></span>
+        <span class="relative shrink-0"><img class="idea-thumb transition duration-500 group-hover:scale-105" src="${C.catImg(i.category_name)}" alt="" loading="lazy"><span class="absolute -bottom-1.5 -right-1.5 w-7 h-7 rounded-lg bg-white text-brand-600 shadow flex items-center justify-center text-xs"><i class="fas ${esc(i.category_icon || 'fa-lightbulb')}"></i></span></span>
         <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-2 text-xs text-stone-500"><span class="font-mono">${esc(i.ref_code)}</span><span>·</span><span>${esc(i.category_name || 'Uncategorised')}</span>${i.version > 1 ? `<span class="chip chip-gray">v${i.version}</span>` : ''}</div>
           <h3 class="font-bold text-base mt-1 group-hover:text-brand-700 truncate">${esc(i.title)}</h3>
@@ -80,7 +80,7 @@
     const deadline = settings.submission_deadline
     const first = state.user.name.split(' ')[0]
     page(
-      `<section class="hero-bg rounded-3xl text-white p-6 sm:p-8 relative overflow-hidden">
+      `<section class="photo-banner p-6 sm:p-10"><img class="photo-banner-img" src="/static/img/founder-laptop.webp" alt="">
         <p class="text-xs font-semibold tracking-widest uppercase text-amber-300">${esc(settings.programme_name || 'CEDA Innovation Challenge')}</p>
         <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Dumela, ${esc(first)}.</h2>
         <p class="text-white/70 mt-2 max-w-xl text-sm">Track every idea from submission to award, read evaluator feedback, and resubmit stronger versions — all in one place.</p>
@@ -98,8 +98,8 @@
       ${needs.length ? `<div class="mt-6"><h3 class="card-title mb-3"><i class="fas fa-bolt text-amber-500 mr-2"></i>Needs your attention</h3><div class="grid gap-3">${needs.map(ideaRow).join('')}</div></div>` : ''}
       <div class="mt-6"><h3 class="card-title mb-3">Active submissions</h3>${active.length ? `<div class="grid gap-3">${active.map(ideaRow).join('')}</div>` : empty('fa-seedling', 'No active submissions yet', 'Your submitted ideas will appear here with live progress through each evaluation round.', '<a href="#/ideas/new" class="btn-primary"><i class="fas fa-plus"></i> Start an idea</a>')}</div>
       <div class="grid md:grid-cols-3 gap-4 mt-6">
-        ${[['fa-file-pen', 'Submit', 'Use the guided form. Drafts save as you type.'], ['fa-users-viewfinder', 'Blind review', 'Independent evaluators score against published criteria.'], ['fa-comments', 'Improve', 'Read feedback, reply, and resubmit a stronger version.']]
-          .map(([ic, t, b]) => `<div class="card"><i class="fas ${ic} text-brand-600 text-lg"></i><h4 class="font-bold mt-2">${t}</h4><p class="text-sm text-stone-500 mt-1">${b}</p></div>`)
+        ${[['fa-file-pen', 'Submit', 'Use the guided form. Drafts save as you type.', 'engineer'], ['fa-users-viewfinder', 'Blind review', 'Independent evaluators score against published criteria.', 'grain-hands'], ['fa-comments', 'Improve', 'Read feedback, reply, and resubmit a stronger version.', 'maker-sewing']]
+          .map(([ic, t, b, img]) => `<div class="photo-card !min-h-[13rem]"><img src="/static/img/${img}.webp" alt="" loading="lazy"><div class="photo-card-body"><span class="photo-card-icon"><i class="fas ${ic}"></i></span><h3>${t}</h3><p>${b}</p></div></div>`)
           .join('')}
       </div>`,
       'Dashboard'
@@ -360,6 +360,7 @@
           <button class="btn-ghost" onclick="window.print()"><i class="fas fa-print"></i></button>
         </div>
       </div>
+      <div class="idea-cover"><img src="${C.catImg(idea.category_name)}" alt=""><span class="absolute z-10 bottom-4 left-5 text-white text-xs font-semibold tracking-widest uppercase"><i class="fas fa-layer-group text-amber-300 mr-1.5"></i>${esc(idea.category_name || 'Uncategorised')}</span></div>
       ${idea.stage !== 'draft' ? `<div class="card mb-5">${tracker(idea, rounds)}</div>` : ''}
       ${idea.stage === 'revision_requested' && mine ? `<div class="info-box mb-5"><i class="fas fa-rotate-left mr-2"></i><strong>The panel has asked for a revision.</strong> Read the feedback below, then revise and resubmit. ${resubsLeft > 0 ? `You have ${resubsLeft} resubmission${resubsLeft === 1 ? '' : 's'} left.` : 'You have reached the resubmission limit.'}</div>` : ''}
       ${latestDecision && mine ? `<div class="${latestDecision.decision === 'reject' ? 'error-box' : latestDecision.decision === 'revise' ? 'info-box' : 'success-box'} mb-5"><strong>Panel decision (${esc(latestDecision.round_name || '')}):</strong> ${esc(latestDecision.decision)} — ${esc(latestDecision.rationale)}</div>` : ''}
