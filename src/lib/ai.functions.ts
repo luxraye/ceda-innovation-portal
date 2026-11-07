@@ -19,7 +19,34 @@ export type AiInsight = {
   strengths: string[];
   gaps: string[];
   suggestions: string[];
+  /** True when the score came from the built-in checklist instead of the AI model. */
+  offline?: boolean;
 };
+
+/** Rule-based readiness estimate used when the AI gateway isn't configured (e.g. running locally). */
+function offlineInsight(d: z.infer<typeof IdeaInput>): AiInsight {
+  const len = (s: string) => s.trim().length;
+  const has = (s: string, re: RegExp) => re.test(s.toLowerCase());
+  const checks: [boolean, string, string, string][] = [
+    [len(d.problem) >= 120, "The problem is described in useful detail.", "The problem statement is thin.", "Describe who has the problem, how often, and what it costs them."],
+    [has(d.problem + d.impact, /\d/), "You back your case with numbers.", "There are no figures to size the problem or impact.", "Add a statistic: losses, users affected, or jobs you'll create."],
+    [len(d.solution) >= 120, "The solution is concrete.", "The solution needs more detail.", "Explain how it works, what you've built so far and what's next."],
+    [has(d.impact, /job|employ|income|youth|sdg|women|rural/), "Socio-economic impact for Botswana is clear.", "Impact on jobs and communities isn't explicit.", "Say how many jobs you'll create and which communities benefit."],
+    [len(d.target_market) >= 15, "You know who your customers are.", "The target market is vague.", "Name your first paying customers and estimate the market size."],
+    [has(d.solution, /pilot|prototype|customer|revenue|partner|trial|users/), "There's evidence of traction.", "No traction or validation is mentioned.", "Mention a pilot, prototype, partner or early customers."],
+  ];
+  const passed = checks.filter((c) => c[0]);
+  const failed = checks.filter((c) => !c[0]);
+  const readiness = Math.round(35 + (passed.length / checks.length) * 60);
+  return {
+    readiness,
+    headline: readiness >= 80 ? "Strong, well-evidenced submission that's ready for the panel." : readiness >= 60 ? "Solid foundation. A few additions will make it stand out." : "Promising idea. Add detail and evidence before submitting.",
+    strengths: (passed.length ? passed.map((c) => c[1]) : ["You've started your submission."]).slice(0, 3),
+    gaps: (failed.length ? failed.map((c) => c[2]) : ["No major gaps found."]).slice(0, 3),
+    suggestions: (failed.length ? failed.map((c) => c[3]) : ["Run through it once more for clarity, then submit."]).slice(0, 3),
+    offline: true,
+  };
+}
 
 function extractText(res: unknown): string {
   const r = res as { output_text?: string; output?: Array<{ content?: Array<{ type?: string; text?: string }> }> };
@@ -39,6 +66,7 @@ export const analyzeIdea = createServerFn({ method: "POST" })
       data.mode === "coach"
         ? "You are a supportive pitch coach helping a young Motswana entrepreneur strengthen an innovation submission to CEDA (Citizen Entrepreneurial Development Agency, Botswana) before they submit."
         : "You are an impartial assistant briefing a CEDA evaluation panel member. Summarise the idea objectively against: innovation, market potential, socio-economic impact for Botswana, technical feasibility and team capability.";
+    if (!process.env["LOVABLE_API_KEY"]) return { insight: offlineInsight(data), error: null };
     try {
       const res = await generateResponse({
         model: "openai/gpt-6-astra",
@@ -52,8 +80,8 @@ export const analyzeIdea = createServerFn({ method: "POST" })
       if (e instanceof GatewayError) {
         console.error("AI gateway", e.code, e.httpStatus);
         if (e.httpStatus === 429) return { insight: null, error: "The assistant is busy. Please try again in a minute." };
-        if (e.httpStatus === 402) return { insight: null, error: "AI credits are exhausted for this workspace." };
+        if (e.httpStatus === 402) return { insight: offlineInsight(data), error: null };
       } else console.error(e);
-      return { insight: null, error: "Could not analyse this idea right now." };
+      return { insight: offlineInsight(data), error: null };
     }
   });

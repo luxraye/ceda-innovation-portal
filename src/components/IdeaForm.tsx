@@ -125,7 +125,7 @@ export function IdeaForm({ initial, onDone }: { initial: IdeaDraft; onDone?: () 
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             <Field label={`Youth shareholding (18–35): ${d.youth_shareholding}%`} required error={touched && !youthOk}>
-              <Slider value={[d.youth_shareholding]} min={0} max={100} step={1} onValueChange={([v]) => set("youth_shareholding", v)} />
+              <Slider value={[d.youth_shareholding]} min={0} max={100} step={1} onValueChange={([v]) => set("youth_shareholding", v ?? 0)} />
               <p className={`text-xs ${youthOk ? "text-success" : "text-destructive"}`}>
                 {youthOk ? "Eligible — youth-owned majority" : "Must be more than 50% to be eligible"}
               </p>
@@ -209,6 +209,7 @@ export function InsightView({ insight }: { insight: AiInsight }) {
       <InsightList icon={<CheckCircle2 className="size-4 text-success" />} title="Strengths" items={insight.strengths} />
       <InsightList icon={<AlertTriangle className="size-4 text-primary" />} title="Gaps" items={insight.gaps} />
       <InsightList icon={<Lightbulb className="size-4 text-primary-glow" />} title="Suggestions" items={insight.suggestions} />
+      {insight.offline && <p className="text-xs opacity-60">Quick checklist estimate. Connect the AI gateway for a full review.</p>}
     </div>
   );
 }

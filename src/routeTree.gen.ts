@@ -10,11 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as ReviewRouteImport } from './routes/review'
+import { Route as IdeasIdRouteImport } from './routes/ideas.$id'
+import { Route as IdeasNewRouteImport } from './routes/ideas.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -22,31 +33,105 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewRoute = ReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IdeasIdRoute = IdeasIdRouteImport.update({
+  id: '/ideas/$id',
+  path: '/ideas/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IdeasNewRoute = IdeasNewRouteImport.update({
+  id: '/ideas/new',
+  path: '/ideas/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
+  '/reports': typeof ReportsRoute
+  '/review': typeof ReviewRoute
+  '/ideas/$id': typeof IdeasIdRoute
+  '/ideas/new': typeof IdeasNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
+  '/reports': typeof ReportsRoute
+  '/review': typeof ReviewRoute
+  '/ideas/$id': typeof IdeasIdRoute
+  '/ideas/new': typeof IdeasNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
+  '/reports': typeof ReportsRoute
+  '/review': typeof ReviewRoute
+  '/ideas/$id': typeof IdeasIdRoute
+  '/ideas/new': typeof IdeasNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/dashboard'
+    | '/reports'
+    | '/review'
+    | '/ideas/$id'
+    | '/ideas/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth'
-  id: '__root__' | '/' | '/auth'
+  to:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/dashboard'
+    | '/reports'
+    | '/review'
+    | '/ideas/$id'
+    | '/ideas/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/dashboard'
+    | '/reports'
+    | '/review'
+    | '/ideas/$id'
+    | '/ideas/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
+  DashboardRoute: typeof DashboardRoute
+  ReportsRoute: typeof ReportsRoute
+  ReviewRoute: typeof ReviewRoute
+  IdeasIdRoute: typeof IdeasIdRoute
+  IdeasNewRoute: typeof IdeasNewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +143,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -65,12 +157,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/review': {
+      id: '/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ideas/$id': {
+      id: '/ideas/$id'
+      path: '/ideas/$id'
+      fullPath: '/ideas/$id'
+      preLoaderRoute: typeof IdeasIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ideas/new': {
+      id: '/ideas/new'
+      path: '/ideas/new'
+      fullPath: '/ideas/new'
+      preLoaderRoute: typeof IdeasNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
+  DashboardRoute: DashboardRoute,
+  ReportsRoute: ReportsRoute,
+  ReviewRoute: ReviewRoute,
+  IdeasIdRoute: IdeasIdRoute,
+  IdeasNewRoute: IdeasNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

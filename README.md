@@ -1,29 +1,52 @@
-# Welcome to your Lovable project
+# CEDA Innovation Portal (Lovable edition)
 
-This project was built with [Lovable](https://lovable.dev).
+A youth innovation pipeline for CEDA Botswana: innovators submit ideas, the panel screens, scores and adjudicates them, and everyone tracks progress live.
 
-## Build with Lovable
+Started in Lovable ("Visionary Blueprint") and completed outside it. Stack: TanStack Start, React 19, Tailwind 4, Supabase (Postgres, auth and realtime).
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## What's in it
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+| Page | Who | What it does |
+| --- | --- | --- |
+| `/` | Everyone | Landing page |
+| `/auth` | Everyone | Email sign-up and sign-in |
+| `/dashboard` | Everyone | Innovators see their ideas and stage trackers. Staff see pipeline counts, live activity and a leaderboard |
+| `/ideas/new` | Innovators | Submission form with mandatory-field checks, youth-ownership rule (>50%) and AI Pitch Coach |
+| `/ideas/:id` | Owner and staff | Overview, live timeline, conversation thread, weighted scoring, decision panel, AI panel brief. Owners revise and resubmit when asked |
+| `/review` | Evaluators, adjudicators, admins | Filterable, sortable queue of every submission |
+| `/reports` | Staff | Charts by stage, sector and score, plus CSV export |
+| `/admin` | Admins | Grant or remove roles, edit weighted scoring criteria |
 
-## Development
+The first account to sign up becomes the administrator. Everyone else starts as an innovator until an admin gives them a panel role.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Run it on Windows
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+You need Node.js 20 or newer (https://nodejs.org).
+
+1. Copy `.env.example` to `.env` and paste in the values from your Lovable project's `.env`.
+2. In this folder, run:
+
+```
+npm install
 npm run dev
 ```
 
-## Built with
+3. Open the address it prints (usually http://localhost:8080).
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+If `npm run dev` fails with `EAFNOSUPPORT`, run `npx vite dev --host 127.0.0.1 --port 8080` instead.
+
+If PowerShell blocks `npm` ("running scripts is disabled"), use Command Prompt (`cmd`) instead, or run `npm.cmd install` and `npm.cmd run dev`.
+
+## Notes
+
+- The database lives in the Lovable Cloud Supabase project, so data is shared with the Lovable preview.
+- "Continue with Google" only works inside Lovable's hosting. Use email sign-in when running locally.
+- Without `LOVABLE_API_KEY`, the AI Pitch Coach and panel brief use a built-in readiness checklist instead of the AI model.
+
+## Checks
+
+```
+npx tsc --noEmit
+npm test
+npm run build
+```
