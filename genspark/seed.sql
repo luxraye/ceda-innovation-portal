@@ -133,14 +133,14 @@ INSERT OR IGNORE INTO idea_stage_history (idea_id, from_stage, to_stage, round_i
   (5, 'under_review', 'approved', 3, 2, 'Recommended for investment committee');
 
 -- Assignments & scores
-INSERT OR IGNORE INTO assignments (id, idea_id, round_id, evaluator_id, assigned_by, status, recommendation, overall_comment, weighted_score, completed_at) VALUES
-  (1, 1, 2, 3, 1, 'completed', 'advance', 'Strong agronomic grounding and credible pilot data. Hardware supply chain needs a second vendor.', 78.0, '2026-11-06 16:00:00'),
-  (2, 1, 2, 4, 1, 'in_progress', NULL, NULL, NULL, NULL),
-  (3, 2, 2, 4, 1, 'completed', 'advance', 'Proven PAYG model regionally; team has utility experience. Default-risk assumptions should be stress-tested.', 82.0, '2026-11-06 17:30:00'),
-  (4, 2, 2, 5, 1, 'pending', NULL, NULL, NULL, NULL),
-  (5, 3, 1, 3, 1, 'completed', 'revise', 'Eligible and aligned, but the logistics cost model is incomplete.', 58.0, '2026-11-06 15:00:00'),
-  (6, 5, 2, 3, 1, 'completed', 'advance', 'Excellent beneficiation story with export letters of intent.', 86.0, '2026-11-05 15:00:00'),
-  (7, 5, 2, 5, 1, 'completed', 'advance', 'Financials are conservative and well-evidenced.', 84.0, '2026-11-05 16:00:00');
+INSERT OR IGNORE INTO assignments (id, idea_id, round_id, evaluator_id, assigned_by, status, recommendation, overall_comment, weighted_score, completed_at, assigned_at) VALUES
+  (1, 1, 2, 3, 1, 'completed', 'advance', 'Strong agronomic grounding and credible pilot data. Hardware supply chain needs a second vendor.', 78.0, '2026-11-06 16:00:00', '2026-11-04 09:00:00'),
+  (2, 1, 2, 4, 1, 'in_progress', NULL, NULL, NULL, NULL, '2026-11-04 09:00:00'),
+  (3, 2, 2, 4, 1, 'completed', 'advance', 'Proven PAYG model regionally; team has utility experience. Default-risk assumptions should be stress-tested.', 82.0, '2026-11-06 17:30:00', '2026-11-04 10:00:00'),
+  (4, 2, 2, 5, 1, 'pending', NULL, NULL, NULL, NULL, '2026-11-05 10:00:00'),
+  (5, 3, 1, 3, 1, 'completed', 'revise', 'Eligible and aligned, but the logistics cost model is incomplete.', 58.0, '2026-11-06 15:00:00', '2026-11-05 08:30:00'),
+  (6, 5, 2, 3, 1, 'completed', 'advance', 'Excellent beneficiation story with export letters of intent.', 86.0, '2026-11-05 15:00:00', '2026-11-03 09:00:00'),
+  (7, 5, 2, 5, 1, 'completed', 'advance', 'Financials are conservative and well-evidenced.', 84.0, '2026-11-05 16:00:00', '2026-11-03 09:00:00');
 
 INSERT OR IGNORE INTO scores (assignment_id, criterion_id, score, comment) VALUES
   (1, 4, 8, 'Novel USSD delivery for low-smartphone areas'), (1, 5, 7, 'Subscription willingness needs more evidence'), (1, 6, 8, NULL), (1, 7, 9, 'Strong job creation'), (1, 8, 7, NULL),

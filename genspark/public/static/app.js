@@ -259,7 +259,7 @@
         const { token, user } = await api('/auth/login', { method: 'POST', body: fd(f) })
         setUser(user, token)
         const { unread } = await api('/auth/me'); state.unread = unread
-        toast(`Welcome, ${user.name.split(' ')[0]}!`)
+        toast(`Welcome, ${user.name.replace(/^(Dr|Prof|Mr|Mrs|Ms)\.? /, '').split(' ')[0]}!`)
         const redir = sessionStorage.getItem('ceda_redirect'); sessionStorage.removeItem('ceda_redirect')
         navigate(redir && redir !== '/login' && redir !== '/register' ? redir : '/')
       } catch (err) { document.getElementById('login-error').innerHTML = `<div class="error-box">${esc(err.message)}</div>`; btn.disabled = false }

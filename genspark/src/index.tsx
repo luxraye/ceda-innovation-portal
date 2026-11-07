@@ -21,12 +21,7 @@ app.use('*', async (c, next) => {
   c.header('Referrer-Policy', 'strict-origin-when-cross-origin')
 })
 
-// API
-app.route('/api/auth', authRoutes)
-app.route('/api/ideas', ideaRoutes)
-app.route('/api/evaluation', evaluationRoutes)
-app.route('/api', adminRoutes)
-
+// Public endpoints first, so the authenticated /api routers below don't intercept them
 app.get('/api/health', async (c) => {
   try {
     const row = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM users').first<{ n: number }>()
@@ -48,6 +43,13 @@ app.get('/api/public/stats', async (c) => {
   const { results: settings } = await c.env.DB.prepare(`SELECT key, value FROM settings`).all<any>()
   return c.json({ stats: row, categories: cats, settings: Object.fromEntries(settings.map((s: any) => [s.key, s.value])) })
 })
+
+// API
+app.route('/api/auth', authRoutes)
+app.route('/api/ideas', ideaRoutes)
+app.route('/api/evaluation', evaluationRoutes)
+app.route('/api', adminRoutes)
+
 
 app.notFound((c) => {
   if (c.req.path.startsWith('/api/')) return c.json({ error: 'Not found' }, 404)
