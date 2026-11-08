@@ -4,7 +4,7 @@ import { Logo } from "@/components/logo";
 import { LoginForm } from "./login-form";
 import { DemoButton } from "@/components/demo-button";
 import { AuthAside } from "@/components/auth-aside";
-import { DEMO_ACCOUNTS } from "@/lib/demo";
+import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "@/lib/demo";
 import { ROLE_INFO, type Role } from "@/lib/domain";
 
 export const metadata = { title: "Sign in" };
@@ -40,20 +40,35 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
                 <span className="req-badge">For hackathon judges</span>
                 <span className="h-px flex-1 bg-slate-200" />
               </div>
-              <p className="mt-3 text-sm text-slate-500">One click signs you in as a demo user, with judge mode on.</p>
-              <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-slate-200">
-                {DEMO_ACCOUNTS.map((a) => (
-                  <div key={a.email} className="flex items-center justify-between gap-3 border-b border-slate-100 bg-white px-4 py-3 last:border-0 hover:bg-slate-50">
-                    <div className="min-w-0">
-                      <div className="text-sm font-medium text-navy-950">{ROLE_INFO[a.role as Role].label}</div>
-                      <div className="truncate text-xs text-slate-500">{a.name} · {a.note}</div>
-                    </div>
-                    <DemoButton email={a.email} next={next} className="btn-ghost h-8 shrink-0 px-3 text-[13px]">
-                      Enter <ArrowRight className="h-3.5 w-3.5" />
-                    </DemoButton>
+              <p className="mt-3 text-sm text-slate-500">
+                Pick who you want to be. One click signs you in, and you can switch roles any time from the <span className="font-medium text-slate-700">Viewing as</span> menu at the top of every workspace.
+              </p>
+              {(["Applicant", "CEDA"] as const).map((side) => (
+                <div key={side} className="mt-5">
+                  <div className="eyebrow text-slate-400">{side === "Applicant" ? "The applicant side" : "The CEDA side"}</div>
+                  <div className="mt-2 grid gap-2">
+                    {DEMO_ACCOUNTS.filter((a) => a.side === side).map((a) => (
+                      <DemoButton
+                        key={a.email}
+                        email={a.email}
+                        next={next}
+                        plain
+                        className="group flex w-full items-center gap-3 rounded-xl bg-white px-4 py-3 text-left ring-1 ring-slate-200 transition hover:-translate-y-px hover:shadow-md hover:ring-sky-300"
+                      >
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm font-medium text-navy-950">{ROLE_INFO[a.role as Role].label}</span>
+                          <span className="block text-xs text-slate-500">{a.who}</span>
+                          <span className="mt-1 block truncate text-[11.5px] text-slate-400">{a.name} · try: {a.try[0].label.toLowerCase()}</span>
+                        </span>
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition group-hover:bg-sky-500 group-hover:text-white">
+                          <ArrowRight className="h-4 w-4" />
+                        </span>
+                      </DemoButton>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+              <p className="mt-4 text-xs text-slate-400">Prefer typing? Every demo account uses the password {DEMO_PASSWORD}.</p>
             </div>
           )}
         </div>

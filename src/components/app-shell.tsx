@@ -1,66 +1,13 @@
 import Link from "next/link";
-import { cookies, headers } from "next/headers";
-import {
-  BarChart3,
-  ClipboardCheck,
-  FileText,
-  Gavel,
-  KanbanSquare,
-  LayoutDashboard,
-  Lock,
-  LogOut,
-  Megaphone,
-  ScrollText,
-  ShieldCheck,
-  Sparkles,
-  Swords,
-  Trophy,
-  UserRound,
-  Users,
-  Crosshair,
-} from "lucide-react";
+import { LogOut, Sparkles } from "lucide-react";
 import { Logo } from "./logo";
 import { NotificationBell } from "./notification-bell";
+import { SidebarNav } from "./sidebar-nav";
+import { RoleGuide, RoleSwitcher } from "./role-switcher";
 import { logout } from "@/app/actions/auth";
 import { ROLE_INFO, type Role } from "@/lib/domain";
+import { navFor } from "@/lib/nav";
 import type { CurrentUser } from "@/lib/auth";
-
-type NavItem = { href: string; label: string; icon: React.ComponentType<{ className?: string }> };
-
-const NAV: Record<Role, NavItem[]> = {
-  INNOVATOR: [
-    { href: "/app/innovator", label: "My dashboard", icon: LayoutDashboard },
-    { href: "/app/innovator/range", label: "The Range", icon: Swords },
-    { href: "/app/innovator/profile", label: "My profile & Index", icon: UserRound },
-    { href: "/calls", label: "Open calls", icon: Megaphone },
-    { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
-    { href: "/app/privacy", label: "Privacy centre", icon: Lock },
-  ],
-  EVALUATOR: [
-    { href: "/app/evaluator", label: "My review queue", icon: ClipboardCheck },
-    { href: "/app/privacy", label: "Privacy centre", icon: Lock },
-  ],
-  ADJUDICATOR: [
-    { href: "/app/adjudicator", label: "Committee board", icon: Gavel },
-    { href: "/app/talent", label: "Talent directory", icon: Users },
-    { href: "/app/reports", label: "Reports", icon: BarChart3 },
-    { href: "/app/privacy", label: "Privacy centre", icon: Lock },
-  ],
-  ADMIN: [
-    { href: "/app/admin", label: "Overview", icon: LayoutDashboard },
-    { href: "/app/admin/pipeline", label: "Pipeline board", icon: KanbanSquare },
-    { href: "/app/admin/calls", label: "Calls & rubrics", icon: FileText },
-    { href: "/app/admin/range", label: "Range control", icon: Crosshair },
-    { href: "/app/talent", label: "Talent directory", icon: Users },
-    { href: "/app/reports", label: "Reports", icon: BarChart3 },
-    { href: "/app/admin/audit", label: "Audit trail", icon: ScrollText },
-  ],
-  DPO: [
-    { href: "/app/dpo", label: "Compliance overview", icon: ShieldCheck },
-    { href: "/app/admin/audit", label: "Audit trail", icon: ScrollText },
-    { href: "/app/reports", label: "Reports", icon: BarChart3 },
-  ],
-};
 
 function initials(name: string) {
   return name
@@ -72,15 +19,9 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-export async function AppShell({ user, children }: { user: CurrentUser; children: React.ReactNode }) {
+export function AppShell({ user, children }: { user: CurrentUser; children: React.ReactNode }) {
   const role = user.role as Role;
-  const store = await cookies();
-  const judge = store.get("sky_judge")?.value === "1";
-  const path = (await headers()).get("x-pathname") ?? "/app";
-  const nav = NAV[role];
-  const active = nav
-    .filter((n) => path === n.href || path.startsWith(n.href + "/"))
-    .sort((a, b) => b.href.length - a.href.length)[0]?.href;
+  const nav = navFor(role);
   return (
     <div className="min-h-screen bg-slate-50 lg:grid lg:grid-cols-[248px_1fr]">
       <aside className="night no-print sticky top-0 hidden h-screen flex-col overflow-hidden border-r border-white/[0.06] px-3 py-4 lg:flex">
@@ -88,28 +29,7 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
         <div className="relative px-2.5 pt-1 pb-5">
           <Logo href={ROLE_INFO[role].home} dark />
         </div>
-        <div className="term relative px-3 pt-2 pb-2 text-white/35"><span className="text-sky-400">&gt;</span> Workspace</div>
-        <nav className="relative space-y-0.5" aria-label="Workspace">
-          {nav.map((n) => {
-            const on = n.href === active;
-            return (
-              <Link
-                key={n.href}
-                href={n.href}
-                aria-current={on ? "page" : undefined}
-                className={`group relative flex h-9 items-center gap-2.5 rounded-lg px-3 text-[13.5px] transition ${
-                  on
-                    ? "bg-sky-400/10 font-medium text-white ring-1 ring-sky-400/25 ring-inset"
-                    : "text-white/55 hover:bg-white/[0.05] hover:text-white"
-                }`}
-              >
-                {on && <span className="absolute top-2 bottom-2 left-0 w-[2px] rounded-full bg-sky-400" />}
-                <n.icon className={`h-4 w-4 ${on ? "text-sky-300" : "text-white/35 group-hover:text-white/70"}`} />
-                {n.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <SidebarNav groups={nav} variant="side" />
         <div className="relative mt-auto space-y-2">
           <Link
             href="/tour"
@@ -130,7 +50,7 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
             </span>
             <div className="min-w-0 text-xs">
               <div className="truncate font-medium text-white">{user.name}</div>
-              <div className="truncate text-white/45">{user.org?.name ?? ROLE_INFO[role].label}</div>
+              <div className="truncate text-white/45">{ROLE_INFO[role].label}{user.org?.name ? ` · ${user.org.name}` : ""}</div>
             </div>
           </div>
         </div>
@@ -147,16 +67,7 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
             <span className="truncate">{ROLE_INFO[role].blurb}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <a
-              href={`/api/judge-mode?on=${judge ? "0" : "1"}&back=${encodeURIComponent(path)}`}
-              className="hidden h-8 items-center gap-2 rounded-lg px-2.5 text-xs font-medium text-slate-600 transition hover:bg-slate-100 sm:flex"
-              title="Show which part of the CEDA brief each screen answers"
-            >
-              <span className={`relative h-[18px] w-8 rounded-full transition ${judge ? "bg-gold-500" : "bg-slate-300"}`}>
-                <span className={`absolute top-[2px] h-[14px] w-[14px] rounded-full bg-white shadow transition-all ${judge ? "left-[16px]" : "left-[2px]"}`} />
-              </span>
-              Judge mode
-            </a>
+            <RoleSwitcher email={user.email} role={role} />
             <span className="mx-1 hidden h-5 w-px bg-slate-200 sm:block" />
             <NotificationBell />
             <form action={logout}>
@@ -166,17 +77,8 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
             </form>
           </div>
         </header>
-        <nav className="no-print flex gap-1 overflow-x-auto border-b border-slate-200 bg-white px-3 py-2 lg:hidden" aria-label="Workspace">
-          {nav.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm ${n.href === active ? "bg-slate-100 font-medium text-navy-950" : "text-slate-600"}`}
-            >
-              <n.icon className="h-4 w-4" /> {n.label}
-            </Link>
-          ))}
-        </nav>
+        <SidebarNav groups={nav} variant="top" />
+        <RoleGuide email={user.email} role={role} />
         <main className="mx-auto w-full max-w-[1240px] flex-1 px-4 py-7 md:px-8 md:py-9">{children}</main>
         <footer className="no-print flex flex-wrap justify-between gap-2 border-t border-slate-200/80 px-4 py-4 text-xs text-slate-400 md:px-8">
           <span>Arena prototype · CEDA Innovation Portal Hackathon · Demo data only</span>

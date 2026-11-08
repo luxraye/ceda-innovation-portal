@@ -1,17 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { readSessionToken, SESSION_COOKIE } from "@/lib/session";
+import { rolesFor } from "@/lib/nav";
 
-// Route-level RBAC. Pages and actions check again on the server (defence in depth).
-const AREA_ROLES: Record<string, string[]> = {
-  "/app/innovator": ["INNOVATOR"],
-  "/app/evaluator": ["EVALUATOR"],
-  "/app/adjudicator": ["ADJUDICATOR"],
-  "/app/admin": ["ADMIN"],
-  "/app/dpo": ["DPO"],
-  "/app/reports": ["ADMIN", "ADJUDICATOR", "DPO"],
-  "/app/talent": ["ADMIN", "ADJUDICATOR"],
-};
-
+// Route-level RBAC from the shared area map in lib/nav. Pages and actions check again on the server (defence in depth).
 export async function middleware(req: NextRequest) {
   const session = await readSessionToken(req.cookies.get(SESSION_COOKIE)?.value);
   const { pathname } = req.nextUrl;
@@ -20,10 +11,9 @@ export async function middleware(req: NextRequest) {
     url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
-  for (const [prefix, roles] of Object.entries(AREA_ROLES)) {
-    if (pathname.startsWith(prefix) && !roles.includes(session.role)) {
-      return NextResponse.redirect(new URL("/app?denied=1", req.url));
-    }
+  const roles = rolesFor(pathname);
+  if (roles && !roles.includes(session.role)) {
+    return NextResponse.redirect(new URL("/app?denied=1", req.url));
   }
   const headers = new Headers(req.headers);
   headers.set("x-pathname", pathname + req.nextUrl.search);

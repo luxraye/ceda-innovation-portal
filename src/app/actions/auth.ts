@@ -11,6 +11,7 @@ import { notify } from "@/lib/notify";
 import { checkEligibility } from "@/lib/eligibility";
 import { CONSENT_PURPOSES, CONSENT_VERSION, ROLE_INFO, type ConsentPurpose, type Role } from "@/lib/domain";
 import { getSession } from "@/lib/auth";
+import { canOpen } from "@/lib/nav";
 
 async function startSession(user: { id: string; role: string; name: string }) {
   const token = await createSessionToken({ sub: user.id, role: user.role as Role, name: user.name });
@@ -49,7 +50,7 @@ export async function login(_: FormState, form: FormData): Promise<FormState> {
   attempts.delete(email);
   await startSession(user);
   await audit({ actorId: user.id, actorRole: user.role, action: "auth.login", entity: "User", entityId: user.id });
-  redirect(next.startsWith("/app") ? next : ROLE_INFO[user.role as Role].home);
+  redirect(next.startsWith("/app") && canOpen(user.role as Role, next) ? next : ROLE_INFO[user.role as Role].home);
 }
 
 /** Judge quick access: signs in as a seeded demo account. Disabled unless DEMO_MODE=true. */
@@ -60,9 +61,10 @@ export async function demoLogin(form: FormData) {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user || !email.endsWith("@demo.sky.bw")) throw new Error("Unknown demo account");
   await startSession(user);
-  (await cookies()).set("sky_judge", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
   await audit({ actorId: user.id, actorRole: user.role, action: "auth.demo_login", entity: "User", entityId: user.id });
-  redirect(next.startsWith("/app") ? next : ROLE_INFO[user.role as Role].home);
+  // Land on the requested screen only if this role may open it; otherwise go to the role's home.
+  const role = user.role as Role;
+  redirect(next.startsWith("/app") && canOpen(role, next) ? next : ROLE_INFO[role].home);
 }
 
 export async function logout() {

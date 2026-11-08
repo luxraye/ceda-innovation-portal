@@ -26,10 +26,12 @@ import {
 import { prisma } from "@/lib/prisma";
 import { PublicFooter, PublicHeader } from "@/components/public-chrome";
 import { daysUntil, fmtDate, pula, timeAgo } from "@/lib/format";
-import { CountUp, Reveal, Spotlight } from "@/components/motion";
+import { CountUp, Reveal } from "@/components/motion";
 import { DISTRICTS } from "@/lib/domain";
 import { EVENT_KINDS, TRACKS, districtLeague, getIndex, type Track } from "@/lib/arena";
 import { IndexBar, IndexLegend, LeagueTable, TermLabel, TierBadge } from "@/components/arena-ui";
+import { AzurePhoto, ParallaxBand, StoryGallery } from "@/components/photo";
+import { PHOTOS, themePhoto } from "@/lib/photos";
 
 export const dynamic = "force-dynamic";
 
@@ -72,19 +74,26 @@ const BRIEF = [
 ];
 
 const PLATFORM = [
-  { icon: Crosshair, tag: "RANGE", title: "Challenge engine", body: "Short, scored tasks across six tracks. Quizzes are marked instantly; evidence tasks are verified by CEDA staff. First solves earn a bonus." },
-  { icon: Gauge, tag: "INDEX", title: "Innovator Index", body: "A 0 to 1000 rating built from panel scores, pipeline progress, challenges and events. Every point is explained, and it never decides an award on its own." },
-  { icon: ScrollText, tag: "CALLS", title: "Guided submission", body: "One form per call, with eligibility checked up front. Every version is sealed with SHA-256 and a signed receipt." },
-  { icon: ClipboardCheck, tag: "PANEL", title: "Blind, fair scoring", body: "Conflict declared before an idea opens. Scores are normalised so harsh and generous judges count equally." },
-  { icon: Radar, tag: "LIVE", title: "Real-time tracking", body: "A live tracker for every idea, notifications at each stage, and a pipeline board for CEDA." },
-  { icon: Building2, tag: "TALENT", title: "Talent directory", body: "CEDA and partners find ranked, verified youth companies by sector, district and tier, with consent." },
+  { icon: Crosshair, tag: "RANGE", photo: PHOTOS.keyboard, href: "/range", cta: "Enter the Range", title: "Challenge engine", body: "Short, scored tasks across six tracks. Quizzes are marked instantly; evidence tasks are verified by CEDA staff. First solves earn a bonus." },
+  { icon: Gauge, tag: "INDEX", photo: PHOTOS.team, href: "/leaderboard", cta: "See the league", title: "Innovator Index", body: "A 0 to 1000 rating built from panel scores, pipeline progress, challenges and events. Every point is explained, and it never decides an award on its own." },
+  { icon: ScrollText, tag: "CALLS", photo: PHOTOS.founder, href: "/calls", cta: "Browse open calls", title: "Guided submission", body: "One form per call, with eligibility checked up front. Every version is sealed with SHA-256 and a signed receipt." },
+  { icon: ClipboardCheck, tag: "PANEL", photo: PHOTOS.grain, href: "/tour#b", cta: "How scoring works", title: "Blind, fair scoring", body: "Conflict declared before an idea opens. Scores are normalised so harsh and generous judges count equally." },
+  { icon: Radar, tag: "LIVE", photo: PHOTOS.city, href: "/tour#c", cta: "See live tracking", title: "Real-time tracking", body: "A live tracker for every idea, notifications at each stage, and a pipeline board for CEDA." },
+  { icon: Building2, tag: "TALENT", photo: PHOTOS.maker, href: "/tour#f", cta: "See the directory", title: "Talent directory", body: "CEDA and partners find ranked, verified youth companies by sector, district and tier, with consent." },
 ];
 
 const AUDIENCES = [
-  { icon: Sprout, title: "Young innovators", points: ["Train on the Range before you apply", "See exactly how to climb the Index", "Track every idea live and resubmit with feedback"], cta: { href: "/register", label: "Join the Arena" } },
-  { icon: Gavel, title: "Evaluators & committee", points: ["Blind queue with conflict declaration", "Weighted, normalised rankings", "Decide with a recorded reason"], cta: { href: "/tour#b", label: "See the scoring screen" } },
-  { icon: LineChart, title: "CEDA programme team", points: ["Run calls, events and challenges without a developer", "District league shows where to focus outreach", "Reports, CSV export and a tamper-evident audit trail"], cta: { href: "/tour#f", label: "See the reports" } },
-  { icon: Users, title: "Partners & investors", points: ["Browse a ranked pipeline of verified companies", "Only companies that agreed to be showcased are named", "Co-host hackathons and bootcamps"], cta: { href: "/leaderboard", label: "View the leaderboard" } },
+  { icon: Sprout, photo: PHOTOS.portrait, title: "Young innovators", points: ["Train on the Range before you apply", "See exactly how to climb the Index", "Track every idea live and resubmit with feedback"], cta: { href: "/register", label: "Join the Arena" } },
+  { icon: Gavel, photo: PHOTOS.team, title: "Evaluators & committee", points: ["Blind queue with conflict declaration", "Weighted, normalised rankings", "Decide with a recorded reason"], cta: { href: "/tour#b", label: "See the scoring screen" } },
+  { icon: LineChart, photo: PHOTOS.city, title: "CEDA programme team", points: ["Run calls, events and challenges without a developer", "District league shows where to focus outreach", "Reports, CSV export and a tamper-evident audit trail"], cta: { href: "/tour#f", label: "See the reports" } },
+  { icon: Users, photo: PHOTOS.solar, title: "Partners & investors", points: ["Browse a ranked pipeline of verified companies", "Only companies that agreed to be showcased are named", "Co-host hackathons and bootcamps"], cta: { href: "/leaderboard", label: "View the leaderboard" } },
+];
+
+const STORIES = [
+  { src: PHOTOS.farmer, kicker: "Agri-tech", title: "Sensors that save a season's water", body: "Soil-moisture kits for smallholder farms, tested on 14 farms before the committee saw them." },
+  { src: PHOTOS.solar, kicker: "Energy", title: "Solar for homes beyond the grid", body: "Pay-as-you-go solar for rural households, priced with the Range's unit-economics challenge." },
+  { src: PHOTOS.maker, kicker: "Manufacturing", title: "Made in Botswana, sold across SADC", body: "A Francistown workshop scaling school uniforms, with a costed plan the panel could score." },
+  { src: PHOTOS.keyboard, kicker: "Digital", title: "Software built for Setswana speakers", body: "A bilingual bookkeeping app for informal traders, from first prototype to an awarded pilot." },
 ];
 
 const BUILT_FOR = [
@@ -103,8 +112,13 @@ export default async function Home() {
     <div className="night min-h-screen overflow-x-clip">
       {/* Hero with live scoreboard */}
       <section className="noise relative isolate overflow-hidden">
-        <div className="grid-lines absolute inset-0 -z-10" aria-hidden="true" />
-        <div className="hex-grid absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
+        <div className="absolute inset-0 -z-20" aria-hidden="true">
+          <AzurePhoto src={PHOTOS.city} alt="" priority sizes="100vw" className="hero-photo absolute inset-0" />
+        </div>
+        {/* Darkest behind the headline, lighter on the right, fading into the page below */}
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(5_8_15/0.94)_0%,rgb(5_8_15/0.84)_45%,rgb(5_8_15/0.62)_100%)]" aria-hidden="true" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(5_8_15/0.6)_0%,transparent_28%,transparent_62%,var(--color-navy-950)_100%)]" aria-hidden="true" />
+        <div className="grid-lines absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
         <div className="absolute inset-x-0 top-0 -z-10 h-[680px] bg-[radial-gradient(55%_60%_at_75%_10%,rgb(10_168_92/0.22),transparent_70%)]" aria-hidden="true" />
         <PublicHeader />
         <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 pt-12 pb-20 md:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-20 lg:pb-28">
@@ -235,16 +249,26 @@ export default async function Home() {
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PLATFORM.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.05} className="h-full">
-              <Spotlight className="card-dark group h-full p-6">
-                <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-400/10 ring-1 ring-sky-400/25">
+              <Link
+                href={p.href}
+                className="card-dark service-card group flex h-full flex-col overflow-hidden focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <AzurePhoto src={p.photo} alt="" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/30 to-transparent" />
+                  <span className="term absolute top-4 right-4 rounded-full bg-navy-950/60 px-2.5 py-1 text-white/75 ring-1 ring-white/15 backdrop-blur">{p.tag}</span>
+                </div>
+                <div className="relative flex flex-1 flex-col p-6 pt-9">
+                  <span className="absolute -top-6 left-6 flex h-11 w-11 items-center justify-center rounded-xl bg-navy-950 ring-1 ring-sky-400/30 transition duration-300 group-hover:-translate-y-1 group-hover:ring-sky-300/70">
                     <p.icon className="h-5 w-5 text-sky-300" strokeWidth={1.6} />
                   </span>
-                  <span className="term text-white/30">{p.tag}</span>
+                  <div className="text-[17px] font-medium tracking-tight text-white">{p.title}</div>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-white/50">{p.body}</p>
+                  <span className="term mt-5 flex items-center gap-1.5 text-sky-300">
+                    {p.cta} <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </div>
-                <div className="mt-6 text-[17px] font-medium tracking-tight text-white">{p.title}</div>
-                <p className="mt-2 text-sm leading-relaxed text-white/50">{p.body}</p>
-              </Spotlight>
+              </Link>
             </Reveal>
           ))}
         </div>
@@ -280,6 +304,20 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Stories */}
+      <section className="border-t border-white/[0.06]">
+        <div className="mx-auto max-w-7xl px-4 py-24 md:px-8">
+          <Reveal className="max-w-3xl">
+            <TermLabel>From the range · demo stories</TermLabel>
+            <h2 className="mt-4 text-[34px] leading-[1.08] text-white md:text-5xl">Ideas from every corner of Botswana.</h2>
+            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-white/55">Hover or tap a story to open it.</p>
+          </Reveal>
+          <div className="mt-12">
+            <StoryGallery stories={STORIES} />
+          </div>
+        </div>
+      </section>
+
       {/* Audiences */}
       <section className="border-t border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-4 py-24 md:px-8">
@@ -290,18 +328,22 @@ export default async function Home() {
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {AUDIENCES.map((a, i) => (
               <Reveal key={a.title} delay={i * 0.06} className="h-full">
-                <div className="card-dark flex h-full flex-col p-6">
-                  <a.icon className="h-5 w-5 text-sky-300" strokeWidth={1.6} />
-                  <div className="mt-5 font-medium text-white">{a.title}</div>
-                  <ul className="mt-4 flex-1 space-y-2.5 text-[13.5px] text-white/55">
+                <div className="group relative isolate flex h-full min-h-[440px] flex-col overflow-hidden rounded-2xl p-6 ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_-30px_rgb(10_168_92/0.6)] hover:ring-sky-400/40">
+                  <AzurePhoto src={a.photo} alt="" sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" className="absolute inset-0 -z-10" />
+                  <span className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(5_8_15/0.3)_0%,rgb(5_8_15/0.86)_48%,rgb(5_8_15/0.97)_100%)]" />
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy-950/60 ring-1 ring-white/15 backdrop-blur">
+                    <a.icon className="h-5 w-5 text-sky-300" strokeWidth={1.6} />
+                  </span>
+                  <div className="mt-auto pt-28 text-lg font-medium text-white">{a.title}</div>
+                  <ul className="mt-4 space-y-2.5 text-[13.5px] text-white/70">
                     {a.points.map((p) => (
                       <li key={p} className="flex gap-2">
                         <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-sky-400" /> {p}
                       </li>
                     ))}
                   </ul>
-                  <Link href={a.cta.href} className="term mt-6 text-sky-300 hover:text-sky-200">
-                    {a.cta.label} →
+                  <Link href={a.cta.href} className="term mt-6 flex items-center gap-1.5 text-sky-300 after:absolute after:inset-0 hover:text-sky-200">
+                    {a.cta.label} <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </div>
               </Reveal>
@@ -421,7 +463,12 @@ export default async function Home() {
             {d.calls.map((c) => {
               const left = daysUntil(c.closesAt);
               return (
-                <Link key={c.id} href={`/calls/${c.slug}`} className="card-dark group flex flex-col p-6 transition hover:bg-white/[0.06]">
+                <Link key={c.id} href={`/calls/${c.slug}`} className="card-dark service-card group flex flex-col overflow-hidden">
+                  <div className="relative h-36 overflow-hidden">
+                    <AzurePhoto src={themePhoto(c.theme)} alt="" sizes="(min-width: 768px) 33vw, 100vw" className="absolute inset-0" />
+                    <span className="absolute inset-0 bg-gradient-to-t from-navy-950/90 to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
                   <div className="flex items-center justify-between">
                     <span className="term text-white/40">{c.theme}</span>
                     <span className={`term ${c.status === "OPEN" ? "text-sky-300" : "text-amber-300"}`}>
@@ -430,7 +477,10 @@ export default async function Home() {
                   </div>
                   <div className="mt-4 text-lg font-medium text-white group-hover:text-sky-200">{c.title}</div>
                   <p className="mt-2 flex-1 text-[13.5px] text-white/50">{c.tagline}</p>
-                  <div className="mt-5 font-mono text-sm text-gold-300">{pula(c.prizePool)} pool</div>
+                  <div className="mt-5 flex items-center justify-between font-mono text-sm text-gold-300">
+                    {pula(c.prizePool)} pool <ArrowRight className="h-4 w-4 text-sky-300 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
+                  </div>
                 </Link>
               );
             })}
@@ -469,9 +519,9 @@ export default async function Home() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden border-t border-white/[0.06]">
-        <div className="hex-grid pointer-events-none absolute inset-0" aria-hidden="true" />
-        <div className="relative mx-auto max-w-4xl px-4 py-32 text-center md:px-8">
+      <ParallaxBand src={PHOTOS.delta} className="border-t border-white/[0.06]">
+        <div className="hex-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <div className="relative mx-auto max-w-4xl px-4 py-36 text-center md:px-8">
           <Reveal>
             <Target className="mx-auto h-8 w-8 text-sky-300" strokeWidth={1.4} />
             <h2 className="mt-6 text-[40px] leading-[1.04] text-white md:text-6xl">
@@ -486,7 +536,7 @@ export default async function Home() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </ParallaxBand>
       <PublicFooter />
     </div>
   );

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { cn } from "@/lib/format";
 import { REQUIREMENTS, SUBMISSION_STATUS, type RequirementKey } from "@/lib/domain";
 
@@ -36,10 +35,9 @@ export function StatusBadge({ status }: { status: string }) {
   );
 }
 
-/** Shows which hackathon requirement a screen answers. Visible when Judge mode is on. */
-export async function Req({ k, className }: { k: RequirementKey; className?: string }) {
-  const store = await cookies();
-  if (store.get("sky_judge")?.value !== "1") return null;
+/** Shows which part of the CEDA brief a screen answers. Always on in demo mode, so judges never need a toggle. */
+export function Req({ k, className }: { k: RequirementKey; className?: string }) {
+  if (process.env.DEMO_MODE !== "true") return null;
   return (
     <span className={cn("req-badge", className)} title="Where this screen meets the CEDA brief">
       {REQUIREMENTS[k]}
