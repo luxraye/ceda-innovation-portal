@@ -5,7 +5,7 @@
   "description": "Sky - the CEDA Innovation Portal: submit, evaluate, track and award youth-led innovation in Botswana.",
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/select-provider.mjs && prisma generate && next build",
+    "build": "node scripts/select-provider.mjs && prisma generate && node scripts/prepare-db.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
