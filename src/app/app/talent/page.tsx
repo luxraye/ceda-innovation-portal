@@ -6,7 +6,6 @@ import { IndexBar, IndexLegend, TierChip } from "@/components/arena-ui";
 import { TIERS, getIndex } from "@/lib/arena";
 import { DISTRICTS, SECTORS } from "@/lib/domain";
 import { cn } from "@/lib/format";
-import { audit } from "@/lib/audit";
 
 export const metadata = { title: "Talent directory" };
 
@@ -20,14 +19,13 @@ export default async function Talent({ searchParams }: { searchParams: Promise<{
       (!sp.tier || r.tier === sp.tier) &&
       (!sp.verified || r.verified),
   );
-  await audit({ actorId: user.id, actorRole: user.role, action: "talent.viewed", entity: "Directory", meta: { filters: sp } });
   const base = user.role === "ADMIN" ? "/app/admin/submissions/" : "/app/adjudicator/submissions/";
   return (
     <div>
       <PageHeader
         eyebrow={<><span className="eyebrow text-sky-700">Talent directory</span><Req k="f" /></>}
         title="Find ranked youth companies"
-        subtitle="Every innovator on Arena, ordered by Innovator Index. Filter by sector, district or tier to build a shortlist for a programme or partner. Each view is recorded in the audit trail."
+        subtitle="Every innovator on Arena, ordered by Innovator Index. Filter by sector, district or tier to build a shortlist for a programme or partner."
       />
       <form className="card mb-5 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-5">
         <select name="sector" defaultValue={sp.sector ?? ""} className="input">

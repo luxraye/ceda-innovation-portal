@@ -10,10 +10,10 @@ import { cn, fmtDate } from "@/lib/format";
 export const metadata = { title: "My profile" };
 
 const NEXT_STEP: Record<string, { text: string; href: string }> = {
-  panel: { text: "Strengthen your next application with pilot evidence and clear numbers.", href: "/calls" },
-  progress: { text: "Submit an idea to an open call. Passing screening alone adds 110 points.", href: "/calls" },
+  panel: { text: "Strengthen your next application with pilot evidence and clear numbers.", href: "/app/calls" },
+  progress: { text: "Submit an idea to an open call. Passing screening alone adds 110 points.", href: "/app/calls" },
   range: { text: "Solve challenges in tracks you haven't tried yet.", href: "/app/innovator/range" },
-  events: { text: "Book a seat at an upcoming hackathon or bootcamp.", href: "/events" },
+  events: { text: "Book a seat at an upcoming hackathon or bootcamp.", href: "/app/events" },
 };
 
 export default async function Profile() {
@@ -35,7 +35,7 @@ export default async function Profile() {
         title={org?.name ?? user.name}
         subtitle="How CEDA and partners see your company on Arena, and exactly how to climb."
         actions={
-          <Link href="/leaderboard" className="btn-ghost">
+          <Link href="/app/leaderboard" className="btn-ghost">
             View the leaderboard
           </Link>
         }
@@ -159,7 +159,7 @@ export default async function Profile() {
               ))}
               {!seats.length && <li className="text-slate-500">No events yet.</li>}
             </ul>
-            <Link href="/events" className="mt-4 inline-block text-xs font-medium text-sky-700 hover:underline">Find an event</Link>
+            <Link href="/app/events" className="mt-4 inline-block text-xs font-medium text-sky-700 hover:underline">Find an event</Link>
           </section>
 
           <section className="card p-5">

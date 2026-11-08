@@ -15,6 +15,7 @@ export const AREA_ROLES: Record<string, Role[]> = {
   "/app/dpo": ["DPO"],
   "/app/reports": ["ADMIN", "ADJUDICATOR", "DPO"],
   "/app/talent": ["ADMIN", "ADJUDICATOR"],
+  "/app/events": ["INNOVATOR"],
 };
 
 /** Roles allowed on a path, or null when any signed-in user may open it. */
@@ -33,7 +34,7 @@ export function canOpen(role: Role, href: string) {
 
 export type NavIcon =
   | "dashboard" | "range" | "profile" | "calls" | "trophy" | "lock" | "queue" | "gavel"
-  | "users" | "chart" | "kanban" | "file" | "crosshair" | "scroll" | "shield";
+  | "users" | "chart" | "kanban" | "file" | "crosshair" | "scroll" | "shield" | "calendar";
 
 export type NavItem = { href: string; label: string; icon: NavIcon };
 export type NavGroup = { title: string; items: NavItem[] };
@@ -44,16 +45,12 @@ const NAV: Record<Role, NavGroup[]> = {
       title: "My workspace",
       items: [
         { href: "/app/innovator", label: "My dashboard", icon: "dashboard" },
+        { href: "/app/calls", label: "Open calls", icon: "calls" },
         { href: "/app/innovator/range", label: "The Range", icon: "range" },
+        { href: "/app/events", label: "Events", icon: "calendar" },
         { href: "/app/innovator/profile", label: "My profile & Index", icon: "profile" },
+        { href: "/app/leaderboard", label: "Leaderboard", icon: "trophy" },
         { href: "/app/privacy", label: "Privacy centre", icon: "lock" },
-      ],
-    },
-    {
-      title: "Public site",
-      items: [
-        { href: "/calls", label: "Open calls", icon: "calls" },
-        { href: "/leaderboard", label: "Leaderboard", icon: "trophy" },
       ],
     },
   ],
@@ -73,6 +70,7 @@ const NAV: Record<Role, NavGroup[]> = {
         { href: "/app/adjudicator", label: "Committee board", icon: "gavel" },
         { href: "/app/talent", label: "Talent directory", icon: "users" },
         { href: "/app/reports", label: "Reports", icon: "chart" },
+        { href: "/app/leaderboard", label: "Leaderboard", icon: "trophy" },
         { href: "/app/privacy", label: "Privacy centre", icon: "lock" },
       ],
     },
@@ -91,6 +89,7 @@ const NAV: Record<Role, NavGroup[]> = {
       title: "Insight & oversight",
       items: [
         { href: "/app/talent", label: "Talent directory", icon: "users" },
+        { href: "/app/leaderboard", label: "Leaderboard", icon: "trophy" },
         { href: "/app/reports", label: "Reports", icon: "chart" },
         { href: "/app/admin/audit", label: "Audit trail", icon: "scroll" },
         { href: "/app/privacy", label: "Privacy centre", icon: "lock" },

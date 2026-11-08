@@ -37,7 +37,7 @@ export default async function InnovatorHome() {
           {user.org?.name ? `${user.org.name} · ` : ""}Train on the Range, climb the Index, and follow every idea you've submitted.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/calls" className="btn-primary">Start a new idea <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/app/calls" className="btn-primary">Start a new idea <ArrowRight className="h-4 w-4" /></Link>
           <Link href="/app/innovator/range" className="btn-glass">Train on the Range</Link>
           {calls[0] && <span className="btn-glass pointer-events-none">Next deadline · {fmtDate(calls[0].closesAt)}</span>}
         </div>
@@ -64,7 +64,7 @@ export default async function InnovatorHome() {
 
       <h2 className="mt-10 mb-4 text-lg font-semibold text-navy-900">My ideas</h2>
       {subs.length === 0 ? (
-        <Empty title="No ideas yet" body="Pick an open call and start your first submission. Your draft saves as you go." action={<Link href="/calls" className="btn-primary">See open calls</Link>} />
+        <Empty title="No ideas yet" body="Pick an open call and start your first submission. Your draft saves as you go." action={<Link href="/app/calls" className="btn-primary">See open calls</Link>} />
       ) : (
         <div className="space-y-4">
           {subs.map((s) => (

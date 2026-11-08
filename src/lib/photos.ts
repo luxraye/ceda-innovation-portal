@@ -28,3 +28,10 @@ export function themePhoto(theme: string | null | undefined): string {
   if (/health|social|education/.test(t)) return PHOTOS.portrait;
   return PHOTOS.delta;
 }
+
+/** Cover photo for an event, by kind. */
+export function eventPhoto(kind: string): string {
+  if (kind === "HACKATHON") return PHOTOS.team;
+  if (kind === "BOOTCAMP") return PHOTOS.founder;
+  return PHOTOS.portrait;
+}

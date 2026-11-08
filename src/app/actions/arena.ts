@@ -94,8 +94,9 @@ export async function toggleSeat(form: FormData) {
     if (e._count.attendees >= e.seats) throw new Error("This event is full");
     await prisma.eventSeat.create({ data: { eventId: e.id, userId: user.id } });
     await audit({ actorId: user.id, actorRole: user.role, action: "event.seat_booked", entity: "Event", entityId: e.id });
-    await notify({ userId: user.id, title: `Seat booked: ${e.title}`, body: `See you in ${e.location}. Attending adds up to ${e.bonus} points to your Index.`, href: "/events", kind: "SUCCESS", channels: ["IN_APP", "EMAIL", "SMS"] });
+    await notify({ userId: user.id, title: `Seat booked: ${e.title}`, body: `See you in ${e.location}. Attending adds up to ${e.bonus} points to your Index.`, href: "/app/events", kind: "SUCCESS", channels: ["IN_APP", "EMAIL", "SMS"] });
   }
   revalidatePath("/events");
+  revalidatePath("/app/events");
   revalidatePath("/app/innovator/profile");
 }

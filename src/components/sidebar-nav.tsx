@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   ArrowUpRight,
   BarChart3,
+  CalendarDays,
   ClipboardCheck,
   Crosshair,
   FileText,
@@ -38,6 +39,7 @@ const ICONS: Record<NavIcon, React.ComponentType<{ className?: string }>> = {
   crosshair: Crosshair,
   scroll: ScrollText,
   shield: ShieldCheck,
+  calendar: CalendarDays,
 };
 
 /**
