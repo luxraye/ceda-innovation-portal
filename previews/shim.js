@@ -21,6 +21,11 @@
   }
   var RO = "This is a read-only preview, so saving and sending are switched off. Everything else is clickable.";
   var never = new Promise(function () {});
+  // The preview has no service worker: a cached copy would hide new previews.
+  if (navigator.serviceWorker) {
+    try { navigator.serviceWorker.register = function () { return Promise.resolve({ update: function () {}, unregister: function () { return Promise.resolve(true); } }); }; } catch (e) {}
+    try { navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }); } catch (e) {}
+  }
   if (!C.live) {
   var of = window.fetch;
   window.fetch = function (input, init) {
@@ -28,6 +33,8 @@
     var url0 = typeof input === "string" ? input : (input && input.url) || "";
     if (url0.indexOf("/api/auth/") >= 0) {
       var body = url0.indexOf("/api/auth/session") >= 0 ? (window.__PREVIEW_SESSION__ || {}) : {};
+      // Signing out goes back to the preview's public home, not the site root.
+      if (url0.indexOf("/api/auth/signout") >= 0) body = { url: location.origin + BP + "/" };
       return Promise.resolve(new Response(JSON.stringify(body), { status: 200, headers: { "Content-Type": "application/json" } }));
     }
     if (String(method).toUpperCase() !== "GET") { toast(RO); return never; }

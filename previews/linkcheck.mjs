@@ -16,4 +16,4 @@ for (const f of pages) {
   }
 }
 console.log(site, "pages:", pages.length, "missing targets:", missing.size);
-for (const [k, v] of [...missing].slice(0, 25)) console.log("  ", k, "<-", v.length, "e.g.", v[0]);
+for (const [k, v] of [...missing].slice(0, 400)) console.log("  ", k, "<-", v.length, "e.g.", v[0]);

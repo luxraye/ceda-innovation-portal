@@ -11,6 +11,7 @@ for i in $(seq 1 60); do curl -s -o /dev/null "http://localhost:$PORT$BP/" && br
 node /home/user/preview-tools/crawl.mjs "$CFG"
 pkill -f "next start -p $PORT" || true
 cp -r public/. "$OUT"/ 2>/dev/null || true
+[ -f src/app/favicon.ico ] && cp src/app/favicon.ico "$OUT/favicon.ico"
 mkdir -p "$OUT/_next"; cp -r .next/static "$OUT/_next/"
 cp /home/user/preview-tools/shim.js "$OUT/__preview-shim.js"
 # prefix root-relative url() in CSS
