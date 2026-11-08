@@ -1,0 +1,1 @@
+var e=`/ceda-innovation-portal/lovable/assets/hero-innovators-BjpnvR9h.jpg`;export{e as t};

@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><title>Not found</title>
+<script>
+// Single-page apps (Lovable) handle their own routes: load their shell for unknown paths.
+(function(){var p=location.pathname,b="/ceda-innovation-portal/lovable/";
+if(p.indexOf(b)===0){fetch(b+"index.html").then(function(r){return r.text()}).then(function(t){document.open();document.write(t);document.close();});return;}
+document.addEventListener("DOMContentLoaded",function(){document.body.innerHTML='<p style="font:16px system-ui;padding:40px">Page not found. <a href="/ceda-innovation-portal/">See all versions</a></p>';});})();
+</script>

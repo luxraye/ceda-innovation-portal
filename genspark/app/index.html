@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEDA Innovation Portal · Workspace</title>
+  <meta name="description" content="CEDA Innovation Portal - submit, evaluate and track innovative ideas from Botswana's citizen entrepreneurs.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23c2410c'/><path d='M20 60 Q50 20 80 60 Z' fill='%23fbbf24'/></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: {
+      brand: { 50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#f97316',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12' },
+      sand: { 50:'#fdfbf7',100:'#f8f3ea',200:'#efe4d1' },
+      ink: { 900:'#1b1917', 800:'#2a2623', 700:'#44403c' }
+    }, fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] } } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/ceda-innovation-portal/genspark/static/styles.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/relativeTime.js"></script>
+</head>
+<body class="bg-sand-50 text-ink-900 font-sans antialiased">
+  <div id="app" class="min-h-screen"></div>
+  <div id="toast-root" class="fixed bottom-4 right-4 z-[100] space-y-2"></div>
+  <div id="modal-root"></div>
+  <script src="/ceda-innovation-portal/genspark/static/preview-backend.js"></script>
+  <script src="/ceda-innovation-portal/genspark/static/app.js"></script>
+</body>
+</html>

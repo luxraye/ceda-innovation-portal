@@ -1,0 +1,1 @@
+import{u as e}from"./use-auth-B8EJ7Psj.js";import{r as t,t as n}from"./IdeaForm-4_KdvS3o.js";import{t as r}from"./AppShell-DXVh7yJ9.js";var i=e();function a(){return(0,i.jsx)(r,{title:`Submit an idea`,subtitle:`Fields marked * are mandatory. Save a draft at any time and come back later.`,children:(0,i.jsx)(n,{initial:t})})}export{a as component};
