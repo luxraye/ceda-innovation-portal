@@ -65,17 +65,17 @@ async function main() {
   const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
 
   // ---------- Staff ----------
-  const admin = await prisma.user.create({ data: { email: "admin@demo.sky.bw", name: "Kagiso Dintwe", role: "ADMIN", title: "Innovation Programme Manager, CEDA", passwordHash, gender: "Male", district: "Gaborone" } });
-  const adj = await prisma.user.create({ data: { email: "lesego.adj@demo.sky.bw", name: "Lesego Molefe", role: "ADJUDICATOR", title: "Innovation Committee member", passwordHash, gender: "Female", district: "Gaborone" } });
-  const adj2 = await prisma.user.create({ data: { email: "pako.adj@demo.sky.bw", name: "Pako Mosweu", role: "ADJUDICATOR", title: "Innovation Committee chair", passwordHash, gender: "Male", district: "Gaborone" } });
-  const dpo = await prisma.user.create({ data: { email: "dpo@demo.sky.bw", name: "Boitumelo Ramotswa", role: "DPO", title: "Data Protection Officer, CEDA", passwordHash, gender: "Female", district: "Gaborone" } });
+  const admin = await prisma.user.create({ data: { email: "admin@demo.ceda.bw", name: "Kagiso Dintwe", role: "ADMIN", title: "Innovation Programme Manager, CEDA", passwordHash, gender: "Male", district: "Gaborone" } });
+  const adj = await prisma.user.create({ data: { email: "lesego.adj@demo.ceda.bw", name: "Lesego Molefe", role: "ADJUDICATOR", title: "Innovation Committee member", passwordHash, gender: "Female", district: "Gaborone" } });
+  const adj2 = await prisma.user.create({ data: { email: "pako.adj@demo.ceda.bw", name: "Pako Mosweu", role: "ADJUDICATOR", title: "Innovation Committee chair", passwordHash, gender: "Male", district: "Gaborone" } });
+  const dpo = await prisma.user.create({ data: { email: "dpo@demo.ceda.bw", name: "Boitumelo Ramotswa", role: "DPO", title: "Data Protection Officer, CEDA", passwordHash, gender: "Female", district: "Gaborone" } });
   const evals = await Promise.all(EVALUATORS.map((e) => prisma.user.create({ data: { email: e.email, name: e.name, role: "EVALUATOR", title: e.title, passwordHash, district: "Gaborone" } })));
   const evalBias = new Map(evals.map((e, i) => [e.id, EVALUATORS[i].bias]));
   const [thabo, onalenna, kefilwe, gaone, amantle] = evals;
 
   // ---------- Calls ----------
   const fields = DEFAULT_FORM;
-  const mkCall = (d: { slug: string; title: string; theme: string; tagline: string; description: string; prizePool: number; opensAt: Date; closesAt: Date; status: string }) =>
+  const mkCall = (d: { slug: string; title: string; theme: string; sector: string; ventureStage: string; tagline: string; description: string; prizePool: number; opensAt: Date; closesAt: Date; status: string }) =>
     prisma.call.create({
       data: {
         ...d,
@@ -89,6 +89,8 @@ async function main() {
     slug: "youth-innovation-challenge-2026",
     title: "Youth Innovation Challenge 2026",
     theme: "Digital economy",
+    sector: "Digital & ICT",
+    ventureStage: "Prototype",
     tagline: "Digital products that help Botswana's businesses, learners and patients do more with less.",
     description: "CEDA invites youth-owned companies to propose digital solutions with clear commercial potential in Botswana. We are especially interested in financial inclusion, education, health and logistics.\n\nShortlisted teams will pitch to the CEDA innovation committee. Winners receive funding from a P1.5 million pool, mentoring and a place in CEDA's aftercare programme.",
     prizePool: 1500000,
@@ -100,6 +102,8 @@ async function main() {
     slug: "agri-tech-food-security-2026",
     title: "Agri-Tech & Food Security Challenge 2026",
     theme: "Agriculture",
+    sector: "Agriculture & Agro-processing",
+    ventureStage: "Pilot",
     tagline: "Technology and new business models that help Botswana grow, store and sell more of its own food.",
     description: "Food import substitution is a national priority. This call funds youth-led ideas across the agricultural value chain: inputs, production, storage, processing and market access.\n\nApplications closed and panels are now reviewing. The committee will announce winners after pitch sessions.",
     prizePool: 1000000,
@@ -111,6 +115,8 @@ async function main() {
     slug: "green-economy-innovation-2026",
     title: "Green Economy Innovation Call 2026",
     theme: "Energy & environment",
+    sector: "Energy & Environment",
+    ventureStage: "Idea",
     tagline: "Clean energy, recycling and climate-smart products built in Botswana, for Botswana.",
     description: "CEDA seeks youth-owned businesses that cut emissions, reduce waste or bring clean energy to communities. Manufacturing ideas that use local inputs are encouraged.",
     prizePool: 750000,
@@ -123,7 +129,7 @@ async function main() {
   // ---------- Innovators ----------
   const naledi = await prisma.user.create({
     data: {
-      email: "naledi@demo.sky.bw", name: "Naledi Sebego", role: "INNOVATOR", passwordHash, phone: "+267 71 234 567", gender: "Female", district: "Kgalagadi", dateOfBirth: new Date("1998-04-12"),
+      email: "naledi@demo.ceda.bw", name: "Naledi Sebego", role: "INNOVATOR", passwordHash, phone: "+267 71 234 567", gender: "Female", district: "Kgalagadi", dateOfBirth: new Date("1998-04-12"),
       org: { create: { name: "Pula Sense (Pty) Ltd", uin: "BW00001234567", youthShareholdingPct: 100, district: "Kgalagadi", sector: "Agriculture & Agro-processing", employees: 4, verified: true, incorporatedOn: new Date("2025-03-02") } },
     },
     include: { org: true },
@@ -172,7 +178,7 @@ async function main() {
 
   async function makeSubmission(call: CallT, owner: (typeof innovators)[number], idea: Idea, submittedDay: number, opts: { draftOnly?: boolean; v1?: Record<string, string> } = {}) {
     refNo++;
-    const reference = `SKY-26-${String(refNo).padStart(4, "0")}`;
+    const reference = `CEDA-26-${String(refNo).padStart(4, "0")}`;
     const answers = answersFor(idea);
     await prisma.organisation.update({ where: { id: owner.orgId! }, data: { sector: idea.sector } });
     const sub = await prisma.submission.create({

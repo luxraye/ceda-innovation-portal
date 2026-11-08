@@ -68,7 +68,7 @@ const RISE_FRAG = /* glsl */ `
   void main() {
     float d = length(gl_PointCoord - 0.5);
     float a = smoothstep(0.5, 0.0, d) * vAlpha;
-    gl_FragColor = vec4(0.78, 0.88, 1.0, a);
+    gl_FragColor = vec4(1.0, 0.82, 0.62, a);
   }
 `;
 
@@ -90,7 +90,7 @@ const ARC_FRAG = /* glsl */ `
     float trail = smoothstep(0.35, 0.0, d) * step(0.0, d);
     float base = 0.12;
     float a = base + trail * 0.95;
-    vec3 col = mix(vec3(0.18, 0.52, 1.0), vec3(0.95, 0.97, 1.0), trail);
+    vec3 col = mix(vec3(0.85, 0.29, 0.08), vec3(1.0, 0.92, 0.78), trail);
     gl_FragColor = vec4(col, a);
   }
 `;
@@ -112,7 +112,7 @@ const ATMO_FRAG = /* glsl */ `
     // Back faces only: strongest at the planet's edge, fading to the outer rim.
     float i = clamp(-dot(vNormal, vView), 0.0, 1.0);
     float glow = pow(clamp(i / 0.57, 0.0, 1.0), 9.0);
-    gl_FragColor = vec4(0.3, 0.6, 1.0, glow * 0.75);
+    gl_FragColor = vec4(0.94, 0.38, 0.13, glow * 0.75);
   }
 `;
 
@@ -163,7 +163,7 @@ export function Globe({ districts, className }: Props) {
     // Occluder: hides the far side of the dot cloud.
     const core = new THREE.Mesh(
       track(new THREE.SphereGeometry(0.995, 64, 64)),
-      track(new THREE.MeshBasicMaterial({ color: 0x060b17 })),
+      track(new THREE.MeshBasicMaterial({ color: 0x170f0b })),
     );
     spin.add(core);
 
@@ -196,7 +196,7 @@ export function Globe({ districts, className }: Props) {
         pos.set([v.x, v.y, v.z], i * 3);
         size[i] = 1 + Math.random() * 2.2;
         const c = 0.45 + Math.random() * 0.4;
-        color.set([c * 0.85, c * 0.92, c], i * 3);
+        color.set([c, c * 0.9, c * 0.8], i * 3);
         seed[i] = Math.random();
       }
       const g = track(new THREE.BufferGeometry());
@@ -242,9 +242,9 @@ export function Globe({ districts, className }: Props) {
           // Africa a touch brighter than the rest of the world.
           const africa = lat < 37 && lat > -36 && lng > -18 && lng < 52;
           const b = africa ? 0.85 : 0.55;
-          push(lng, lat, africa ? 2.6 : 2.3, [b * 0.55, b * 0.75, b * 1.25]);
+          push(lng, lat, africa ? 2.6 : 2.3, [b * 1.0, b * 0.72, b * 0.5]);
         }
-        for (let i = 0; i < data.botswana.length; i += 2) push(data.botswana[i], data.botswana[i + 1], 3.0, [0.42, 0.7, 1.0]);
+        for (let i = 0; i < data.botswana.length; i += 2) push(data.botswana[i], data.botswana[i + 1], 3.0, [1.0, 0.45, 0.14]);
 
         const g = track(new THREE.BufferGeometry());
         g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
@@ -299,7 +299,7 @@ export function Globe({ districts, className }: Props) {
       const beamMat = track(
         new THREE.ShaderMaterial({
           vertexShader: ARC_VERT,
-          fragmentShader: /* glsl */ `varying float vT; void main(){ gl_FragColor = vec4(mix(vec3(0.6,0.8,1.0), vec3(0.18,0.52,1.0), vT), (1.0 - vT) * 0.95); }`,
+          fragmentShader: /* glsl */ `varying float vT; void main(){ gl_FragColor = vec4(mix(vec3(0.98,0.73,0.23), vec3(0.85,0.29,0.08), vT), (1.0 - vT) * 0.95); }`,
           transparent: true,
           depthWrite: false,
           blending: THREE.AdditiveBlending,
@@ -308,7 +308,7 @@ export function Globe({ districts, className }: Props) {
       spin.add(new THREE.Line(beamGeo, beamMat));
       const capGeo = track(new THREE.BufferGeometry().setFromPoints([base]));
       capGeo.setAttribute("aSize", new THREE.BufferAttribute(new Float32Array([6 + (d.count / max) * 6]), 1));
-      capGeo.setAttribute("aColor", new THREE.BufferAttribute(new Float32Array([0.85, 0.93, 1.0]), 3));
+      capGeo.setAttribute("aColor", new THREE.BufferAttribute(new Float32Array([1.0, 0.85, 0.55]), 3));
       capGeo.setAttribute("aSeed", new THREE.BufferAttribute(new Float32Array([Math.random()]), 1));
       spin.add(
         new THREE.Points(
@@ -341,12 +341,12 @@ export function Globe({ districts, className }: Props) {
 
     // HQ marker ring.
     const ringGeo = track(new THREE.RingGeometry(0.012, 0.016, 48));
-    const ringMat = track(new THREE.MeshBasicMaterial({ color: 0xefc06a, transparent: true, side: THREE.DoubleSide, depthWrite: false }));
+    const ringMat = track(new THREE.MeshBasicMaterial({ color: 0xf8a018, transparent: true, side: THREE.DoubleSide, depthWrite: false }));
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.position.copy(hq.clone().multiplyScalar(1.001));
     ring.lookAt(hq.clone().multiplyScalar(2));
     spin.add(ring);
-    const hqDot = new THREE.Mesh(track(new THREE.CircleGeometry(0.007, 24)), track(new THREE.MeshBasicMaterial({ color: 0xefc06a })));
+    const hqDot = new THREE.Mesh(track(new THREE.CircleGeometry(0.007, 24)), track(new THREE.MeshBasicMaterial({ color: 0xf8a018 })));
     hqDot.position.copy(hq.clone().multiplyScalar(1.0015));
     hqDot.lookAt(hq.clone().multiplyScalar(2));
     spin.add(hqDot);

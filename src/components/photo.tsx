@@ -85,7 +85,7 @@ export function ParallaxBand({ src, children, className = "" }: { src: string; c
       <motion.div className="absolute inset-[-12%_0] -z-10" style={{ y, scale }}>
         <AzurePhoto src={src} alt="" sizes="100vw" className="absolute inset-0" />
       </motion.div>
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,var(--color-navy-950)_0%,rgb(5_8_15/0.55)_30%,rgb(5_8_15/0.55)_70%,var(--color-navy-950)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,var(--color-navy-950)_0%,rgb(18_14_12/0.55)_30%,rgb(18_14_12/0.55)_70%,var(--color-navy-950)_100%)]" />
       {children}
     </section>
   );

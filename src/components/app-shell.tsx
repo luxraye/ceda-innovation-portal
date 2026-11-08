@@ -6,6 +6,7 @@ import {
   FileText,
   Gavel,
   KanbanSquare,
+  Layers,
   LayoutDashboard,
   Lock,
   LogOut,
@@ -41,6 +42,7 @@ const NAV: Record<Role, NavItem[]> = {
     { href: "/app/admin", label: "Overview", icon: LayoutDashboard },
     { href: "/app/admin/pipeline", label: "Pipeline board", icon: KanbanSquare },
     { href: "/app/admin/calls", label: "Calls & rubrics", icon: FileText },
+    { href: "/app/admin/instances", label: "Instances", icon: Layers },
     { href: "/app/reports", label: "Reports", icon: BarChart3 },
     { href: "/app/admin/audit", label: "Audit trail", icon: ScrollText },
   ],
@@ -88,7 +90,7 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
                 aria-current={on ? "page" : undefined}
                 className={`group flex h-9 items-center gap-2.5 rounded-lg px-3 text-[13.5px] transition ${
                   on
-                    ? "bg-white/[0.08] font-medium text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1),inset_2px_0_0_var(--color-sky-400),0_8px_20px_-12px_rgb(15_111_255/0.8)]"
+                    ? "bg-white/[0.08] font-medium text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1),inset_2px_0_0_var(--color-sky-400),0_8px_20px_-12px_rgb(217_73_20/0.8)]"
                     : "text-white/60 hover:bg-white/5 hover:text-white"
                 }`}
               >
@@ -167,7 +169,7 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
         </nav>
         <main className="mx-auto w-full max-w-[1240px] flex-1 px-4 py-7 md:px-8 md:py-9">{children}</main>
         <footer className="no-print flex flex-wrap justify-between gap-2 border-t border-slate-200/80 px-4 py-4 text-xs text-slate-400 md:px-8">
-          <span>Sky prototype · CEDA Innovation Portal Hackathon · Demo data only</span>
+          <span>CEDA Innovation Portal prototype · Hackathon · Demo data only</span>
           <span className="font-mono">Botswana Data Protection Act 2024</span>
         </footer>
       </div>

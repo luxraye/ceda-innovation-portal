@@ -14,7 +14,7 @@ export default function RegisterPage() {
           <AuthAside
             title={
               <>
-                Bring your idea <span className="font-serif text-[1.08em] text-sky-300 italic">into the light.</span>
+                Bring your idea <span className="text-sky-300">into the light.</span>
               </>
             }
             body="CEDA innovation calls are for Batswana aged 18 to 35 whose company is more than 50% youth-owned. We check this now so you don't spend time on an application that can't be accepted."
@@ -27,7 +27,7 @@ export default function RegisterPage() {
             <Logo />
           </div>
           <span className="req-badge mt-10 lg:mt-0">3.2(a) · DPA 2024</span>
-          <h1 className="mt-4 text-3xl text-navy-950 md:text-4xl">Create your Sky account</h1>
+          <h1 className="mt-4 text-3xl text-navy-950 md:text-4xl">Create your CEDA account</h1>
           <p className="mt-2 text-sm text-slate-500 lg:hidden">
             For Batswana aged 18 to 35 whose company is more than 50% youth-owned.
           </p>

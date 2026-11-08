@@ -29,7 +29,7 @@ export default async function CallPage({ params }: { params: Promise<{ slug: str
           <span className="flex items-center gap-3">
             <Link href="/calls" className="text-white/50 hover:text-white">All calls</Link>
             <span className="text-white/20">/</span>
-            {call.theme}
+            {call.theme} · {call.ventureStage} stage
           </span>
         }
         title={call.title}
@@ -72,7 +72,7 @@ export default async function CallPage({ params }: { params: Promise<{ slug: str
               <div className="eyebrow text-sky-700">How you'll be judged</div>
               <span className="font-mono text-[11px] text-slate-400">Σ weights = 100</span>
             </div>
-            <p className="mt-3 text-sm text-slate-600">Every evaluator scores these criteria. Publishing them up front is part of keeping Sky fair.</p>
+            <p className="mt-3 text-sm text-slate-600">Every evaluator scores these criteria. Publishing them up front is part of keeping the portal fair.</p>
             <ul className="mt-6 space-y-5">
               {call.criteria.map((c) => (
                 <li key={c.id}>

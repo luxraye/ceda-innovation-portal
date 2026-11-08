@@ -51,7 +51,7 @@ export function PublicFooter() {
         <div className="md:col-span-6">
           <Logo dark />
           <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55">
-            Sky is a prototype of the CEDA Innovation Portal, where youth-owned Botswana companies bring ideas forward and CEDA evaluates,
+            This is a prototype of the CEDA Innovation Portal, where youth-owned Botswana companies bring ideas forward and CEDA evaluates,
             tracks and rewards them in the open.
           </p>
           <p className="mt-5 max-w-md text-xs leading-relaxed text-white/35">
@@ -87,7 +87,7 @@ export function PublicFooter() {
         aria-hidden="true"
         className="pointer-events-none mx-auto -mb-[0.22em] max-w-7xl px-4 text-center text-[22vw] leading-none font-semibold tracking-[-0.06em] text-white/[0.035] select-none md:px-8 md:text-[15rem]"
       >
-        Sky
+        CEDA
       </div>
     </footer>
   );
@@ -114,13 +114,13 @@ export async function PublicHero({
     <section className="night noise relative isolate overflow-hidden">
       <div className="grid-lines absolute inset-0 -z-10" aria-hidden="true" />
       <div
-        className="absolute inset-0 -z-10 bg-[radial-gradient(50%_70%_at_75%_0%,rgb(15_111_255/0.28),transparent_70%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(50%_70%_at_75%_0%,rgb(217_73_20/0.28),transparent_70%)]"
         aria-hidden="true"
       />
       {photo && (
         <div className="absolute inset-y-0 right-0 -z-10 w-full md:w-[62%]" aria-hidden="true">
           <AzurePhoto src={photo} alt="" priority sizes="(min-width: 768px) 62vw, 100vw" className="absolute inset-0" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--color-navy-950)_0%,rgb(5_8_15/0.75)_35%,rgb(5_8_15/0.25)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--color-navy-950)_0%,rgb(18_14_12/0.75)_35%,rgb(18_14_12/0.25)_100%)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/70" />
         </div>
       )}

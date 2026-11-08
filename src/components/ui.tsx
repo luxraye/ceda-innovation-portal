@@ -79,7 +79,7 @@ export function Stat({ label, value, hint, accent }: { label: string; value: Rea
     <div
       className={cn(
         "card relative overflow-hidden p-5",
-        accent && "bg-[linear-gradient(160deg,#0a59de,#0f6fff_55%,#5ea3ff)] text-white shadow-[0_0_0_1px_#0a59de,0_12px_28px_-14px_rgb(15_111_255/0.7)]",
+        accent && "bg-[linear-gradient(160deg,#b4380f,#d94914_55%,#f47f45)] text-white shadow-[0_0_0_1px_#b4380f,0_12px_28px_-14px_rgb(217_73_20/0.7)]",
       )}
     >
       {accent && <div className="grid-lines pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />}
@@ -95,7 +95,7 @@ export function Stat({ label, value, hint, accent }: { label: string; value: Rea
 export function Empty({ title, body, action }: { title: string; body?: string; action?: React.ReactNode }) {
   return (
     <div className="card flex flex-col items-center px-6 py-14 text-center">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-b from-white to-slate-100 shadow-[0_0_0_1px_rgb(11_18_32/0.08),0_4px_10px_-4px_rgb(11_18_32/0.15)]">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-b from-white to-slate-100 shadow-[0_0_0_1px_rgb(31_25_21/0.08),0_4px_10px_-4px_rgb(31_25_21/0.15)]">
         <span className="h-3 w-3 rounded-full bg-gradient-to-b from-sky-300 to-sky-600" />
       </div>
       <div className="font-medium text-navy-950">{title}</div>
@@ -163,12 +163,12 @@ export function WorkspaceHero({
   return (
     <section className="group relative isolate mb-8 overflow-hidden rounded-3xl px-6 py-9 md:px-10 md:py-11">
       <AzurePhoto src={photo} alt="" priority sizes="(min-width: 1024px) 70vw, 100vw" className="absolute inset-0 -z-10" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--color-navy-950)_0%,rgb(5_8_15/0.86)_48%,rgb(5_8_15/0.25)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--color-navy-950)_0%,rgb(18_14_12/0.86)_48%,rgb(18_14_12/0.25)_100%)]" />
       <div className="grid-lines pointer-events-none absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
       {eyebrow && <div className="flex flex-wrap items-center gap-2">{eyebrow}</div>}
       <h1 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-white md:text-[40px] md:leading-[1.08]">
         {title}
-        {accent && <> <span className="font-serif text-sky-300 italic">{accent}</span></>}
+        {accent && <> <span className="text-sky-300">{accent}</span></>}
       </h1>
       {subtitle && <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-white/65">{subtitle}</p>}
       {actions && <div className="mt-6 flex flex-wrap gap-3">{actions}</div>}
@@ -179,5 +179,5 @@ export function WorkspaceHero({
 
 /** Small label on a night surface, e.g. "Programme overview". */
 export function NightEyebrow({ children }: { children: React.ReactNode }) {
-  return <span className="eyebrow inline-flex items-center gap-2 text-sky-300"><span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_2px_rgb(94_163_255/0.7)]" />{children}</span>;
+  return <span className="eyebrow inline-flex items-center gap-2 text-sky-300"><span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_2px_rgb(244_127_69/0.7)]" />{children}</span>;
 }

@@ -14,8 +14,8 @@ function Ring({ value }: { value: number }) {
       <circle cx="32" cy="32" r={r} fill="none" stroke="url(#coach-g)" strokeWidth="6" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - value / 100)} className="transition-[stroke-dashoffset] duration-700" />
       <defs>
         <linearGradient id="coach-g" x1="0" x2="1">
-          <stop offset="0" stopColor="#5ea3ff" />
-          <stop offset="1" stopColor="#efc06a" />
+          <stop offset="0" stopColor="#f47f45" />
+          <stop offset="1" stopColor="#f9b93a" />
         </linearGradient>
       </defs>
     </svg>
@@ -44,7 +44,7 @@ export function PitchCoach({ submissionId, values, labels }: { submissionId: str
   }
 
   return (
-    <div className="night-gradient relative mt-4 overflow-hidden rounded-2xl p-5 text-white shadow-[0_18px_40px_-18px_rgb(15_111_255/0.55)] ring-1 ring-white/10">
+    <div className="night-gradient relative mt-4 overflow-hidden rounded-2xl p-5 text-white shadow-[0_18px_40px_-18px_rgb(217_73_20/0.55)] ring-1 ring-white/10">
       <div className="flex items-center gap-2 text-sm font-semibold">
         <Sparkles className="h-4 w-4 text-gold-400" /> Pitch Coach
       </div>

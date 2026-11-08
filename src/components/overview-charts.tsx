@@ -8,12 +8,12 @@ import { Bar, BarChart, Cell, LabelList, Pie, PieChart, ResponsiveContainer, Too
 type Slice = { name: string; value: number };
 
 const tip = {
-  contentStyle: { borderRadius: 10, border: "none", boxShadow: "0 0 0 1px rgb(11 18 32 / .08), 0 12px 24px -8px rgb(11 18 32 / .2)", fontSize: 12 },
-  cursor: { fill: "rgb(46 134 255 / .06)" },
+  contentStyle: { borderRadius: 10, border: "none", boxShadow: "0 0 0 1px rgb(31 25 21 / .08), 0 12px 24px -8px rgb(31 25 21 / .2)", fontSize: 12 },
+  cursor: { fill: "rgb(236 98 36 / .06)" },
 };
 // Azure deepens through the live stages; grey for not selected, gold for awarded.
-const STAGE_FILL = ["#98c5ff", "#5ea3ff", "#0f6fff", "#cfd4dc", "#e6a53c"];
-const SECTOR_FILL = ["#0a59de", "#0f6fff", "#2e86ff", "#5ea3ff", "#98c5ff", "#c6dfff", "#e6a53c", "#f6dba6"];
+const STAGE_FILL = ["#f9a77c", "#f47f45", "#d94914", "#d4d4d8", "#f8a018"];
+const SECTOR_FILL = ["#b4380f", "#d94914", "#ec6224", "#f47f45", "#f9a77c", "#fdcdb1", "#f8a018", "#fde3a7"];
 
 /** Pipeline by stage and ideas by sector. Clicking a bar opens the pipeline board. */
 export function OverviewCharts({ stages, sectors }: { stages: Slice[]; sectors: Slice[] }) {
@@ -32,12 +32,12 @@ export function OverviewCharts({ stages, sectors }: { stages: Slice[]; sectors: 
         <div className="mt-5 h-60">
           <ResponsiveContainer>
             <BarChart data={stages} margin={{ top: 18, left: 0, right: 0 }}>
-              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#6a7385" }} axisLine={false} tickLine={false} interval={0} />
+              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#71717b" }} axisLine={false} tickLine={false} interval={0} />
               <YAxis hide allowDecimals={false} />
               <Tooltip {...tip} />
               <Bar dataKey="value" name="Ideas" radius={[6, 6, 0, 0]} barSize={46} className="cursor-pointer" onClick={() => router.push("/app/admin/pipeline")}>
                 {stages.map((s, i) => <Cell key={s.name} fill={STAGE_FILL[i % STAGE_FILL.length]} />)}
-                <LabelList dataKey="value" position="top" fontSize={12} fontWeight={600} fill="#0b1220" />
+                <LabelList dataKey="value" position="top" fontSize={12} fontWeight={600} fill="#1f1915" />
               </Bar>
             </BarChart>
           </ResponsiveContainer>

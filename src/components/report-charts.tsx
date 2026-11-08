@@ -11,32 +11,32 @@ type D = {
   perWeek: { week: string; ideas: number }[];
 };
 
-const AZURE = "#0f6fff";
-const SKY = ["#0f6fff", "#5ea3ff", "#c6dfff", "#e6a53c"];
-const axis = { fontSize: 11, fill: "#6a7385" };
+const AZURE = "#d94914";
+const SKY = ["#d94914", "#f47f45", "#fdcdb1", "#f8a018"];
+const axis = { fontSize: 11, fill: "#71717b" };
 const tip = {
-  contentStyle: { borderRadius: 10, border: "none", boxShadow: "0 0 0 1px rgb(11 18 32 / .08), 0 12px 24px -8px rgb(11 18 32 / .2)", fontSize: 12 },
-  cursor: { fill: "rgb(46 134 255 / .06)" },
+  contentStyle: { borderRadius: 10, border: "none", boxShadow: "0 0 0 1px rgb(31 25 21 / .08), 0 12px 24px -8px rgb(31 25 21 / .2)", fontSize: 12 },
+  cursor: { fill: "rgb(236 98 36 / .06)" },
 };
 
 function Defs() {
   return (
     <defs>
       <linearGradient id="g-azure-h" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stopColor="#98c5ff" />
-        <stop offset="1" stopColor="#0f6fff" />
+        <stop offset="0" stopColor="#f9a77c" />
+        <stop offset="1" stopColor="#d94914" />
       </linearGradient>
       <linearGradient id="g-azure-v" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#2e86ff" />
-        <stop offset="1" stopColor="#98c5ff" />
+        <stop offset="0" stopColor="#ec6224" />
+        <stop offset="1" stopColor="#f9a77c" />
       </linearGradient>
       <linearGradient id="g-gold-v" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#e6a53c" />
-        <stop offset="1" stopColor="#f6dba6" />
+        <stop offset="0" stopColor="#f8a018" />
+        <stop offset="1" stopColor="#fde3a7" />
       </linearGradient>
       <linearGradient id="g-area" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#2e86ff" stopOpacity={0.35} />
-        <stop offset="1" stopColor="#2e86ff" stopOpacity={0} />
+        <stop offset="0" stopColor="#ec6224" stopOpacity={0.35} />
+        <stop offset="1" stopColor="#ec6224" stopOpacity={0} />
       </linearGradient>
     </defs>
   );
@@ -69,7 +69,7 @@ export function ReportCharts({ data }: { data: D }) {
                   className="flex h-8 items-center justify-end rounded-md px-2.5 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25)]"
                   style={{
                     width: `${Math.max(7, (f.count / first) * 100)}%`,
-                    background: `linear-gradient(90deg, ${["#5ea3ff", "#2e86ff", "#0f6fff", "#0a59de"][i % 4]}, #0a59de)`,
+                    background: `linear-gradient(90deg, ${["#f47f45", "#ec6224", "#d94914", "#b4380f"][i % 4]}, #b4380f)`,
                   }}
                 >
                   {f.count}
@@ -88,7 +88,7 @@ export function ReportCharts({ data }: { data: D }) {
             <YAxis type="category" dataKey="name" width={96} tick={axis} axisLine={false} tickLine={false} interval={0} />
             <Tooltip {...tip} />
             <Bar dataKey="value" name="Ideas" fill="url(#g-azure-h)" radius={[0, 4, 4, 0]} barSize={9}>
-              <LabelList dataKey="value" position="right" fontSize={11} fill="#3a4251" />
+              <LabelList dataKey="value" position="right" fontSize={11} fill="#3f3f47" />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -101,7 +101,7 @@ export function ReportCharts({ data }: { data: D }) {
             <YAxis type="category" dataKey="name" width={150} tick={axis} axisLine={false} tickLine={false} interval={0} />
             <Tooltip {...tip} />
             <Bar dataKey="value" name="Ideas" fill="url(#g-azure-h)" radius={[0, 4, 4, 0]} barSize={9}>
-              <LabelList dataKey="value" position="right" fontSize={11} fill="#3a4251" />
+              <LabelList dataKey="value" position="right" fontSize={11} fill="#3f3f47" />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -110,7 +110,7 @@ export function ReportCharts({ data }: { data: D }) {
         <ResponsiveContainer>
           <BarChart data={data.scoreBands}>
             <Defs />
-            <CartesianGrid vertical={false} stroke="#eff1f4" strokeDasharray="3 3" />
+            <CartesianGrid vertical={false} stroke="#f4f4f5" strokeDasharray="3 3" />
             <XAxis dataKey="band" tick={axis} axisLine={false} tickLine={false} />
             <YAxis allowDecimals={false} tick={axis} axisLine={false} tickLine={false} width={24} />
             <Tooltip {...tip} />
@@ -122,12 +122,12 @@ export function ReportCharts({ data }: { data: D }) {
         <ResponsiveContainer>
           <BarChart data={data.timeInStage}>
             <Defs />
-            <CartesianGrid vertical={false} stroke="#eff1f4" strokeDasharray="3 3" />
+            <CartesianGrid vertical={false} stroke="#f4f4f5" strokeDasharray="3 3" />
             <XAxis dataKey="stage" tick={axis} axisLine={false} tickLine={false} />
             <YAxis tick={axis} axisLine={false} tickLine={false} width={24} />
             <Tooltip {...tip} />
             <Bar dataKey="days" name="Days" fill="url(#g-gold-v)" radius={[5, 5, 0, 0]} barSize={44}>
-              <LabelList dataKey="days" position="top" fontSize={11} fill="#3a4251" />
+              <LabelList dataKey="days" position="top" fontSize={11} fill="#3f3f47" />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -136,10 +136,10 @@ export function ReportCharts({ data }: { data: D }) {
         <ResponsiveContainer>
           <AreaChart data={data.perWeek} margin={{ top: 8, right: 8 }}>
             <Defs />
-            <CartesianGrid vertical={false} stroke="#eff1f4" strokeDasharray="3 3" />
+            <CartesianGrid vertical={false} stroke="#f4f4f5" strokeDasharray="3 3" />
             <XAxis dataKey="week" tick={axis} axisLine={false} tickLine={false} />
             <YAxis allowDecimals={false} tick={axis} axisLine={false} tickLine={false} width={24} />
-            <Tooltip {...tip} cursor={{ stroke: "#c6dfff" }} />
+            <Tooltip {...tip} cursor={{ stroke: "#fdcdb1" }} />
             <Area
               type="monotone"
               dataKey="ideas"

@@ -24,12 +24,12 @@ export default async function Verify({ searchParams }: { searchParams: Promise<{
       <PublicHero
         narrow
         eyebrow="3.2(d) Data integrity"
-        title={<>Verify a <span className="font-serif text-[1.08em] text-sky-300 italic">submission receipt.</span></>}
-        body="Enter the reference and SHA-256 fingerprint from a Sky receipt. Nothing about the idea itself is shown."
+        title={<>Verify a <span className="text-sky-300">submission receipt.</span></>}
+        body="Enter the reference and SHA-256 fingerprint from a CEDA receipt. Nothing about the idea itself is shown."
       />
       <div className="mx-auto max-w-5xl px-4 py-14 md:px-8">
         <form className="card max-w-xl space-y-4 p-6">
-          <div><label className="label" htmlFor="ref">Reference</label><input id="ref" name="ref" defaultValue={ref} className="input font-mono" placeholder="SKY-26-0001" required /></div>
+          <div><label className="label" htmlFor="ref">Reference</label><input id="ref" name="ref" defaultValue={ref} className="input font-mono" placeholder="CEDA-26-0001" required /></div>
           <div><label className="label" htmlFor="hash">SHA-256 fingerprint</label><input id="hash" name="hash" defaultValue={hash} className="input font-mono text-xs" required /></div>
           <button className="btn-primary w-full">Verify</button>
         </form>

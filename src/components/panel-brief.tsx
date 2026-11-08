@@ -21,7 +21,7 @@ export function PanelBrief({ submissionId, compact = false }: { submissionId: st
   }
 
   return (
-    <section className="night-gradient relative overflow-hidden rounded-2xl p-6 text-white shadow-[0_18px_40px_-18px_rgb(15_111_255/0.55)] ring-1 ring-white/10">
+    <section className="night-gradient relative overflow-hidden rounded-2xl p-6 text-white shadow-[0_18px_40px_-18px_rgb(217_73_20/0.55)] ring-1 ring-white/10">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 font-semibold"><Sparkles className="h-4 w-4 text-gold-400" /> Panel brief</div>
