@@ -1,0 +1,167 @@
+{
+  "exportedAt": "2026-11-08T13:34:47.465Z",
+  "name": "Naledi Molefe",
+  "email": "innovator@demo.ceda.bw",
+  "phone": "+267 73002988",
+  "role": "INNOVATOR",
+  "omang": "179312541",
+  "dateOfBirth": "1999-05-15T19:14:52.498Z",
+  "gender": "Female",
+  "district": "Maun",
+  "organizationName": "Molefe Ventures (Pty) Ltd",
+  "licenseNumber": "BW0003271106",
+  "youthShareholding": 75,
+  "consentAt": "2026-10-07T13:14:52.498Z",
+  "createdAt": "2026-11-08T13:14:52.499Z",
+  "instances": [
+    {
+      "referenceCode": "CEDA-26-5G2A",
+      "title": "Mokoro Stories: guided audio tours of the Okavango",
+      "status": "FLAGGED",
+      "submittedAt": "2026-10-30T13:14:52.515Z",
+      "reviewNotes": "Promising idea. Please upload a budget breakdown showing how the P180,000 will be spent, and at least one letter of intent from a lodge. Then resubmit.",
+      "awardAmount": null,
+      "template": {
+        "code": "CREATE_2026",
+        "name": "Creative & Tourism Ventures Call"
+      },
+      "fields": [
+        {
+          "fieldKey": "problem",
+          "fieldValue": "Visitors to Maun spend little in local communities because tours are booked and guided from abroad. Polers earn a flat daily fee."
+        },
+        {
+          "fieldKey": "solution",
+          "fieldValue": "A Setswana and English audio-guide app recorded with local polers and elders, sold per trip, with 40% of each sale paid to the poler's community trust."
+        },
+        {
+          "fieldKey": "novelty",
+          "fieldValue": "First tour product in the Delta where community guides own the content and earn per listen."
+        },
+        {
+          "fieldKey": "customers",
+          "fieldValue": "Lodges (bulk licences), self-drive tourists, and schools on field trips."
+        },
+        {
+          "fieldKey": "team",
+          "fieldValue": "Naledi (product, tourism diploma), Kabo (audio engineer), two polers from Boro as co-founders."
+        },
+        {
+          "fieldKey": "district",
+          "fieldValue": "Maun"
+        },
+        {
+          "fieldKey": "funding_requested",
+          "fieldValue": "180000"
+        },
+        {
+          "fieldKey": "jobs_12m",
+          "fieldValue": "9"
+        },
+        {
+          "fieldKey": "revenue_12m",
+          "fieldValue": "64000"
+        },
+        {
+          "fieldKey": "impact",
+          "fieldValue": "Moves tourism spend into villages, keeps oral history alive and creates content jobs for young people outside Gaborone."
+        }
+      ],
+      "files": [
+        {
+          "fileName": "ceda-26-5g2a-pitch.pdf",
+          "fileSize": 74,
+          "serverHash": "e5cb5e8fcc126fd150afaf576152c49f94f597a735bd3365e4c884380951ef3a",
+          "uploadedAt": "2026-10-30T13:14:52.515Z"
+        },
+        {
+          "fileName": "cipa-certificate.pdf",
+          "fileSize": 58,
+          "serverHash": "9e99f6ae340618db18fb8ce8fa4a18c2675e4581176e6a375aab2171a6aee0f9",
+          "uploadedAt": "2026-10-30T13:14:52.515Z"
+        }
+      ]
+    },
+    {
+      "referenceCode": "CEDA-26-5PRR",
+      "title": "Sefofu: recycled-glass tiles made in Lobatse",
+      "status": "AWARDED",
+      "submittedAt": "2026-09-09T13:14:52.526Z",
+      "reviewNotes": "Awarded P320,000 asset finance for the kiln and crusher. Disbursement in two tranches after the supply agreement is signed.",
+      "awardAmount": 320000,
+      "template": {
+        "code": "MAKE_2026",
+        "name": "Local Manufacturing Challenge (Round 1)"
+      },
+      "fields": [
+        {
+          "fieldKey": "problem",
+          "fieldValue": "Botswana imports nearly all its floor and wall tiles while bottle glass goes to landfill."
+        },
+        {
+          "fieldKey": "solution",
+          "fieldValue": "Crush and fuse collected bottles into decorative tiles in a small kiln in Lobatse."
+        },
+        {
+          "fieldKey": "novelty",
+          "fieldValue": "Uses local waste glass as the main raw material; no clay import needed."
+        },
+        {
+          "fieldKey": "customers",
+          "fieldValue": "Hardware chains, interior designers and government housing projects."
+        },
+        {
+          "fieldKey": "team",
+          "fieldValue": "Naledi plus a ceramics graduate and a former brewery logistics manager."
+        },
+        {
+          "fieldKey": "district",
+          "fieldValue": "South-East"
+        },
+        {
+          "fieldKey": "funding_requested",
+          "fieldValue": "350000"
+        },
+        {
+          "fieldKey": "jobs_12m",
+          "fieldValue": "14"
+        },
+        {
+          "fieldKey": "impact",
+          "fieldValue": "Import substitution, recycling and factory jobs for young people."
+        }
+      ],
+      "files": [
+        {
+          "fileName": "ceda-26-5prr-pitch.pdf",
+          "fileSize": 68,
+          "serverHash": "5734428a2f74ff8de5b772b3b04b9d4801fe1c29a88ea90c14ddb8d8b3a5660e",
+          "uploadedAt": "2026-09-09T13:14:52.526Z"
+        },
+        {
+          "fileName": "cipa-certificate.pdf",
+          "fileSize": 58,
+          "serverHash": "9e99f6ae340618db18fb8ce8fa4a18c2675e4581176e6a375aab2171a6aee0f9",
+          "uploadedAt": "2026-09-09T13:14:52.526Z"
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "title": "CEDA-26-5G2A needs changes",
+      "body": "Please upload a budget breakdown and a letter of intent from a lodge, then resubmit.",
+      "createdAt": "2026-11-04T13:14:52.793Z"
+    },
+    {
+      "title": "CEDA asked about CEDA-26-5G2A",
+      "body": "Could you also confirm whether the polers are shareholders?",
+      "createdAt": "2026-11-04T13:14:52.793Z"
+    },
+    {
+      "title": "Award confirmed",
+      "body": "Sefofu was awarded P320,000 asset finance.",
+      "createdAt": "2026-10-09T13:14:52.793Z"
+    }
+  ]
+}
