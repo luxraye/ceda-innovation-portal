@@ -34,7 +34,7 @@ export function StageTracker({
             <span
               className={cn(
                 "relative z-10 flex h-7 w-7 items-center justify-center rounded-full font-mono text-[11px] font-medium",
-                done && "bg-gradient-to-b from-sky-500 to-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(15_111_255/0.5)]",
+                done && "bg-gradient-to-b from-sky-500 to-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(10_168_92/0.5)]",
                 active && !stopped && "animate-pulse-ring bg-white text-sky-700 ring-2 ring-sky-500",
                 active && stopped && "bg-rose-50 text-rose-600 ring-2 ring-rose-400",
                 !done && !active && "bg-white text-slate-400 ring-1 ring-slate-200",

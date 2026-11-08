@@ -1,3 +1,25 @@
+# Arena · the CEDA Innovation Portal (hybrid version)
+
+> **Train. Compete. Get funded.** A national innovation range for Botswana's youth-owned companies.
+
+Arena is the fourth version of the CEDA portal. It keeps Sky's working pipeline (guided submission, blind panel scoring, committee, audit trail, Data Protection Act tools) and rebuilds it as a hybrid of two reference platforms:
+
+- **Corevex Range** (cyber range and CTF platform): a dark command-centre look with neon-green signals and monospace labels, a live scoreboard in the hero, a challenge engine with points and first-solve bonuses, competitions, and a public leaderboard.
+- **SkillRanker** (BDIH's national developer database): every innovator gets a ranked profile, hackathons and bootcamps add to that rank, and a business-facing talent directory lets CEDA and partners find ranked companies.
+
+| New in Arena | Where |
+| --- | --- |
+| Innovator Index: a 0 to 1000 rating from panel score (400), pipeline progress (250), Range challenges (250) and events (100). Every point is explained; it never decides an award. | `src/lib/arena.ts` |
+| Public leaderboard with district league, tiers and sector filters. Companies are named only if they gave showcase consent. | `/leaderboard` |
+| The Range: quiz challenges marked instantly, evidence challenges verified by CEDA staff | `/range`, `/app/innovator/range`, `/app/admin/range` |
+| Events: hackathons, bootcamps and pitch nights with seat booking | `/events` |
+| Innovator profile: rank card, part-by-part breakdown with next steps, badges | `/app/innovator/profile` |
+| Talent directory for CEDA staff and the committee (every view is audited) | `/app/talent` |
+
+Demo sign-in is unchanged (password `SkyDemo2026!`). Try `naledi@demo.sky.bw` for the innovator view and `admin@demo.sky.bw` for Range control and the talent directory.
+
+---
+
 # Sky · the CEDA Innovation Portal
 
 > **Your idea. Botswana's future.** One place for Botswana's youth-owned companies to submit ideas, and for CEDA to evaluate, track and award them fairly and in the open.

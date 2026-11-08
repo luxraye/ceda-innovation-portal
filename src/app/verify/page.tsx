@@ -25,7 +25,7 @@ export default async function Verify({ searchParams }: { searchParams: Promise<{
         narrow
         eyebrow="3.2(d) Data integrity"
         title={<>Verify a <span className="font-serif text-[1.08em] text-sky-300 italic">submission receipt.</span></>}
-        body="Enter the reference and SHA-256 fingerprint from a Sky receipt. Nothing about the idea itself is shown."
+        body="Enter the reference and SHA-256 fingerprint from a Arena receipt. Nothing about the idea itself is shown."
       />
       <div className="mx-auto max-w-5xl px-4 py-14 md:px-8">
         <form className="card max-w-xl space-y-4 p-6">

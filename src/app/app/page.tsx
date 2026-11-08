@@ -11,7 +11,7 @@ export default async function AppHome({ searchParams }: { searchParams: Promise<
   return (
     <div className="max-w-xl">
       <Callout tone="rose" title="That area is for another role">
-        Sky checks your role on every page. As a {ROLE_INFO[user.role as Role].label.toLowerCase()} you can't open that screen.
+        Arena checks your role on every page. As a {ROLE_INFO[user.role as Role].label.toLowerCase()} you can't open that screen.
         The attempt was recorded in the audit trail.
       </Callout>
       <Link href={ROLE_INFO[user.role as Role].home} className="btn-primary mt-4">

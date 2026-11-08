@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { BadgeCheck, Bell, ClipboardCheck, Gavel, Send, Trophy } from "lucide-react";
 
-// A looping illustration of one idea moving through Sky, so a first-time
+// A looping illustration of one idea moving through Arena, so a first-time
 // visitor understands the product in five seconds.
 const EVENTS = [
   { icon: Send, title: "Idea submitted", body: "Receipt SKY-26-0042 sealed with SHA-256", stage: 0, t: "09:12" },
@@ -25,7 +25,7 @@ export function JourneyCard() {
   const stage = EVENTS[i].stage;
   const pct = (stage / (STAGES.length - 1)) * 100;
   return (
-    <div className="card-dark relative overflow-hidden p-6" aria-label="Example: one idea's journey through Sky">
+    <div className="card-dark relative overflow-hidden p-6" aria-label="Example: one idea's journey through Arena">
       <div className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-sky-500/20 blur-3xl" aria-hidden="true" />
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -41,7 +41,7 @@ export function JourneyCard() {
       <div className="relative mt-7">
         <div className="absolute top-[7px] right-[10%] left-[10%] h-px bg-white/10" />
         <motion.div
-          className="absolute top-[7px] left-[10%] h-px bg-gradient-to-r from-sky-400 to-sky-200 shadow-[0_0_12px_rgb(94_163_255)]"
+          className="absolute top-[7px] left-[10%] h-px bg-gradient-to-r from-sky-400 to-sky-200 shadow-[0_0_12px_rgb(57_229_140)]"
           animate={{ width: `${pct * 0.8}%` }}
           transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
         />
@@ -79,7 +79,7 @@ export function JourneyCard() {
                 className={`flex items-start gap-3 rounded-xl p-3 ${idx === 0 ? "bg-white/[0.06] ring-1 ring-sky-300/25" : "ring-1 ring-white/[0.06]"}`}
               >
                 <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${idx === 0 ? "bg-sky-500 text-white shadow-[0_0_20px_-2px_rgb(46_134_255)]" : "bg-white/5 text-white/50"}`}
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${idx === 0 ? "bg-sky-500 text-white shadow-[0_0_20px_-2px_rgb(23_207_116)]" : "bg-white/5 text-white/50"}`}
                 >
                   <e.icon className="h-4 w-4" />
                 </span>

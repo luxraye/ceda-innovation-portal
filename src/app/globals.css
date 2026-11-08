@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 /*
-  Sky design system
-  - Ink: near-black navy for type and night surfaces
-  - Azure: the brand light. Used for action, focus and data
-  - Dawn: a warm CEDA gold, used sparingly as a signal
-  - Neutrals are cool and quiet so the azure carries the page
+  Arena design system (Corevex-style command centre)
+  - Ink: deep navy for type and night surfaces
+  - Signal: neon green. Used for action, focus, live data and ranks.
+    The scale keeps the `sky-*` token names so every screen picks it up.
+  - Alert: a red for the opposing side of a scoreboard and for risk
+  - Dawn: CEDA gold, kept for awards and judge badges
 */
 @theme {
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
@@ -13,17 +14,17 @@
   --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
-  --color-sky-50: #f1f7ff;
-  --color-sky-100: #e2efff;
-  --color-sky-200: #c6dfff;
-  --color-sky-300: #98c5ff;
-  --color-sky-400: #5ea3ff;
-  --color-sky-500: #2e86ff;
-  --color-sky-600: #0f6fff; /* azure */
-  --color-sky-700: #0a59de;
-  --color-sky-800: #0f48ad;
-  --color-sky-900: #133d86;
-  --color-sky-950: #0d2652;
+  --color-sky-50: #ecfdf4;
+  --color-sky-100: #d1fae4;
+  --color-sky-200: #a7f3cb;
+  --color-sky-300: #6ef0a8;
+  --color-sky-400: #39e58c;
+  --color-sky-500: #17cf74;
+  --color-sky-600: #0aa85c;
+  --color-sky-700: #08864a;
+  --color-sky-800: #0b6a3d;
+  --color-sky-900: #0c5734;
+  --color-sky-950: #03311c;
 
   --color-slate-50: #f7f8fa;
   --color-slate-100: #eff1f4;
@@ -36,9 +37,13 @@
   --color-slate-800: #242a36;
   --color-slate-900: #141922;
 
-  --color-navy-800: #111a2e;
-  --color-navy-900: #0b1220;
-  --color-navy-950: #05080f;
+  --color-navy-700: #18233b;
+  --color-navy-800: #0f1830;
+  --color-navy-900: #0a1122;
+  --color-navy-950: #050912;
+
+  --color-alert-400: #ff6b7d;
+  --color-alert-500: #ff3d5a;
 
   --color-gold-300: #f6dba6;
   --color-gold-400: #efc06a;
@@ -60,8 +65,8 @@
   to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgb(46 134 255 / 0.45); }
-  100% { box-shadow: 0 0 0 10px rgb(46 134 255 / 0); }
+  0% { box-shadow: 0 0 0 0 rgb(23 207 116 / 0.45); }
+  100% { box-shadow: 0 0 0 10px rgb(23 207 116 / 0); }
 }
 @keyframes shimmer {
   from { background-position: 200% 0; }
@@ -87,7 +92,7 @@ h1 { letter-spacing: -0.045em; }
 
 .font-serif, .serif { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
 
-::selection { background: rgb(46 134 255 / 0.22); }
+::selection { background: rgb(23 207 116 / 0.22); }
 
 /* Night surfaces */
 .night {
@@ -96,14 +101,14 @@ h1 { letter-spacing: -0.045em; }
 }
 .night-gradient {
   background:
-    radial-gradient(900px 420px at 85% -10%, rgb(46 134 255 / 0.22), transparent 60%),
+    radial-gradient(900px 420px at 85% -10%, rgb(23 207 116 / 0.22), transparent 60%),
     radial-gradient(700px 380px at -10% 110%, rgb(230 165 60 / 0.08), transparent 60%),
     var(--color-navy-950);
 }
 .sky-gradient {
   background:
-    radial-gradient(1000px 420px at 80% -20%, rgb(94 163 255 / 0.25), transparent 60%),
-    linear-gradient(180deg, #eef5ff 0%, #f7f8fa 100%);
+    radial-gradient(1000px 420px at 80% -20%, rgb(57 229 140 / 0.25), transparent 60%),
+    linear-gradient(180deg, #eefcf4 0%, #f7f8fa 100%);
 }
 .grid-lines {
   background-image:
@@ -128,13 +133,13 @@ h1 { letter-spacing: -0.045em; }
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 .text-gradient {
-  background: linear-gradient(180deg, #ffffff 30%, #9fc3ff 100%);
+  background: linear-gradient(180deg, #ffffff 30%, #a7f3cb 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .text-azure {
-  background: linear-gradient(90deg, #7fb6ff, #2e86ff 60%, #7fb6ff);
+  background: linear-gradient(90deg, #7ff5b6, #17cf74 60%, #7ff5b6);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -146,7 +151,7 @@ h1 { letter-spacing: -0.045em; }
   position: absolute;
   inset: 0 0 auto 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(127 182 255 / 0.55), transparent);
+  background: linear-gradient(90deg, transparent, rgb(127 245 182 / 0.55), transparent);
 }
 
 /* Spotlight cards follow the cursor (see components/spotlight.tsx) */
@@ -160,7 +165,7 @@ h1 { letter-spacing: -0.045em; }
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgb(94 163 255 / 0.65), transparent 45%);
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgb(57 229 140 / 0.65), transparent 45%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -190,14 +195,14 @@ h1 { letter-spacing: -0.045em; }
   @apply relative inline-flex h-9 items-center justify-center gap-2 rounded-[9px] px-3.5 text-[13.5px] font-medium whitespace-nowrap transition-all duration-150 select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
 }
 @utility btn-primary {
-  @apply btn text-white;
-  background: linear-gradient(180deg, #3b8fff 0%, #0f6fff 100%);
+  @apply btn text-navy-950 font-semibold;
+  background: linear-gradient(180deg, #5cf0a2 0%, #22d47c 100%);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.22),
-    0 0 0 1px #0a5ade,
-    0 1px 2px rgb(10 89 222 / 0.35),
-    0 6px 16px -6px rgb(15 111 255 / 0.55);
-  &:hover { background: linear-gradient(180deg, #4d9aff 0%, #1a78ff 100%); }
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 0 0 1px #0aa85c,
+    0 1px 2px rgb(8 134 74 / 0.35),
+    0 6px 18px -6px rgb(23 207 116 / 0.6);
+  &:hover { background: linear-gradient(180deg, #74f5b2 0%, #33dc88 100%); }
 }
 @utility btn-dark {
   @apply btn text-white;
@@ -208,7 +213,7 @@ h1 { letter-spacing: -0.045em; }
 @utility btn-light {
   @apply btn text-navy-950;
   background: linear-gradient(180deg, #ffffff 0%, #e9eef7 100%);
-  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgb(255 255 255 / 0.3), 0 8px 24px -8px rgb(94 163 255 / 0.55);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgb(255 255 255 / 0.3), 0 8px 24px -8px rgb(57 229 140 / 0.55);
   &:hover { background: #ffffff; }
 }
 @utility btn-glass {
@@ -243,7 +248,7 @@ h1 { letter-spacing: -0.045em; }
   @apply h-10 w-full rounded-[9px] bg-white px-3 text-sm text-navy-900 transition placeholder:text-slate-400 focus:outline-none;
   box-shadow: 0 0 0 1px rgb(11 18 32 / 0.12), 0 1px 2px rgb(11 18 32 / 0.04);
   &:hover { box-shadow: 0 0 0 1px rgb(11 18 32 / 0.2), 0 1px 2px rgb(11 18 32 / 0.04); }
-  &:focus { box-shadow: 0 0 0 1px var(--color-sky-500), 0 0 0 4px rgb(46 134 255 / 0.16); }
+  &:focus { box-shadow: 0 0 0 1px var(--color-sky-500), 0 0 0 4px rgb(23 207 116 / 0.16); }
 }
 textarea.input { @apply h-auto py-2.5 leading-relaxed; }
 select.input { @apply pr-8; }
@@ -294,3 +299,29 @@ select.input { @apply pr-8; }
 .azure-photo.is-vivid img, .group:hover .azure-photo img { filter: none; transform: scale(1.07); }
 .azure-photo.is-vivid::after, .group:hover .azure-photo::after { opacity: 0.12; }
 @media (prefers-reduced-motion: reduce) { .azure-photo img { transition: none; } }
+
+/* ---------- Arena additions ---------- */
+
+/* Terminal-style label: `> LIVE` monospace tag */
+@utility term {
+  @apply font-mono text-[10.5px] font-medium tracking-[0.18em] uppercase;
+}
+@utility panel-dark {
+  @apply rounded-2xl;
+  background: linear-gradient(180deg, rgb(15 24 48 / 0.92), rgb(8 13 28 / 0.92));
+  box-shadow: inset 0 0 0 1px rgb(57 229 140 / 0.14), 0 20px 60px -30px rgb(0 0 0 / 0.8);
+}
+.scanlines {
+  background-image: repeating-linear-gradient(0deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 3px);
+}
+.glow-green { box-shadow: 0 0 0 1px rgb(57 229 140 / 0.35), 0 0 24px -4px rgb(57 229 140 / 0.45); }
+.dot-live { position: relative; display: inline-block; width: 7px; height: 7px; border-radius: 9999px; background: #39e58c; }
+.dot-live::after { content: ""; position: absolute; inset: -4px; border-radius: inherit; border: 1px solid #39e58c; animation: live-ping 1.6s ease-out infinite; }
+@keyframes live-ping { from { transform: scale(0.6); opacity: 0.9; } to { transform: scale(1.8); opacity: 0; } }
+.hex-grid {
+  background-image: radial-gradient(rgb(57 229 140 / 0.12) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 25%, transparent 75%);
+}
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker { animation: ticker 40s linear infinite; }

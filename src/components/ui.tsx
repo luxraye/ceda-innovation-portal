@@ -78,7 +78,7 @@ export function Stat({ label, value, hint, accent }: { label: string; value: Rea
     <div
       className={cn(
         "card relative overflow-hidden p-5",
-        accent && "bg-[linear-gradient(160deg,#0a59de,#0f6fff_55%,#5ea3ff)] text-white shadow-[0_0_0_1px_#0a59de,0_12px_28px_-14px_rgb(15_111_255/0.7)]",
+        accent && "bg-[linear-gradient(160deg,#08864a,#0aa85c_55%,#39e58c)] text-white shadow-[0_0_0_1px_#08864a,0_12px_28px_-14px_rgb(10_168_92/0.7)]",
       )}
     >
       {accent && <div className="grid-lines pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />}

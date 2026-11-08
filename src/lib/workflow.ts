@@ -53,7 +53,7 @@ export async function decide(user: CurrentUser, submissionId: string, outcome: O
     status = "DECLINED";
     label = `Not selected at ${stage.name}`;
     ownerTitle = `Decision on ${sub.reference}`;
-    ownerBody = "Your idea was not selected this time. Read the feedback in Sky.";
+    ownerBody = "Your idea was not selected this time. Read the feedback in Arena.";
   } else {
     status = "CHANGES_REQUESTED";
     label = "Changes requested";

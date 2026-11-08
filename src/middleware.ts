@@ -9,6 +9,7 @@ const AREA_ROLES: Record<string, string[]> = {
   "/app/admin": ["ADMIN"],
   "/app/dpo": ["DPO"],
   "/app/reports": ["ADMIN", "ADJUDICATOR", "DPO"],
+  "/app/talent": ["ADMIN", "ADJUDICATOR"],
 };
 
 export async function middleware(req: NextRequest) {

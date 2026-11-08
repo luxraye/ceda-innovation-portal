@@ -13,6 +13,11 @@ import {
   ScrollText,
   ShieldCheck,
   Sparkles,
+  Swords,
+  Trophy,
+  UserRound,
+  Users,
+  Crosshair,
 } from "lucide-react";
 import { Logo } from "./logo";
 import { NotificationBell } from "./notification-bell";
@@ -25,7 +30,10 @@ type NavItem = { href: string; label: string; icon: React.ComponentType<{ classN
 const NAV: Record<Role, NavItem[]> = {
   INNOVATOR: [
     { href: "/app/innovator", label: "My dashboard", icon: LayoutDashboard },
+    { href: "/app/innovator/range", label: "The Range", icon: Swords },
+    { href: "/app/innovator/profile", label: "My profile & Index", icon: UserRound },
     { href: "/calls", label: "Open calls", icon: Megaphone },
+    { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/app/privacy", label: "Privacy centre", icon: Lock },
   ],
   EVALUATOR: [
@@ -34,6 +42,7 @@ const NAV: Record<Role, NavItem[]> = {
   ],
   ADJUDICATOR: [
     { href: "/app/adjudicator", label: "Committee board", icon: Gavel },
+    { href: "/app/talent", label: "Talent directory", icon: Users },
     { href: "/app/reports", label: "Reports", icon: BarChart3 },
     { href: "/app/privacy", label: "Privacy centre", icon: Lock },
   ],
@@ -41,6 +50,8 @@ const NAV: Record<Role, NavItem[]> = {
     { href: "/app/admin", label: "Overview", icon: LayoutDashboard },
     { href: "/app/admin/pipeline", label: "Pipeline board", icon: KanbanSquare },
     { href: "/app/admin/calls", label: "Calls & rubrics", icon: FileText },
+    { href: "/app/admin/range", label: "Range control", icon: Crosshair },
+    { href: "/app/talent", label: "Talent directory", icon: Users },
     { href: "/app/reports", label: "Reports", icon: BarChart3 },
     { href: "/app/admin/audit", label: "Audit trail", icon: ScrollText },
   ],
@@ -72,12 +83,13 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
   return (
     <div className="min-h-screen bg-slate-50 lg:grid lg:grid-cols-[248px_1fr]">
-      <aside className="no-print sticky top-0 hidden h-screen flex-col border-r border-slate-200/80 bg-[#fbfbfc] px-3 py-4 lg:flex">
-        <div className="px-2.5 pt-1 pb-5">
-          <Logo href={ROLE_INFO[role].home} />
+      <aside className="night no-print sticky top-0 hidden h-screen flex-col overflow-hidden border-r border-white/[0.06] px-3 py-4 lg:flex">
+        <div className="hex-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+        <div className="relative px-2.5 pt-1 pb-5">
+          <Logo href={ROLE_INFO[role].home} dark />
         </div>
-        <div className="eyebrow px-3 pt-2 pb-2 text-slate-400">Workspace</div>
-        <nav className="space-y-0.5" aria-label="Workspace">
+        <div className="term relative px-3 pt-2 pb-2 text-white/35"><span className="text-sky-400">&gt;</span> Workspace</div>
+        <nav className="relative space-y-0.5" aria-label="Workspace">
           {nav.map((n) => {
             const on = n.href === active;
             return (
@@ -85,22 +97,23 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
                 key={n.href}
                 href={n.href}
                 aria-current={on ? "page" : undefined}
-                className={`group flex h-9 items-center gap-2.5 rounded-lg px-3 text-[13.5px] transition ${
+                className={`group relative flex h-9 items-center gap-2.5 rounded-lg px-3 text-[13.5px] transition ${
                   on
-                    ? "bg-white font-medium text-navy-950 shadow-[0_0_0_1px_rgb(11_18_32/0.08),0_1px_2px_rgb(11_18_32/0.06)]"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-navy-950"
+                    ? "bg-sky-400/10 font-medium text-white ring-1 ring-sky-400/25 ring-inset"
+                    : "text-white/55 hover:bg-white/[0.05] hover:text-white"
                 }`}
               >
-                <n.icon className={`h-4 w-4 ${on ? "text-sky-600" : "text-slate-400 group-hover:text-slate-600"}`} />
+                {on && <span className="absolute top-2 bottom-2 left-0 w-[2px] rounded-full bg-sky-400" />}
+                <n.icon className={`h-4 w-4 ${on ? "text-sky-300" : "text-white/35 group-hover:text-white/70"}`} />
                 {n.label}
               </Link>
             );
           })}
         </nav>
-        <div className="mt-auto space-y-2">
+        <div className="relative mt-auto space-y-2">
           <Link
             href="/tour"
-            className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl bg-navy-950 p-3 text-[13px] text-white shadow-[0_8px_20px_-10px_rgb(5_8_15/0.6)]"
+            className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl bg-white/[0.04] p-3 text-[13px] text-white ring-1 ring-white/10"
           >
             <span className="pointer-events-none absolute -top-8 -right-6 h-20 w-20 rounded-full bg-sky-500/40 blur-2xl" aria-hidden="true" />
             <span className="relative flex h-7 w-7 items-center justify-center rounded-lg bg-gold-400/15 ring-1 ring-gold-400/40">
@@ -112,12 +125,12 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
             </span>
           </Link>
           <div className="flex items-center gap-2.5 rounded-xl p-2">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-sky-100 to-sky-200 text-[11px] font-semibold text-sky-800 ring-1 ring-sky-300/60">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-400/15 font-mono text-[11px] font-semibold text-sky-300 ring-1 ring-sky-400/40">
               {initials(user.name)}
             </span>
             <div className="min-w-0 text-xs">
-              <div className="truncate font-medium text-navy-950">{user.name}</div>
-              <div className="truncate text-slate-500">{user.org?.name ?? ROLE_INFO[role].label}</div>
+              <div className="truncate font-medium text-white">{user.name}</div>
+              <div className="truncate text-white/45">{user.org?.name ?? ROLE_INFO[role].label}</div>
             </div>
           </div>
         </div>
@@ -166,7 +179,7 @@ export async function AppShell({ user, children }: { user: CurrentUser; children
         </nav>
         <main className="mx-auto w-full max-w-[1240px] flex-1 px-4 py-7 md:px-8 md:py-9">{children}</main>
         <footer className="no-print flex flex-wrap justify-between gap-2 border-t border-slate-200/80 px-4 py-4 text-xs text-slate-400 md:px-8">
-          <span>Sky prototype · CEDA Innovation Portal Hackathon · Demo data only</span>
+          <span>Arena prototype · CEDA Innovation Portal Hackathon · Demo data only</span>
           <span className="font-mono">Botswana Data Protection Act 2024</span>
         </footer>
       </div>

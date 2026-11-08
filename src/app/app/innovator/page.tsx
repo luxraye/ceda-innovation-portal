@@ -7,6 +7,7 @@ import { StageTracker } from "@/components/stage-tracker";
 import { daysUntil, fmtDate, pula, timeAgo } from "@/lib/format";
 import { AzurePhoto } from "@/components/photo";
 import { PHOTOS, themePhoto } from "@/lib/photos";
+import { MyIndexCard } from "@/components/my-index";
 
 export const metadata = { title: "My dashboard" };
 
@@ -33,13 +34,17 @@ export default async function InnovatorHome() {
           Dumela, <span className="font-serif text-sky-300 italic">{user.name.split(" ")[0]}.</span>
         </h1>
         <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-white/65">
-          {user.org?.name ? `${user.org.name} · ` : ""}Follow every idea you've submitted, and answer feedback when the panel asks.
+          {user.org?.name ? `${user.org.name} · ` : ""}Train on the Range, climb the Index, and follow every idea you've submitted.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/calls" className="btn-light">Start a new idea <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/calls" className="btn-primary">Start a new idea <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/app/innovator/range" className="btn-glass">Train on the Range</Link>
           {calls[0] && <span className="btn-glass pointer-events-none">Next deadline · {fmtDate(calls[0].closesAt)}</span>}
         </div>
       </section>
+      <div className="mb-6">
+        <MyIndexCard userId={user.id} />
+      </div>
       <div className="grid gap-4 sm:grid-cols-3">
         <Stat label="Ideas in progress" value={active.length} hint="Submitted and being reviewed" accent />
         <Stat label="Need your attention" value={needsAction.length} hint="Drafts and feedback to answer" />

@@ -16,7 +16,7 @@ export default function PrivacyNotice() {
         <div className="card max-w-3xl space-y-8 p-8 text-[15px] leading-relaxed text-slate-700 md:p-10">
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Who is responsible</h2>
-            <p className="mt-2">The Citizen Entrepreneurial Development Agency (CEDA) is the data controller for Sky. CEDA's Data Protection Officer can be reached through the privacy centre in your account. You may also complain to the Information and Data Protection Commission.</p>
+            <p className="mt-2">The Citizen Entrepreneurial Development Agency (CEDA) is the data controller for Arena. CEDA's Data Protection Officer can be reached through the privacy centre in your account. You may also complain to the Information and Data Protection Commission.</p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-navy-900">What we collect and why</h2>
@@ -46,7 +46,7 @@ export default function PrivacyNotice() {
           </section>
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Where it is stored</h2>
-            <p className="mt-2">Sky is designed to run on servers in Botswana. Data is not transferred abroad unless the Act allows it. Files are encrypted at rest and all traffic uses HTTPS.</p>
+            <p className="mt-2">Arena is designed to run on servers in Botswana. Data is not transferred abroad unless the Act allows it. Files are encrypted at rest and all traffic uses HTTPS.</p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Your rights</h2>

@@ -153,7 +153,7 @@ export async function register(_: FormState, form: FormData): Promise<FormState>
   });
   await notify({
     userId: user.id,
-    title: "Welcome to Sky",
+    title: "Welcome to Arena",
     body: "Your account is ready. Browse open CEDA calls and start your first submission.",
     href: "/app/innovator",
     kind: "SUCCESS",

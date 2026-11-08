@@ -14,6 +14,7 @@ import { audit } from "../src/lib/audit";
 import { CONSENT_VERSION } from "../src/lib/domain";
 import { DEFAULT_CRITERIA, DEFAULT_FORM, DEFAULT_STAGES } from "../src/lib/templates";
 import { DEMO_PASSWORD } from "../src/lib/demo";
+import { CHALLENGES, EVENTS } from "./arena-seed-data";
 import { AGRI_IDEAS, EVALUATORS, GREEN_IDEAS, INNOVATORS, YOUTH_IDEAS, type Idea } from "./seed-data";
 
 const prisma = new PrismaClient();
@@ -52,6 +53,7 @@ function demoPdf(title: string, subtitle: string) {
 async function reset() {
   // Children first.
   await prisma.$transaction([
+    prisma.challengeSolve.deleteMany(), prisma.challenge.deleteMany(), prisma.eventSeat.deleteMany(), prisma.event.deleteMany(),
     prisma.score.deleteMany(), prisma.assignment.deleteMany(), prisma.decision.deleteMany(), prisma.feedback.deleteMany(),
     prisma.stageEvent.deleteMany(), prisma.submissionFile.deleteMany(), prisma.submissionVersion.deleteMany(), prisma.submission.deleteMany(),
     prisma.criterion.deleteMany(), prisma.stage.deleteMany(), prisma.call.deleteMany(), prisma.notification.deleteMany(),
@@ -174,7 +176,7 @@ async function main() {
     refNo++;
     const reference = `SKY-26-${String(refNo).padStart(4, "0")}`;
     const answers = answersFor(idea);
-    await prisma.organisation.update({ where: { id: owner.orgId! }, data: { sector: idea.sector } });
+    await prisma.organisation.updateMany({ where: { id: owner.orgId!, sector: "" }, data: { sector: idea.sector } });
     const sub = await prisma.submission.create({
       data: { reference, callId: call.id, orgId: owner.orgId!, ownerId: owner.id, title: idea.title, summary: idea.summary, sector: idea.sector, status: opts.draftOnly ? "DRAFT" : "SUBMITTED", draft: JSON.stringify(opts.draftOnly ? { title: idea.title, summary: idea.summary, sector: idea.sector, problem: idea.problem } : answers), createdAt: day(submittedDay - 3), submittedAt: opts.draftOnly ? null : day(submittedDay) },
     });
@@ -323,6 +325,56 @@ async function main() {
   await makeSubmission(green, byName("Mpho Letsholo"), GREEN_IDEAS[0], -2);
   await makeSubmission(green, byName("Refilwe Sebina"), GREEN_IDEAS[1], 0);
 
+
+  // ---------- Arena: Range challenges, events, solves ----------
+  const challenges = [];
+  for (const [i, c] of CHALLENGES.entries()) {
+    challenges.push(
+      await prisma.challenge.create({
+        data: { slug: c.slug, title: c.title, track: c.track, difficulty: c.difficulty, points: c.points, kind: c.kind, brief: c.brief, question: c.question, options: c.options ? JSON.stringify(c.options) : null, answer: c.answer ?? null, minWords: c.minWords ?? 0, order: i, createdAt: day(-60) },
+      }),
+    );
+  }
+  const events = [];
+  for (const e of EVENTS) {
+    events.push(
+      await prisma.event.create({
+        data: { slug: e.slug, title: e.title, kind: e.kind, location: e.location, district: e.district, startsAt: day(e.startDay, 9), endsAt: day(e.startDay + e.days - 1, 17), seats: e.seats, bonus: e.bonus, summary: e.summary, partner: e.partner },
+      }),
+    );
+  }
+  // Each innovator solves a share of the Range, roughly in line with how strong their idea is.
+  const firstSolved = new Set<string>();
+  const strength = new Map<string, number>([[naledi.id, 0.9]]);
+  for (const [i, u] of innovators.entries()) if (!strength.has(u.id)) strength.set(u.id, 0.25 + ((i * 37) % 60) / 100);
+  const solveOrder = [...innovators].sort((a, b) => (strength.get(b.id)! - strength.get(a.id)!));
+  for (const [rankI, u] of solveOrder.entries()) {
+    const st = strength.get(u.id)!;
+    for (const [ci, c] of challenges.entries()) {
+      if (rand() > st - ci * 0.035) continue;
+      const first = !firstSolved.has(c.id);
+      firstSolved.add(c.id);
+      const at = day(-50 + rankI * 1.5 + ci * 2.2);
+      const evidence = c.kind === "EVIDENCE" ? `Demo evidence from ${u.org?.name}: notes from customer conversations, numbers and sources. `.repeat(Math.ceil(c.minWords / 12)) : null;
+      await prisma.challengeSolve.create({ data: { challengeId: c.id, userId: u.id, status: "SOLVED", attempts: 1 + Math.floor(rand() * 3), evidence, points: first ? Math.round(c.points * 1.2) : c.points, first, solvedAt: at } });
+      log({ at, actorId: u.id, actorRole: "INNOVATOR", action: "range.solved", entity: "Challenge", entityId: c.id, meta: { points: c.points, first } });
+    }
+  }
+  // An evidence task waiting for the CEDA team to verify.
+  await prisma.challengeSolve.upsert({
+    where: { challengeId_userId: { challengeId: challenges.find((c) => c.slug === "ten-customer-interviews")!.id, userId: naledi.id } },
+    update: { status: "PENDING", points: 0, first: false },
+    create: { challengeId: challenges.find((c) => c.slug === "ten-customer-interviews")!.id, userId: naledi.id, status: "PENDING", evidence: "We interviewed 14 farmers in Tsabong and Werda. ".repeat(12), points: 0, solvedAt: day(-1) },
+  });
+  // Event seats: past events attended, upcoming ones booked.
+  for (const [i, u] of innovators.entries()) {
+    for (const [ei, e] of events.entries()) {
+      if ((i + ei) % 3 === 0 || (u.id === naledi.id && ei !== 1)) {
+        await prisma.eventSeat.create({ data: { eventId: e.id, userId: u.id, attended: e.startsAt.getTime() < NOW, createdAt: day(-40 + ei * 10) } });
+      }
+    }
+  }
+
   // ---------- Notifications for the demo accounts ----------
   await prisma.notification.createMany({
     data: [
@@ -367,8 +419,8 @@ async function main() {
   for (const e of auditQueue) await audit(e, e.at);
 
   const counts = { users: await prisma.user.count(), submissions: await prisma.submission.count(), audit: await prisma.auditLog.count() };
-  console.log(`[sky] Seeded ${counts.users} users, ${counts.submissions} submissions, ${counts.audit} audit entries.`);
-  console.log(`[sky] Demo password for every account: ${DEMO_PASSWORD}`);
+  console.log(`[arena] Seeded ${counts.users} users, ${counts.submissions} submissions, ${counts.audit} audit entries.`);
+  console.log(`[arena] Demo password for every account: ${DEMO_PASSWORD}`);
 }
 
 main()

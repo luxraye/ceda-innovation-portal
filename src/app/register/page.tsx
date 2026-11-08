@@ -27,7 +27,7 @@ export default function RegisterPage() {
             <Logo />
           </div>
           <span className="req-badge mt-10 lg:mt-0">3.2(a) · DPA 2024</span>
-          <h1 className="mt-4 text-3xl text-navy-950 md:text-4xl">Create your Sky account</h1>
+          <h1 className="mt-4 text-3xl text-navy-950 md:text-4xl">Create your Arena account</h1>
           <p className="mt-2 text-sm text-slate-500 lg:hidden">
             For Batswana aged 18 to 35 whose company is more than 50% youth-owned.
           </p>

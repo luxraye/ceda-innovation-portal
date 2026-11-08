@@ -22,7 +22,7 @@ const SECTIONS: Section[] = [
     id: "a",
     code: "3.2(a)",
     title: "A submission form nobody can get wrong",
-    plain: "A young founder applies from a phone, and Sky makes sure the application is complete before CEDA ever sees it.",
+    plain: "A young founder applies from a phone, and Arena makes sure the application is complete before CEDA ever sees it.",
     how: [
       "Eligibility is checked at sign-up: age 18 to 35, citizenship, CIPA UIN format and more than 50% youth shareholding.",
       "Each call has its own form, built by CEDA staff without code. Required fields block submission until answered.",
@@ -118,7 +118,7 @@ const SECTIONS: Section[] = [
     id: "dpa",
     code: "DPA 2024",
     title: "Data protection is a feature, not a footnote",
-    plain: "Sky turns the Botswana Data Protection Act 2024 into tools applicants and CEDA's DPO actually use.",
+    plain: "Arena turns the Botswana Data Protection Act 2024 into tools applicants and CEDA's DPO actually use.",
     how: [
       "Separate, versioned consents. Applicants download, correct, restrict or ask to erase their data themselves.",
       "A DPO workspace with rights requests and due dates, retention rules and a breach register with a 72-hour countdown.",
@@ -137,7 +137,7 @@ export default function Tour() {
         eyebrow="Judge's guide"
         title={
           <>
-            Sky in two minutes, <span className="font-serif text-[1.08em] text-sky-300 italic">mapped to the CEDA brief.</span>
+            Arena in two minutes, <span className="font-serif text-[1.08em] text-sky-300 italic">mapped to the CEDA brief.</span>
           </>
         }
         photo={PHOTOS.city}
@@ -199,7 +199,7 @@ export default function Tour() {
                 <ul className="space-y-4 border-t border-slate-100 bg-slate-50/70 p-7 md:border-t-0 md:border-l md:p-8">
                   {s.how.map((h) => (
                     <li key={h} className="flex gap-3 text-sm leading-relaxed text-slate-700">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(15_111_255/0.5)]">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(10_168_92/0.5)]">
                         <Check className="h-3 w-3" strokeWidth={3} />
                       </span>
                       {h}

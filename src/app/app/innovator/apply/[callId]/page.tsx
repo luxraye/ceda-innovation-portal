@@ -20,7 +20,7 @@ export default async function Apply({ params }: { params: Promise<{ callId: stri
   const start = startApplication.bind(null, call.id);
   return (
     <div className="max-w-2xl">
-      <PageHeader eyebrow={<Req k="a" />} title={`Apply to ${call.title}`} subtitle="Before you start, Sky confirms you and your company qualify." />
+      <PageHeader eyebrow={<Req k="a" />} title={`Apply to ${call.title}`} subtitle="Before you start, Arena confirms you and your company qualify." />
       <div className="card p-6">
         <ul className="space-y-3">
           {elig.checks.map((c) => (

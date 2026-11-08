@@ -1,14 +1,15 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Trophy } from "lucide-react";
 import { Logo } from "./logo";
 import { getSession } from "@/lib/auth";
 import { ROLE_INFO } from "@/lib/domain";
 import { AzurePhoto } from "./photo";
 
 const LINKS = [
-  { href: "/#how", label: "How it works" },
   { href: "/calls", label: "Open calls" },
-  { href: "/#trust", label: "Your data" },
+  { href: "/range", label: "The Range" },
+  { href: "/events", label: "Events" },
+  { href: "/#how", label: "How it works" },
   { href: "/tour", label: "Judge's guide" },
 ];
 
@@ -16,10 +17,10 @@ const LINKS = [
 export async function PublicHeader() {
   const session = await getSession();
   return (
-    <header className="relative z-30 mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 md:px-8">
+    <header className="relative z-30 mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5 md:px-8">
       <Logo dark />
       <nav
-        className="hidden items-center gap-1 rounded-full bg-white/[0.04] p-1 text-[13px] ring-1 ring-white/10 backdrop-blur-md md:flex"
+        className="hidden items-center gap-1 rounded-full bg-white/[0.04] p-1 text-[13px] ring-1 ring-white/10 backdrop-blur-md lg:flex"
         aria-label="Main"
       >
         {LINKS.map((l) => (
@@ -29,17 +30,27 @@ export async function PublicHeader() {
         ))}
       </nav>
       <div className="flex items-center gap-2">
+        <Link href="/leaderboard" className="btn-glass hidden lg:inline-flex">
+          <Trophy className="h-3.5 w-3.5 text-sky-300" /> Leaderboard
+        </Link>
         {session ? (
-          <Link href={ROLE_INFO[session.role].home} className="btn-light">
-            My workspace <ArrowUpRight className="h-3.5 w-3.5" />
+          <Link href={ROLE_INFO[session.role].home} className="btn-primary">
+            Portal <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         ) : (
           <>
             <Link href="/login" className="btn-quiet text-white/75 hover:bg-white/10 hover:text-white">Sign in</Link>
-            <Link href="/register" className="btn-light hidden sm:inline-flex">Apply now</Link>
+            <Link href="/register" className="btn-primary hidden sm:inline-flex">Join the Arena</Link>
           </>
         )}
       </div>
+      <nav className="-mx-4 flex w-[calc(100%+2rem)] basis-full gap-1 overflow-x-auto px-4 text-[13px] lg:hidden" aria-label="Main (mobile)">
+        {[{ href: "/leaderboard", label: "Leaderboard" }, ...LINKS].map((l) => (
+          <Link key={l.href} href={l.href} className="shrink-0 rounded-full px-3 py-1.5 text-white/65 ring-1 ring-white/10">
+            {l.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }
@@ -51,8 +62,8 @@ export function PublicFooter() {
         <div className="md:col-span-6">
           <Logo dark />
           <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55">
-            Sky is a prototype of the CEDA Innovation Portal, where youth-owned Botswana companies bring ideas forward and CEDA evaluates,
-            tracks and rewards them in the open.
+            Arena is a prototype of the CEDA Innovation Portal: a national range where youth-owned Botswana companies sharpen their ideas,
+            climb a transparent Innovator Index, and bring their best work to CEDA calls.
           </p>
           <p className="mt-5 max-w-md text-xs leading-relaxed text-white/35">
             Built by Local Grow (Pty) Ltd (UIN BW00009995803) for the CEDA Innovation Portal Hackathon, November 2026. Not an official CEDA
@@ -63,6 +74,9 @@ export function PublicFooter() {
           <div className="eyebrow text-white/40">Portal</div>
           <ul className="mt-4 space-y-2.5 text-sm text-white/65">
             <li><Link href="/calls" className="hover:text-white">Open calls</Link></li>
+            <li><Link href="/range" className="hover:text-white">The Range</Link></li>
+            <li><Link href="/leaderboard" className="hover:text-white">Leaderboard</Link></li>
+            <li><Link href="/events" className="hover:text-white">Events</Link></li>
             <li><Link href="/register" className="hover:text-white">Create an account</Link></li>
             <li><Link href="/tour" className="hover:text-white">Judge's guide</Link></li>
             <li><Link href="/privacy" className="hover:text-white">Privacy notice</Link></li>
@@ -87,7 +101,7 @@ export function PublicFooter() {
         aria-hidden="true"
         className="pointer-events-none mx-auto -mb-[0.22em] max-w-7xl px-4 text-center text-[22vw] leading-none font-semibold tracking-[-0.06em] text-white/[0.035] select-none md:px-8 md:text-[15rem]"
       >
-        Sky
+        Arena
       </div>
     </footer>
   );
@@ -107,14 +121,14 @@ export async function PublicHero({
   body?: React.ReactNode;
   children?: React.ReactNode;
   narrow?: boolean;
-  /** Optional background photo, shown in Sky's azure duotone on the right. */
+  /** Optional background photo, shown in the Arena duotone on the right. */
   photo?: string;
 }) {
   return (
     <section className="night noise relative isolate overflow-hidden">
       <div className="grid-lines absolute inset-0 -z-10" aria-hidden="true" />
       <div
-        className="absolute inset-0 -z-10 bg-[radial-gradient(50%_70%_at_75%_0%,rgb(15_111_255/0.28),transparent_70%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(50%_70%_at_75%_0%,rgb(10_168_92/0.28),transparent_70%)]"
         aria-hidden="true"
       />
       {photo && (

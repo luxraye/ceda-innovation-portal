@@ -17,7 +17,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <AuthAside
         title={
           <>
-            Welcome back to <span className="font-serif text-[1.08em] text-sky-300 italic">Sky.</span>
+            Welcome back to <span className="font-serif text-[1.08em] text-sky-300 italic">Arena.</span>
           </>
         }
         body="Follow your ideas through every stage, or review the ones assigned to you. Everything you do here is recorded on a tamper-evident trail."
@@ -31,7 +31,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <p className="mt-2 text-sm text-slate-500">Use the email you registered with.</p>
           <LoginForm next={next ?? ""} />
           <p className="mt-6 text-sm text-slate-500">
-            New to Sky? <Link href="/register" className="font-medium text-sky-700 hover:underline">Create an account</Link>
+            New to Arena? <Link href="/register" className="font-medium text-sky-700 hover:underline">Create an account</Link>
           </p>
 
           {demo && (

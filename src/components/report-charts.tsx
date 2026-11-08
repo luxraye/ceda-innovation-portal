@@ -11,32 +11,32 @@ type D = {
   perWeek: { week: string; ideas: number }[];
 };
 
-const AZURE = "#0f6fff";
-const SKY = ["#0f6fff", "#5ea3ff", "#c6dfff", "#e6a53c"];
+const AZURE = "#0aa85c";
+const SKY = ["#0aa85c", "#39e58c", "#a7f3cb", "#e6a53c"];
 const axis = { fontSize: 11, fill: "#6a7385" };
 const tip = {
   contentStyle: { borderRadius: 10, border: "none", boxShadow: "0 0 0 1px rgb(11 18 32 / .08), 0 12px 24px -8px rgb(11 18 32 / .2)", fontSize: 12 },
-  cursor: { fill: "rgb(46 134 255 / .06)" },
+  cursor: { fill: "rgb(23 207 116 / .06)" },
 };
 
 function Defs() {
   return (
     <defs>
       <linearGradient id="g-azure-h" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stopColor="#98c5ff" />
-        <stop offset="1" stopColor="#0f6fff" />
+        <stop offset="0" stopColor="#6ef0a8" />
+        <stop offset="1" stopColor="#0aa85c" />
       </linearGradient>
       <linearGradient id="g-azure-v" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#2e86ff" />
-        <stop offset="1" stopColor="#98c5ff" />
+        <stop offset="0" stopColor="#17cf74" />
+        <stop offset="1" stopColor="#6ef0a8" />
       </linearGradient>
       <linearGradient id="g-gold-v" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stopColor="#e6a53c" />
         <stop offset="1" stopColor="#f6dba6" />
       </linearGradient>
       <linearGradient id="g-area" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#2e86ff" stopOpacity={0.35} />
-        <stop offset="1" stopColor="#2e86ff" stopOpacity={0} />
+        <stop offset="0" stopColor="#17cf74" stopOpacity={0.35} />
+        <stop offset="1" stopColor="#17cf74" stopOpacity={0} />
       </linearGradient>
     </defs>
   );
@@ -69,7 +69,7 @@ export function ReportCharts({ data }: { data: D }) {
                   className="flex h-8 items-center justify-end rounded-md px-2.5 text-xs font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25)]"
                   style={{
                     width: `${Math.max(7, (f.count / first) * 100)}%`,
-                    background: `linear-gradient(90deg, ${["#5ea3ff", "#2e86ff", "#0f6fff", "#0a59de"][i % 4]}, #0a59de)`,
+                    background: `linear-gradient(90deg, ${["#39e58c", "#17cf74", "#0aa85c", "#08864a"][i % 4]}, #08864a)`,
                   }}
                 >
                   {f.count}
@@ -139,7 +139,7 @@ export function ReportCharts({ data }: { data: D }) {
             <CartesianGrid vertical={false} stroke="#eff1f4" strokeDasharray="3 3" />
             <XAxis dataKey="week" tick={axis} axisLine={false} tickLine={false} />
             <YAxis allowDecimals={false} tick={axis} axisLine={false} tickLine={false} width={24} />
-            <Tooltip {...tip} cursor={{ stroke: "#c6dfff" }} />
+            <Tooltip {...tip} cursor={{ stroke: "#a7f3cb" }} />
             <Area
               type="monotone"
               dataKey="ideas"

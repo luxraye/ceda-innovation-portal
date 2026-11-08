@@ -1,4 +1,4 @@
-// Sky - CEDA Innovation Portal data model.
+// Arena - CEDA Innovation Portal data model (built on Sky's).
 // Local development uses SQLite (zero setup). `node scripts/select-provider.mjs`
 // switches the provider to PostgreSQL when DATABASE_URL is a postgres URL.
 // Enum-like fields are strings so the same schema works on both databases;
@@ -41,6 +41,8 @@ model User {
   handledRequests DataRequest[] @relation("Handler")
   auditLogs     AuditLog[]
   stageEvents   StageEvent[]
+  solves        ChallengeSolve[]
+  seats         EventSeat[]
 }
 
 model Organisation {
@@ -323,4 +325,71 @@ model RetentionPolicy {
   action    String // ANONYMISE | DELETE | ARCHIVE
   basis     String
   lastRunAt DateTime?
+}
+
+// ---------- Arena: challenges, events and the Innovator Index ----------
+
+// A short, scored task on "the Range": a quiz with one right answer (auto-marked,
+// like a CTF flag) or an evidence task the CEDA team verifies.
+model Challenge {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  track       String // MARKET | FINANCE | PRODUCT | COMPLIANCE | PITCH | IMPACT
+  difficulty  String // EASY | MEDIUM | HARD
+  points      Int
+  kind        String // QUIZ | EVIDENCE
+  brief       String
+  question    String
+  options     String? // JSON string[] for QUIZ
+  answer      Int? // index into options for QUIZ
+  minWords    Int      @default(0) // for EVIDENCE
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  solves      ChallengeSolve[]
+}
+
+model ChallengeSolve {
+  id          String    @id @default(cuid())
+  challengeId String
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status      String    @default("SOLVED") // SOLVED | PENDING | FAILED
+  attempts    Int       @default(1)
+  evidence    String?
+  points      Int       @default(0)
+  first       Boolean   @default(false) // first solve of this challenge ("first blood")
+  solvedAt    DateTime  @default(now())
+  @@unique([challengeId, userId])
+  @@index([userId])
+}
+
+// Hackathons, bootcamps and pitch nights, in the spirit of national competitions.
+model Event {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  kind        String // HACKATHON | BOOTCAMP | PITCH_NIGHT
+  location    String
+  district    String
+  startsAt    DateTime
+  endsAt      DateTime
+  seats       Int
+  bonus       Int      @default(50) // Index points for taking part
+  summary     String
+  partner     String?
+  createdAt   DateTime @default(now())
+  attendees   EventSeat[]
+}
+
+model EventSeat {
+  id        String   @id @default(cuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attended  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  @@unique([eventId, userId])
 }

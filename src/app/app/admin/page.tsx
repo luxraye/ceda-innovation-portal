@@ -26,7 +26,7 @@ export default async function AdminHome() {
   ];
   return (
     <div>
-      <PageHeader eyebrow={<><Req k="c" /><Req k="f" /></>} title="Programme overview" subtitle="Everything moving through Sky right now." actions={<><Link href="/app/admin/pipeline" className="btn-primary">Pipeline board</Link><Link href="/app/admin/calls/new" className="btn-ghost">New call</Link></>} />
+      <PageHeader eyebrow={<><Req k="c" /><Req k="f" /></>} title="Programme overview" subtitle="Everything moving through Arena right now." actions={<><Link href="/app/admin/pipeline" className="btn-primary">Pipeline board</Link><Link href="/app/admin/calls/new" className="btn-ghost">New call</Link></>} />
       <div className="grid gap-4 sm:grid-cols-4">
         <Stat label="Ideas submitted" value={submitted} accent />
         <Stat label="In review now" value={inReview} />

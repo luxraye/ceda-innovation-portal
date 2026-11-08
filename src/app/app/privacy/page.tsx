@@ -18,7 +18,7 @@ export default async function PrivacyCentre() {
   const current = (p: ConsentPurpose) => consents.find((c) => c.purpose === p);
   return (
     <div>
-      <PageHeader eyebrow={<Req k="dpa" />} title="Privacy centre" subtitle="See and control what Sky holds about you. These are your rights under the Botswana Data Protection Act 2024." actions={<a href="/api/me/export" className="btn-primary"><Download className="h-4 w-4" /> Download my data</a>} />
+      <PageHeader eyebrow={<Req k="dpa" />} title="Privacy centre" subtitle="See and control what Arena holds about you. These are your rights under the Botswana Data Protection Act 2024." actions={<a href="/api/me/export" className="btn-primary"><Download className="h-4 w-4" /> Download my data</a>} />
       {user.restricted && <div className="mb-6"><Callout tone="gold" title="Processing restricted">You asked CEDA to restrict processing. Your applications are paused until the DPO resolves your request.</Callout></div>}
       <div className="grid gap-6 lg:grid-cols-2">
         <section className="card p-6">
