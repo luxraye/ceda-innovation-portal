@@ -1,0 +1,23 @@
+{
+  "name": "Sky",
+  "origin": "http://localhost:3101",
+  "bp": "/ceda-innovation-portal/sky",
+  "out": "/home/user/site/sky",
+  "publicStart": ["/", "/calls/", "/tour/", "/login/", "/register/", "/privacy/", "/verify/"],
+  "loginPaths": ["/login/"],
+  "defaultHome": "/app/innovator/",
+  "logins": {
+    "naledi@demo.sky.bw": "/app/innovator/",
+    "thabo.eval@demo.sky.bw": "/app/evaluator/",
+    "lesego.adj@demo.sky.bw": "/app/adjudicator/",
+    "admin@demo.sky.bw": "/app/admin/",
+    "dpo@demo.sky.bw": "/app/dpo/"
+  },
+  "roles": [
+    {"name":"innovator","label":"Innovator","home":"/app/innovator/","own":["/app/innovator","/app/privacy"],"login":[{"goto":"/login/"},{"click":"form:has(input[value='naledi@demo.sky.bw']) button"},{"waitUrl":"/app/"}],"api":["/api/notifications","/api/me"]},
+    {"name":"evaluator","label":"Evaluator","home":"/app/evaluator/","login":[{"goto":"/login/"},{"click":"form:has(input[value='thabo.eval@demo.sky.bw']) button"},{"waitUrl":"/app/"}]},
+    {"name":"adjudicator","label":"Committee","home":"/app/adjudicator/","login":[{"goto":"/login/"},{"click":"form:has(input[value='lesego.adj@demo.sky.bw']) button"},{"waitUrl":"/app/"}]},
+    {"name":"admin","label":"Admin","home":"/app/admin/","own":["/app/reports"],"login":[{"goto":"/login/"},{"click":"form:has(input[value='admin@demo.sky.bw']) button"},{"waitUrl":"/app/"}]},
+    {"name":"dpo","label":"Data protection","home":"/app/dpo/","login":[{"goto":"/login/"},{"click":"form:has(input[value='dpo@demo.sky.bw']) button"},{"waitUrl":"/app/"}]}
+  ]
+}

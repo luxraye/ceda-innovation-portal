@@ -1,0 +1,208 @@
+{
+ "name": "CEDA (regulator base)",
+ "origin": "http://localhost:3105",
+ "bp": "/ceda-innovation-portal/regulator",
+ "out": "/home/user/site/regulator",
+ "publicStart": [
+  "/",
+  "/calls/",
+  "/eligibility/",
+  "/register/",
+  "/ussd-demo/",
+  "/login/",
+  "/track/",
+  "/privacy/",
+  "/about/"
+ ],
+ "loginPaths": [
+  "/login/"
+ ],
+ "defaultHome": "/dashboard/innovator/",
+ "logins": {
+  "innovator@demo.ceda.bw": "/dashboard/innovator/",
+  "evaluator@demo.ceda.bw": "/dashboard/evaluator/",
+  "panel@demo.ceda.bw": "/dashboard/panel/",
+  "admin@demo.ceda.bw": "/dashboard/admin/",
+  "super@demo.ceda.bw": "/dashboard/superadmin/users/"
+ },
+ "clickLogins": {
+  "Naledi Molefe": "/dashboard/innovator/",
+  "Keabetswe Ntshole": "/dashboard/evaluator/",
+  "Dineo Seabo": "/dashboard/panel/",
+  "Tebogo Ramasedi": "/dashboard/admin/",
+  "Kgosi Mothibi": "/dashboard/superadmin/users/"
+ },
+ "roles": [
+  {
+   "name": "innovator",
+   "label": "Innovator",
+   "home": "/dashboard/innovator/",
+   "own": [
+    "/dashboard/innovator"
+   ],
+   "start": [
+    "/dashboard/innovator/",
+    "/dashboard/innovator/calls/",
+    "/dashboard/innovator/history/",
+    "/dashboard/innovator/instances/",
+    "/dashboard/innovator/privacy/",
+    "/dashboard/"
+   ],
+   "login": [
+    {
+     "cookie": [
+      "authjs.session-token",
+      "<minted by regulator-mint-session.mjs>"
+     ]
+    }
+   ],
+   "api": [
+    "/api/notifications",
+    "/api/templates"
+   ],
+   "session": {
+    "user": {
+     "id": "cmw7rv21t00073wbrd9frpdwi",
+     "name": "Naledi Molefe",
+     "email": "innovator@demo.ceda.bw",
+     "role": "INNOVATOR",
+     "organizationName": "Molefe Ventures (Pty) Ltd"
+    },
+    "expires": "2099-01-01T00:00:00.000Z"
+   }
+  },
+  {
+   "name": "evaluator",
+   "label": "Evaluator",
+   "home": "/dashboard/evaluator/",
+   "own": [],
+   "start": [
+    "/dashboard/evaluator/",
+    "/dashboard/"
+   ],
+   "login": [
+    {
+     "cookie": [
+      "authjs.session-token",
+      "<minted by regulator-mint-session.mjs>"
+     ]
+    }
+   ],
+   "api": [],
+   "session": {
+    "user": {
+     "id": "cmw7rv21o00023wbrr15byood",
+     "name": "Dr Keabetswe Ntshole",
+     "email": "evaluator@demo.ceda.bw",
+     "role": "EVALUATOR",
+     "organizationName": "CEDA"
+    },
+    "expires": "2099-01-01T00:00:00.000Z"
+   }
+  },
+  {
+   "name": "panel",
+   "label": "Panel",
+   "home": "/dashboard/panel/",
+   "own": [
+    "/dashboard/panel",
+    "/dashboard/reports"
+   ],
+   "start": [
+    "/dashboard/panel/",
+    "/dashboard/reports/",
+    "/dashboard/"
+   ],
+   "login": [
+    {
+     "cookie": [
+      "authjs.session-token",
+      "<minted by regulator-mint-session.mjs>"
+     ]
+    }
+   ],
+   "api": [],
+   "session": {
+    "user": {
+     "id": "cmw7rv21r00053wbr0lx0tmxg",
+     "name": "Mma Dineo Seabo",
+     "email": "panel@demo.ceda.bw",
+     "role": "ADJUDICATOR",
+     "organizationName": "CEDA"
+    },
+    "expires": "2099-01-01T00:00:00.000Z"
+   }
+  },
+  {
+   "name": "admin",
+   "label": "Admin",
+   "home": "/dashboard/admin/",
+   "own": [],
+   "start": [
+    "/dashboard/admin/",
+    "/dashboard/admin/calls/",
+    "/dashboard/admin/instances/",
+    "/dashboard/panel/",
+    "/dashboard/reports/",
+    "/dashboard/"
+   ],
+   "login": [
+    {
+     "cookie": [
+      "authjs.session-token",
+      "<minted by regulator-mint-session.mjs>"
+     ]
+    }
+   ],
+   "api": [],
+   "session": {
+    "user": {
+     "id": "cmw7rv21n00013wbrtn5g8qys",
+     "name": "Tebogo Ramasedi",
+     "email": "admin@demo.ceda.bw",
+     "role": "ADMIN",
+     "organizationName": "CEDA"
+    },
+    "expires": "2099-01-01T00:00:00.000Z"
+   }
+  },
+  {
+   "name": "super",
+   "label": "Super admin",
+   "home": "/dashboard/superadmin/users/",
+   "own": [],
+   "start": [
+    "/dashboard/superadmin/users/",
+    "/dashboard/superadmin/audit/",
+    "/dashboard/superadmin/matrix/",
+    "/dashboard/superadmin/settings/",
+    "/dashboard/superadmin/tools/",
+    "/dashboard/panel/",
+    "/dashboard/reports/",
+    "/dashboard/admin/",
+    "/dashboard/"
+   ],
+   "login": [
+    {
+     "cookie": [
+      "authjs.session-token",
+      "<minted by regulator-mint-session.mjs>"
+     ]
+    }
+   ],
+   "api": [
+    "/api/users"
+   ],
+   "session": {
+    "user": {
+     "id": "cmw7rv21l00003wbrrl9qpsvk",
+     "name": "Kgosi Mothibi",
+     "email": "super@demo.ceda.bw",
+     "role": "SUPERADMIN",
+     "organizationName": "CEDA"
+    },
+    "expires": "2099-01-01T00:00:00.000Z"
+   }
+  }
+ ]
+}
