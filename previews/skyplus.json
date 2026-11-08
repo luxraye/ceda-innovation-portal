@@ -17,11 +17,11 @@
  ],
  "defaultHome": "/app/innovator/",
  "logins": {
-  "naledi@demo.sky.bw": "/app/innovator/",
-  "thabo.eval@demo.sky.bw": "/app/evaluator/",
-  "lesego.adj@demo.sky.bw": "/app/adjudicator/",
-  "admin@demo.sky.bw": "/app/admin/",
-  "dpo@demo.sky.bw": "/app/dpo/"
+  "naledi@demo.ceda.bw": "/app/innovator/",
+  "thabo.eval@demo.ceda.bw": "/app/evaluator/",
+  "lesego.adj@demo.ceda.bw": "/app/adjudicator/",
+  "admin@demo.ceda.bw": "/app/admin/",
+  "dpo@demo.ceda.bw": "/app/dpo/"
  },
  "roles": [
   {
@@ -37,7 +37,7 @@
      "goto": "/login/"
     },
     {
-     "click": "form:has(input[value='naledi@demo.sky.bw']) button"
+     "click": "form:has(input[value='naledi@demo.ceda.bw']) button"
     },
     {
      "waitUrl": "/app/"
@@ -57,7 +57,7 @@
      "goto": "/login/"
     },
     {
-     "click": "form:has(input[value='thabo.eval@demo.sky.bw']) button"
+     "click": "form:has(input[value='thabo.eval@demo.ceda.bw']) button"
     },
     {
      "waitUrl": "/app/"
@@ -73,7 +73,7 @@
      "goto": "/login/"
     },
     {
-     "click": "form:has(input[value='lesego.adj@demo.sky.bw']) button"
+     "click": "form:has(input[value='lesego.adj@demo.ceda.bw']) button"
     },
     {
      "waitUrl": "/app/"
@@ -92,7 +92,7 @@
      "goto": "/login/"
     },
     {
-     "click": "form:has(input[value='admin@demo.sky.bw']) button"
+     "click": "form:has(input[value='admin@demo.ceda.bw']) button"
     },
     {
      "waitUrl": "/app/"
@@ -108,7 +108,7 @@
      "goto": "/login/"
     },
     {
-     "click": "form:has(input[value='dpo@demo.sky.bw']) button"
+     "click": "form:has(input[value='dpo@demo.ceda.bw']) button"
     },
     {
      "waitUrl": "/app/"
