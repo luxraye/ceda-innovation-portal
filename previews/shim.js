@@ -98,6 +98,9 @@
     x.onclick = function () { window.__pvClosed = true; b.remove(); };
     b.appendChild(x);
     document.body.appendChild(b);
+    var st = document.createElement("style");
+    st.textContent = "@media print{#__pv_bar,#__pv_toast{display:none!important}}";
+    document.head.appendChild(st);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bar); else bar();
   setInterval(bar, 1500);
