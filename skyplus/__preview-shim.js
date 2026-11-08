@@ -21,9 +21,15 @@
   }
   var RO = "This is a read-only preview, so saving and sending are switched off. Everything else is clickable.";
   var never = new Promise(function () {});
+  if (!C.live) {
   var of = window.fetch;
   window.fetch = function (input, init) {
     var method = (init && init.method) || (input && input.method) || "GET";
+    var url0 = typeof input === "string" ? input : (input && input.url) || "";
+    if (url0.indexOf("/api/auth/") >= 0) {
+      var body = url0.indexOf("/api/auth/session") >= 0 ? (window.__PREVIEW_SESSION__ || {}) : {};
+      return Promise.resolve(new Response(JSON.stringify(body), { status: 200, headers: { "Content-Type": "application/json" } }));
+    }
     if (String(method).toUpperCase() !== "GET") { toast(RO); return never; }
     if (typeof input === "string") input = fix(input);
     return of.call(this, input, init);
@@ -35,7 +41,7 @@
   };
   window.addEventListener("submit", function (e) {
     var f = e.target;
-    var em = f.querySelector && f.querySelector('input[name="email"]');
+    var em = f.querySelector && f.querySelector('input[name="email"], input[type="email"]');
     var logins = C.logins || {};
     var key = em && em.value;
     if (key && logins[key]) { e.preventDefault(); e.stopImmediatePropagation(); location.href = BP + logins[key]; return; }
@@ -44,7 +50,15 @@
     }
     e.preventDefault(); e.stopImmediatePropagation(); toast(RO);
   }, true);
+  }
   document.addEventListener("click", function (e) {
+    if (C.clickLogins && C.loginPaths && C.loginPaths.some(function (p) { return location.pathname.indexOf(BP + p) === 0; })) {
+      var btn = e.target.closest && e.target.closest("button");
+      if (btn && !btn.closest("form")) {
+        var txt = btn.textContent || "";
+        for (var k in C.clickLogins) if (txt.indexOf(k) >= 0) { e.preventDefault(); e.stopImmediatePropagation(); location.href = BP + C.clickLogins[k]; return; }
+      }
+    }
     var a = e.target.closest && e.target.closest("a[href]");
     if (!a) return;
     var h = a.getAttribute("href");
