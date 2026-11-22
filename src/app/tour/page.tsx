@@ -22,13 +22,13 @@ const SECTIONS: Section[] = [
     id: "a",
     code: "3.2(a)",
     title: "A submission form nobody can get wrong",
-    plain: "A young founder applies from a phone, and Sky makes sure the application is complete before CEDA ever sees it.",
+    plain: "A young founder applies from a phone, and the portal makes sure the application is complete before CEDA ever sees it.",
     how: [
       "Eligibility is checked at sign-up: age 18 to 35, citizenship, CIPA UIN format and more than 50% youth shareholding.",
       "Each call has its own form, built by CEDA staff without code. Required fields block submission until answered.",
       "Drafts save as you go. Files are encrypted, sealed with SHA-256 and confirmed with a signed receipt.",
     ],
-    demo: { email: "naledi@demo.sky.bw", next: "/calls/youth-innovation-challenge-2026", label: "Apply as Naledi" },
+    demo: { email: "naledi@demo.ceda.bw", next: "/calls/youth-innovation-challenge-2026", label: "Apply as Naledi" },
   },
   {
     id: "b",
@@ -40,7 +40,7 @@ const SECTIONS: Section[] = [
       "Review is blind: evaluators see the idea, not the founder's name or company.",
       "Scores are normalised per evaluator so a harsh judge and a generous judge count equally. Big disagreements are flagged.",
     ],
-    demo: { email: "thabo.eval@demo.sky.bw", next: "/app/evaluator", label: "Score as an evaluator" },
+    demo: { email: "thabo.eval@demo.ceda.bw", next: "/app/evaluator", label: "Score as an evaluator" },
   },
   {
     id: "b2",
@@ -52,7 +52,7 @@ const SECTIONS: Section[] = [
       "Every decision needs a written rationale, which becomes the applicant's feedback.",
       "Awards record the amount, so reports show exactly where CEDA's funding went.",
     ],
-    demo: { email: "lesego.adj@demo.sky.bw", next: "/app/adjudicator", label: "Decide as the committee" },
+    demo: { email: "lesego.adj@demo.ceda.bw", next: "/app/adjudicator", label: "Decide as the committee" },
   },
   {
     id: "c",
@@ -64,7 +64,7 @@ const SECTIONS: Section[] = [
       "A live notification bell in every workspace, with email and SMS adapters behind it.",
       "A pipeline board for CEDA showing every idea in every stage, with time-in-stage warnings.",
     ],
-    demo: { email: "admin@demo.sky.bw", next: "/app/admin/pipeline", label: "Open the pipeline board" },
+    demo: { email: "admin@demo.ceda.bw", next: "/app/admin/pipeline", label: "Open the pipeline board" },
   },
   {
     id: "d",
@@ -76,7 +76,7 @@ const SECTIONS: Section[] = [
       "Checked twice: at the route and again inside every server action, so a forged request still fails.",
       "A hash-chained audit trail. Change one past entry and the chain shows exactly where it broke.",
     ],
-    demo: { email: "admin@demo.sky.bw", next: "/app/admin/audit", label: "Verify the audit chain" },
+    demo: { email: "admin@demo.ceda.bw", next: "/app/admin/audit", label: "Verify the audit chain" },
   },
   {
     id: "e",
@@ -88,7 +88,7 @@ const SECTIONS: Section[] = [
       "\"Changes requested\" reopens the form. Resubmissions become version 2, 3 and so on.",
       "A side-by-side comparison shows the panel exactly what changed.",
     ],
-    demo: { email: "naledi@demo.sky.bw", next: "/app/innovator", label: "Answer feedback as Naledi" },
+    demo: { email: "naledi@demo.ceda.bw", next: "/app/innovator", label: "Answer feedback as Naledi" },
   },
   {
     id: "f",
@@ -100,7 +100,7 @@ const SECTIONS: Section[] = [
       "Score distributions per call and average days spent in each stage.",
       "CSV export for analysts and a print-ready report for the board.",
     ],
-    demo: { email: "admin@demo.sky.bw", next: "/app/reports", label: "Open the reports" },
+    demo: { email: "admin@demo.ceda.bw", next: "/app/reports", label: "Open the reports" },
   },
   {
     id: "g",
@@ -112,19 +112,19 @@ const SECTIONS: Section[] = [
       "Modular codebase: each workspace is independent. REST API and webhook seams for CEDA systems, email and SMS.",
       "Runs on PostgreSQL in production and in a container on Botswana-hosted servers.",
     ],
-    demo: { email: "admin@demo.sky.bw", next: "/app/admin/calls", label: "Build a call" },
+    demo: { email: "admin@demo.ceda.bw", next: "/app/admin/calls", label: "Build a call" },
   },
   {
     id: "dpa",
     code: "DPA 2024",
     title: "Data protection is a feature, not a footnote",
-    plain: "Sky turns the Botswana Data Protection Act 2024 into tools applicants and CEDA's DPO actually use.",
+    plain: "The portal turns the Botswana Data Protection Act 2024 into tools applicants and CEDA's DPO actually use.",
     how: [
       "Separate, versioned consents. Applicants download, correct, restrict or ask to erase their data themselves.",
       "A DPO workspace with rights requests and due dates, retention rules and a breach register with a 72-hour countdown.",
       "Encryption at rest, sealed submissions and data-residency-ready deployment.",
     ],
-    demo: { email: "dpo@demo.sky.bw", next: "/app/dpo", label: "Open the DPO workspace" },
+    demo: { email: "dpo@demo.ceda.bw", next: "/app/dpo", label: "Open the DPO workspace" },
   },
 ];
 
@@ -137,7 +137,7 @@ export default function Tour() {
         eyebrow="Judge's guide"
         title={
           <>
-            Sky in two minutes, <span className="font-serif text-[1.08em] text-sky-300 italic">mapped to the CEDA brief.</span>
+            The portal in two minutes, <span className="text-sky-300">mapped to the CEDA brief.</span>
           </>
         }
         photo={PHOTOS.city}
@@ -199,7 +199,7 @@ export default function Tour() {
                 <ul className="space-y-4 border-t border-slate-100 bg-slate-50/70 p-7 md:border-t-0 md:border-l md:p-8">
                   {s.how.map((h) => (
                     <li key={h} className="flex gap-3 text-sm leading-relaxed text-slate-700">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(15_111_255/0.5)]">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-600 text-white shadow-[0_2px_6px_-1px_rgb(217_73_20/0.5)]">
                         <Check className="h-3 w-3" strokeWidth={3} />
                       </span>
                       {h}

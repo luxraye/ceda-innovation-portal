@@ -58,7 +58,7 @@ export async function demoLogin(form: FormData) {
   const email = String(form.get("email") ?? "");
   const next = String(form.get("next") ?? "");
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !email.endsWith("@demo.sky.bw")) throw new Error("Unknown demo account");
+  if (!user || !email.endsWith("@demo.ceda.bw")) throw new Error("Unknown demo account");
   await startSession(user);
   (await cookies()).set("sky_judge", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
   await audit({ actorId: user.id, actorRole: user.role, action: "auth.demo_login", entity: "User", entityId: user.id });
@@ -153,7 +153,7 @@ export async function register(_: FormState, form: FormData): Promise<FormState>
   });
   await notify({
     userId: user.id,
-    title: "Welcome to Sky",
+    title: "Welcome to the CEDA Innovation Portal",
     body: "Your account is ready. Browse open CEDA calls and start your first submission.",
     href: "/app/innovator",
     kind: "SUCCESS",

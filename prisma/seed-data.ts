@@ -300,9 +300,9 @@ export const INNOVATORS = [
 ];
 
 export const EVALUATORS = [
-  { name: "Dr Thabo Kgosi", email: "thabo.eval@demo.sky.bw", title: "Agri-engineering lecturer", bias: 0 },
-  { name: "Ms Onalenna Pheko", email: "onalenna.eval@demo.sky.bw", title: "Venture investor, fintech", bias: -1.6 },
-  { name: "Mr Kefilwe Motsumi", email: "kefilwe.eval@demo.sky.bw", title: "Former bank SME credit manager", bias: 1.4 },
-  { name: "Dr Gaone Seretse", email: "gaone.eval@demo.sky.bw", title: "Food security researcher", bias: 0.3 },
-  { name: "Ms Amantle Kgari", email: "amantle.eval@demo.sky.bw", title: "Software engineering lead", bias: -0.4 },
+  { name: "Dr Thabo Kgosi", email: "thabo.eval@demo.ceda.bw", title: "Agri-engineering lecturer", bias: 0 },
+  { name: "Ms Onalenna Pheko", email: "onalenna.eval@demo.ceda.bw", title: "Venture investor, fintech", bias: -1.6 },
+  { name: "Mr Kefilwe Motsumi", email: "kefilwe.eval@demo.ceda.bw", title: "Former bank SME credit manager", bias: 1.4 },
+  { name: "Dr Gaone Seretse", email: "gaone.eval@demo.ceda.bw", title: "Food security researcher", bias: 0.3 },
+  { name: "Ms Amantle Kgari", email: "amantle.eval@demo.ceda.bw", title: "Software engineering lead", bias: -0.4 },
 ];

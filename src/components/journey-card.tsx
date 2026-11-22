@@ -7,7 +7,7 @@ import { BadgeCheck, Bell, ClipboardCheck, Gavel, Send, Trophy } from "lucide-re
 // A looping illustration of one idea moving through Sky, so a first-time
 // visitor understands the product in five seconds.
 const EVENTS = [
-  { icon: Send, title: "Idea submitted", body: "Receipt SKY-26-0042 sealed with SHA-256", stage: 0, t: "09:12" },
+  { icon: Send, title: "Idea submitted", body: "Receipt CEDA-26-0042 sealed with SHA-256", stage: 0, t: "09:12" },
   { icon: BadgeCheck, title: "Eligibility confirmed", body: "UIN verified · 80% youth-owned", stage: 1, t: "Day 2" },
   { icon: ClipboardCheck, title: "Panel scored your idea", body: "3 evaluators · blind review · 78/100", stage: 2, t: "Day 9" },
   { icon: Bell, title: "Feedback from the panel", body: "“Show pilot data from two farms”", stage: 2, t: "Day 9" },
@@ -25,7 +25,7 @@ export function JourneyCard() {
   const stage = EVENTS[i].stage;
   const pct = (stage / (STAGES.length - 1)) * 100;
   return (
-    <div className="card-dark relative overflow-hidden p-6" aria-label="Example: one idea's journey through Sky">
+    <div className="card-dark relative overflow-hidden p-6" aria-label="Example: one idea's journey through the portal">
       <div className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-sky-500/20 blur-3xl" aria-hidden="true" />
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -41,7 +41,7 @@ export function JourneyCard() {
       <div className="relative mt-7">
         <div className="absolute top-[7px] right-[10%] left-[10%] h-px bg-white/10" />
         <motion.div
-          className="absolute top-[7px] left-[10%] h-px bg-gradient-to-r from-sky-400 to-sky-200 shadow-[0_0_12px_rgb(94_163_255)]"
+          className="absolute top-[7px] left-[10%] h-px bg-gradient-to-r from-sky-400 to-sky-200 shadow-[0_0_12px_rgb(244_127_69)]"
           animate={{ width: `${pct * 0.8}%` }}
           transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
         />
@@ -79,7 +79,7 @@ export function JourneyCard() {
                 className={`flex items-start gap-3 rounded-xl p-3 ${idx === 0 ? "bg-white/[0.06] ring-1 ring-sky-300/25" : "ring-1 ring-white/[0.06]"}`}
               >
                 <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${idx === 0 ? "bg-sky-500 text-white shadow-[0_0_20px_-2px_rgb(46_134_255)]" : "bg-white/5 text-white/50"}`}
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${idx === 0 ? "bg-sky-500 text-white shadow-[0_0_20px_-2px_rgb(236_98_36)]" : "bg-white/5 text-white/50"}`}
                 >
                   <e.icon className="h-4 w-4" />
                 </span>

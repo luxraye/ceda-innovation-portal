@@ -5,7 +5,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { assertRole } from "@/lib/auth";
 import { audit } from "@/lib/audit";
-import type { FormField } from "@/lib/domain";
+import { CALL_SECTORS, VENTURE_STAGES, type FormField } from "@/lib/domain";
 
 const fieldSchema = z.object({
   key: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_]{1,40}$/),
@@ -24,6 +24,8 @@ const fieldSchema = z.object({
 const callSchema = z.object({
   title: z.string().min(5).max(120),
   theme: z.string().min(2).max(60),
+  sector: z.enum(CALL_SECTORS),
+  ventureStage: z.enum(VENTURE_STAGES),
   tagline: z.string().min(10).max(200),
   description: z.string().min(20).max(5000),
   prizePool: z.number().int().min(0),
@@ -59,6 +61,8 @@ export async function createCall(input: CallInput) {
       slug,
       title: d.title,
       theme: d.theme,
+      sector: d.sector,
+      ventureStage: d.ventureStage,
       tagline: d.tagline,
       description: d.description,
       prizePool: d.prizePool,

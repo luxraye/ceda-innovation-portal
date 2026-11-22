@@ -27,10 +27,10 @@ export default async function InnovatorHome() {
     <div>
       <section className="group relative isolate mb-8 overflow-hidden rounded-3xl px-6 py-10 md:px-10 md:py-12">
         <AzurePhoto src={PHOTOS.founder} alt="" priority sizes="(min-width: 1024px) 70vw, 100vw" className="absolute inset-0 -z-10" />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--color-navy-950)_0%,rgb(5_8_15/0.82)_45%,rgb(5_8_15/0.2)_100%)]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--color-navy-950)_0%,rgb(18_14_12/0.82)_45%,rgb(18_14_12/0.2)_100%)]" />
         <div className="flex gap-2"><Req k="a" /><Req k="c" /></div>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
-          Dumela, <span className="font-serif text-sky-300 italic">{user.name.split(" ")[0]}.</span>
+          Dumela, <span className="text-sky-300">{user.name.split(" ")[0]}.</span>
         </h1>
         <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-white/65">
           {user.org?.name ? `${user.org.name} · ` : ""}Follow every idea you've submitted, and answer feedback when the panel asks.

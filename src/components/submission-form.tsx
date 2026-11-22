@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, CloudUpload, FileCheck2, Loader2, Lock } from "lucide-react";
 import { saveDraft, submitApplication, uploadFile } from "@/app/actions/submissions";
 import type { FormField } from "@/lib/domain";
+import { PitchCoach } from "./pitch-coach";
 
 type FileInfo = { id: string; slot: string; fileName: string; size: number; sha256: string };
 
@@ -103,7 +104,7 @@ export function SubmissionForm({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_260px]">
+    <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
       <div className="space-y-6">
         {sections.map(([section, list], si) => (
           <section key={section} className="card p-6">
@@ -169,6 +170,7 @@ export function SubmissionForm({
           )}
           {pct < 100 && <p className="mt-2 text-center text-[11px] text-slate-500">Answer every required question to submit.</p>}
         </div>
+        <PitchCoach submissionId={submissionId} values={values} labels={Object.fromEntries(fields.map((f) => [f.key, f.label]))} />
       </aside>
     </div>
   );

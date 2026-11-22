@@ -58,7 +58,7 @@ const BRIEF = [
 ];
 
 const STEPS = [
-  { icon: Send, title: "Submit", who: "You", body: "One guided form. Sky checks eligibility and tells you exactly what's missing before you send." },
+  { icon: Send, title: "Submit", who: "You", body: "One guided form. The portal checks eligibility and tells you exactly what's missing before you send." },
   { icon: BadgeCheck, title: "Screen", who: "CEDA team", body: "Company and documents verified. Complete, eligible ideas move on within days, not months." },
   { icon: ClipboardCheck, title: "Panel review", who: "Independent evaluators", body: "At least two experts score against published criteria, without seeing your name." },
   { icon: Gavel, title: "Committee", who: "CEDA innovation committee", body: "Fair, normalised rankings, and a recorded reason behind every decision." },
@@ -144,7 +144,7 @@ export default async function Home() {
       <section className="noise relative isolate min-h-[100svh] overflow-hidden">
         <div className="grid-lines absolute inset-0 -z-10" aria-hidden="true" />
         <div
-          className="absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(60%_60%_at_70%_20%,rgb(15_111_255/0.20),transparent_70%)]"
+          className="absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(60%_60%_at_70%_20%,rgb(217_73_20/0.20),transparent_70%)]"
           aria-hidden="true"
         />
         <PublicHeader />
@@ -168,10 +168,10 @@ export default async function Home() {
               <span className="text-gradient">Your idea.</span>
               <br />
               <span className="text-gradient">Botswana's </span>
-              <span className="font-serif text-[1.08em] text-sky-300 italic">future.</span>
+              <span className="text-sky-300">future.</span>
             </h1>
             <p className="animate-rise mt-7 max-w-lg text-lg leading-relaxed text-white/60 [animation-delay:160ms]">
-              Sky is CEDA's home for youth-led innovation. Submit once, follow your idea live through every stage, and hear back from the
+              The CEDA Innovation Portal is CEDA's home for youth-led innovation. Submit once, follow your idea live through every stage, and hear back from the
               people deciding. Real feedback, not silence.
             </p>
             <div className="animate-rise mt-9 flex flex-wrap gap-3 [animation-delay:240ms]">
@@ -186,7 +186,7 @@ export default async function Home() {
 
           <div className="animate-rise mt-20 max-w-3xl [animation-delay:320ms]">
             <div className="eyebrow mb-4 flex items-center gap-2 text-white/35">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgb(94_163_255)]" /> Live from the portal
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgb(244_127_69)]" /> Live from the portal
             </div>
             <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/[0.07] ring-1 ring-white/[0.07] sm:grid-cols-4">
               {[
@@ -225,11 +225,11 @@ export default async function Home() {
       {/* Why */}
       <section className="relative mx-auto max-w-7xl px-4 py-24 md:px-8 md:py-32">
         <SectionTitle
-          eyebrow="Why Sky exists"
+          eyebrow="Why the portal exists"
           title={
             <>
               Good ideas get lost in inboxes.{" "}
-              <span className="font-serif text-[1.08em] text-sky-300 italic">Sky gives every one a fair path.</span>
+              <span className="text-sky-300">The portal gives every one a fair path.</span>
             </>
           }
         />
@@ -249,7 +249,7 @@ export default async function Home() {
           <Reveal delay={0.1}>
             <div className="card-dark hairline-top relative h-full overflow-hidden p-8">
               <div className="pointer-events-none absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-sky-500/15 blur-3xl" aria-hidden="true" />
-              <div className="eyebrow text-sky-300">With Sky</div>
+              <div className="eyebrow text-sky-300">With the portal</div>
               <ul className="mt-6 space-y-5">
                 {AFTER.map((b) => (
                   <li key={b.text} className="flex items-start gap-4 text-white">
@@ -270,15 +270,15 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 py-24 md:px-8 md:py-32">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
-              eyebrow="Who Sky is for"
+              eyebrow="Who the portal is for"
               title={
                 <>
-                  The people building <span className="font-serif text-[1.08em] text-sky-300 italic">Botswana's next industries.</span>
+                  The people building <span className="text-sky-300">Botswana's next industries.</span>
                 </>
               }
             />
             <Reveal>
-              <p className="max-w-xs text-sm text-white/45">Hover or tap a story. Every call on Sky is open to youth-led teams across all {DISTRICTS.length} districts.</p>
+              <p className="max-w-xs text-sm text-white/45">Hover or tap a story. Every call is open to youth-led teams across all {DISTRICTS.length} districts.</p>
             </Reveal>
           </div>
           <Reveal delay={0.1} className="mt-14">
@@ -292,11 +292,11 @@ export default async function Home() {
           <Reveal className="max-w-3xl">
             <div className="eyebrow text-sky-300/80">From the Delta to the capital</div>
             <p className="mt-5 text-[34px] leading-[1.1] text-white md:text-[56px]">
-              A good idea shouldn't depend on <span className="font-serif text-[1.08em] text-gold-300 italic">how close you live to Gaborone.</span>
+              A good idea shouldn't depend on <span className="text-gold-300">how close you live to Gaborone.</span>
             </p>
             <div className="mt-10 flex flex-wrap gap-x-12 gap-y-6">
               {[
-                { v: <CountUp value={s.reached} suffix={` / ${DISTRICTS.length}`} />, k: "districts with ideas on Sky" },
+                { v: <CountUp value={s.reached} suffix={` / ${DISTRICTS.length}`} />, k: "districts with ideas in the portal" },
                 { v: <CountUp value={s.submitted} />, k: "ideas submitted so far" },
                 { v: "100%", k: "applied online, from any phone" },
               ].map((x) => (
@@ -318,7 +318,7 @@ export default async function Home() {
               eyebrow="How it works"
               title={
                 <>
-                  Five stages. <span className="font-serif text-[1.08em] text-sky-300 italic">You can see every one.</span>
+                  Five stages. <span className="text-sky-300">You can see every one.</span>
                 </>
               }
               body="CEDA can change the stages for each call. This is the standard path an idea takes, and the innovator is notified at every step."
@@ -359,7 +359,7 @@ export default async function Home() {
             eyebrow="Built for everyone in the room"
             title={
               <>
-                One portal. <span className="font-serif text-[1.08em] text-sky-300 italic">A workspace for each role.</span>
+                One portal. <span className="text-sky-300">A workspace for each role.</span>
               </>
             }
           />
@@ -390,25 +390,25 @@ export default async function Home() {
       </section>
 
       {/* Finance Develop Sustain: the one daylight band on the page */}
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#0a59de_0%,#0f6fff_35%,#5ea3ff_100%)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_80%_0%,rgb(255_255_255/0.28),transparent_70%),radial-gradient(40%_50%_at_0%_100%,rgb(246_219_166/0.35),transparent_70%)]" aria-hidden="true" />
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#b4380f_0%,#d94914_35%,#f47f45_100%)]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_80%_0%,rgb(255_255_255/0.28),transparent_70%),radial-gradient(40%_50%_at_0%_100%,rgb(253_227_167/0.35),transparent_70%)]" aria-hidden="true" />
         <div className="grid-lines absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 py-24 md:px-8 md:py-32">
           <Reveal className="max-w-3xl">
             <div className="eyebrow text-white/70">Finance · Develop · Sustain</div>
             <h2 className="mt-4 text-[34px] leading-[1.08] text-white md:text-5xl">
-              What happens after you win <span className="font-serif text-[1.08em] text-gold-300 italic">matters as much as winning.</span>
+              What happens after you win <span className="text-gold-300">matters as much as winning.</span>
             </h2>
           </Reveal>
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {PILLARS.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08} className="h-full">
-                <div className="h-full rounded-2xl bg-white/[0.12] p-8 shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_40px_-20px_rgb(5_8_15/0.45)] ring-1 ring-white/25 backdrop-blur-md">
+                <div className="h-full rounded-2xl bg-white/[0.12] p-8 shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_40px_-20px_rgb(18_14_12/0.45)] ring-1 ring-white/25 backdrop-blur-md">
                   <div className="flex items-center justify-between">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-sky-700 shadow-sm">
                       <p.icon className="h-5 w-5" strokeWidth={1.8} />
                     </span>
-                    <span className="font-serif text-4xl text-white/45 italic">0{i + 1}</span>
+                    <span className="text-4xl text-white/45">0{i + 1}</span>
                   </div>
                   <div className="mt-10 text-2xl font-medium tracking-tight text-white">{p.title}</div>
                   <p className="mt-3 text-[15px] leading-relaxed text-white/80">{p.body}</p>
@@ -479,10 +479,10 @@ export default async function Home() {
               eyebrow="Your data, protected by law and by design"
               title={
                 <>
-                  Built to the <span className="font-serif text-[1.08em] text-sky-300 italic">Botswana Data Protection Act 2024.</span>
+                  Built to the <span className="text-sky-300">Botswana Data Protection Act 2024.</span>
                 </>
               }
-              body="Sky collects only what CEDA needs to assess your idea, uses it only for the purposes you agree to, and keeps it only as long as necessary. Every access is recorded."
+              body="The portal collects only what CEDA needs to assess your idea, uses it only for the purposes you agree to, and keeps it only as long as necessary. Every access is recorded."
             />
             <Reveal delay={0.1}>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -491,7 +491,7 @@ export default async function Home() {
               </div>
               <div className="mt-10 rounded-xl bg-white/[0.03] p-4 font-mono text-[11.5px] leading-relaxed ring-1 ring-white/[0.07]">
                 <div className="flex items-center justify-between text-white/35">
-                  <span>receipt · SKY-26-0042 · v2</span>
+                  <span>receipt · CEDA-26-0042 · v2</span>
                   <span className="flex items-center gap-1.5 text-emerald-300/80">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> verified
                   </span>
@@ -518,16 +518,16 @@ export default async function Home() {
       {/* CTA */}
       <section className="relative overflow-hidden border-t border-white/[0.06]">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[420px]" aria-hidden="true">
-          <div className="absolute bottom-[-520px] left-1/2 h-[760px] w-[1400px] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgb(46_134_255/0.55),rgb(15_111_255/0.12)_60%,transparent)]" />
-          <div className="absolute bottom-[-648px] left-1/2 h-[760px] w-[1500px] -translate-x-1/2 rounded-[50%] border-t border-sky-200/50 bg-navy-950 shadow-[0_-20px_80px_-10px_rgb(94_163_255/0.45)]" />
+          <div className="absolute bottom-[-520px] left-1/2 h-[760px] w-[1400px] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgb(236_98_36/0.55),rgb(217_73_20/0.12)_60%,transparent)]" />
+          <div className="absolute bottom-[-648px] left-1/2 h-[760px] w-[1500px] -translate-x-1/2 rounded-[50%] border-t border-sky-200/50 bg-navy-950 shadow-[0_-20px_80px_-10px_rgb(244_127_69/0.45)]" />
         </div>
         <div className="relative mx-auto max-w-4xl px-4 pt-32 pb-56 text-center md:px-8">
           <Reveal>
             <h2 className="text-[40px] leading-[1.04] text-white md:text-6xl">
-              The next big Botswana company starts with <span className="font-serif text-[1.08em] text-sky-300 italic">one idea.</span>
+              The next big Botswana company starts with <span className="text-sky-300">one idea.</span>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg text-white/55">
-              Bring yours. If you're 18 to 35 and your company is majority youth-owned, Sky is for you.
+              Bring yours. If you're 18 to 35 and your company is majority youth-owned, this portal is for you.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link href="/register" className="btn-light btn-lg">Create your account</Link>

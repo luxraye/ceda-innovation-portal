@@ -56,7 +56,7 @@ export function answersOf(versionPayload: string | null | undefined): Payload {
 export async function nextReference() {
   const year = new Date().getFullYear().toString().slice(-2);
   const count = await prisma.submission.count();
-  return `SKY-${year}-${String(count + 1).padStart(4, "0")}`;
+  return `CEDA-${year}-${String(count + 1).padStart(4, "0")}`;
 }
 
 export const ALLOWED_MIME: Record<string, string> = {

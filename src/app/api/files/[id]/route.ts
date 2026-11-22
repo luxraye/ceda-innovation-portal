@@ -22,7 +22,7 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     headers: {
       "Content-Type": file.mimeType,
       "Content-Disposition": `attachment; filename="${file.fileName.replace(/[^\w.\- ]/g, "_")}"`,
-      "X-Sky-SHA256": file.sha256,
+      "X-CEDA-SHA256": file.sha256,
       "Cache-Control": "private, no-store",
     },
   });

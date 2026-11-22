@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
 import { createCall, type CallInput } from "@/app/actions/calls";
-import type { FormField, FieldType } from "@/lib/domain";
+import { CALL_SECTORS, VENTURE_STAGES, VENTURE_STAGE_HINT, type FormField, type FieldType } from "@/lib/domain";
 
 type Crit = { name: string; description: string; weight: number; maxScore: number };
 type Stage = { name: string; kind: string; description: string; minReviewers: number; blind: boolean };
@@ -22,7 +22,7 @@ export function CallBuilder({ defaults }: { defaults: { fields: FormField[]; cri
   const router = useRouter();
   const today = new Date().toISOString().slice(0, 10);
   const inMonth = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
-  const [meta, setMeta] = useState({ title: "", theme: "", tagline: "", description: "", prizePool: 500000, opensAt: today, closesAt: inMonth, status: "OPEN" as "OPEN" | "DRAFT" });
+  const [meta, setMeta] = useState({ title: "", theme: "", sector: "Cross-sector" as string, ventureStage: "Idea" as string, tagline: "", description: "", prizePool: 500000, opensAt: today, closesAt: inMonth, status: "OPEN" as "OPEN" | "DRAFT" });
   const [fields, setFields] = useState<FormField[]>(defaults.fields);
   const [criteria, setCriteria] = useState<Crit[]>(defaults.criteria);
   const [stages, setStages] = useState<Stage[]>(defaults.stages);
@@ -54,6 +54,18 @@ export function CallBuilder({ defaults }: { defaults: { fields: FormField[]; cri
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2"><label className="label">Title</label><input className="input" value={meta.title} onChange={(e) => setMeta({ ...meta, title: e.target.value })} placeholder="e.g. Tourism Innovation Challenge 2027" /></div>
           <div><label className="label">Theme</label><input className="input" value={meta.theme} onChange={(e) => setMeta({ ...meta, theme: e.target.value })} placeholder="e.g. Tourism & Creative" /></div>
+          <div>
+            <label className="label">Sector (matrix row)</label>
+            <select className="input" value={meta.sector} onChange={(e) => setMeta({ ...meta, sector: e.target.value })}>
+              {CALL_SECTORS.map((x) => <option key={x}>{x}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="label">Venture stage (matrix column)</label>
+            <select className="input" value={meta.ventureStage} onChange={(e) => setMeta({ ...meta, ventureStage: e.target.value })}>
+              {VENTURE_STAGES.map((x) => <option key={x} value={x}>{x}: {VENTURE_STAGE_HINT[x].toLowerCase()}</option>)}
+            </select>
+          </div>
           <div><label className="label">Prize pool (BWP)</label><input type="number" className="input" value={meta.prizePool} onChange={(e) => setMeta({ ...meta, prizePool: Number(e.target.value) })} /></div>
           <div className="md:col-span-2"><label className="label">One-line pitch</label><input className="input" value={meta.tagline} onChange={(e) => setMeta({ ...meta, tagline: e.target.value })} /></div>
           <div className="md:col-span-2"><label className="label">The challenge</label><textarea rows={4} className="input" value={meta.description} onChange={(e) => setMeta({ ...meta, description: e.target.value })} /></div>

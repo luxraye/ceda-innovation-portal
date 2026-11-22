@@ -22,7 +22,7 @@ export default async function Calls() {
         eyebrow="Open calls"
         title={
           <>
-            Calls for <span className="font-serif text-[1.08em] text-sky-300 italic">innovation.</span>
+            Calls for <span className="text-sky-300">innovation.</span>
           </>
         }
         body="Each call is a challenge CEDA wants young Batswana to solve. Read the criteria, then apply. You'll know exactly how you will be judged."
@@ -37,11 +37,11 @@ export default async function Calls() {
                 <div className="relative h-52 overflow-hidden">
                   <AzurePhoto src={themePhoto(c.theme)} alt="" sizes="(min-width: 768px) 50vw, 100vw" className="absolute inset-0" />
                   <span className="absolute inset-0 bg-gradient-to-t from-navy-950/60 to-transparent" />
-                  <span className="absolute bottom-4 left-7 font-serif text-3xl text-white italic md:left-8">{pula(c.prizePool)}</span>
+                  <span className="absolute bottom-4 left-7 text-3xl text-white md:left-8">{pula(c.prizePool)}</span>
                 </div>
                 <div className="flex flex-1 flex-col p-7 md:p-8">
                 <div className="flex items-center justify-between">
-                  <span className="eyebrow text-sky-700">{c.theme}</span>
+                  <span className="eyebrow text-sky-700">{c.theme} · for {c.ventureStage.toLowerCase()} stage</span>
                   <span
                     className={`chip ${c.status === "OPEN" ? "bg-emerald-50 text-emerald-700 ring-emerald-200" : "bg-slate-100 text-slate-600 ring-slate-200"}`}
                   >

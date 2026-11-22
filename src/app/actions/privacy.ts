@@ -13,7 +13,7 @@ export async function setConsent(form: FormData) {
   const purpose = String(form.get("purpose")) as ConsentPurpose;
   const grant = form.get("grant") === "1";
   if (!CONSENT_PURPOSES[purpose]) throw new Error("Unknown purpose");
-  if (CONSENT_PURPOSES[purpose].required && !grant) throw new Error("This consent is needed while you have active applications. Use 'Erase my data' to leave Sky.");
+  if (CONSENT_PURPOSES[purpose].required && !grant) throw new Error("This consent is needed while you have active applications. Use 'Erase my data' to leave the portal.");
   await prisma.consent.updateMany({ where: { userId: user.id, purpose, withdrawnAt: null }, data: { withdrawnAt: new Date() } });
   await prisma.consent.create({ data: { userId: user.id, purpose, granted: grant, version: CONSENT_VERSION } });
   await audit({ actorId: user.id, actorRole: user.role, action: grant ? "consent.granted" : "consent.withdrawn", entity: "Consent", meta: { purpose, version: CONSENT_VERSION } });
@@ -48,7 +48,7 @@ export async function resolveRequest(form: FormData) {
   if (outcome === "COMPLETED" && req.type === "ERASURE") {
     const anon = `erased-${req.user.id.slice(-6)}`;
     await prisma.$transaction([
-      prisma.user.update({ where: { id: req.userId }, data: { name: "Erased user", email: `${anon}@erased.sky.bw`, phone: null, dateOfBirth: null, anonymisedAt: new Date(), passwordHash: "!" } }),
+      prisma.user.update({ where: { id: req.userId }, data: { name: "Erased user", email: `${anon}@erased.ceda.bw`, phone: null, dateOfBirth: null, anonymisedAt: new Date(), passwordHash: "!" } }),
       prisma.notification.deleteMany({ where: { userId: req.userId } }),
     ]);
   }
@@ -116,7 +116,7 @@ export async function runRetention() {
     // Keep anyone who also has an active or awarded idea.
     const active = await prisma.submission.count({ where: { ownerId: id, status: { notIn: ["DECLINED", "WITHDRAWN"] } } });
     if (active) continue;
-    await prisma.user.update({ where: { id }, data: { name: "Anonymised applicant", email: `anon-${id.slice(-8)}@erased.sky.bw`, phone: null, dateOfBirth: null, anonymisedAt: new Date(), passwordHash: "!" } });
+    await prisma.user.update({ where: { id }, data: { name: "Anonymised applicant", email: `anon-${id.slice(-8)}@erased.ceda.bw`, phone: null, dateOfBirth: null, anonymisedAt: new Date(), passwordHash: "!" } });
   }
   await prisma.retentionPolicy.updateMany({ data: { lastRunAt: new Date() } });
   await audit({ actorId: dpo.id, actorRole: dpo.role, action: "retention.run", entity: "RetentionPolicy", meta: { candidates: owners.length, months } });

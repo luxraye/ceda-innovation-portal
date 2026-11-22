@@ -9,14 +9,14 @@ export default function PrivacyNotice() {
       <PublicHero
         narrow
         eyebrow="Data Protection Act 2024"
-        title={<>Privacy <span className="font-serif text-[1.08em] text-sky-300 italic">notice.</span></>}
+        title={<>Privacy <span className="text-sky-300">notice.</span></>}
         body={`Version ${CONSENT_VERSION} · Prototype text for the CEDA hackathon, to be confirmed by CEDA's Data Protection Officer.`}
       />
       <article className="mx-auto max-w-5xl px-4 py-14 md:px-8">
         <div className="card max-w-3xl space-y-8 p-8 text-[15px] leading-relaxed text-slate-700 md:p-10">
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Who is responsible</h2>
-            <p className="mt-2">The Citizen Entrepreneurial Development Agency (CEDA) is the data controller for Sky. CEDA's Data Protection Officer can be reached through the privacy centre in your account. You may also complain to the Information and Data Protection Commission.</p>
+            <p className="mt-2">The Citizen Entrepreneurial Development Agency (CEDA) is the data controller for the CEDA Innovation Portal. CEDA's Data Protection Officer can be reached through the privacy centre in your account. You may also complain to the Information and Data Protection Commission.</p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-navy-900">What we collect and why</h2>
@@ -46,7 +46,7 @@ export default function PrivacyNotice() {
           </section>
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Where it is stored</h2>
-            <p className="mt-2">Sky is designed to run on servers in Botswana. Data is not transferred abroad unless the Act allows it. Files are encrypted at rest and all traffic uses HTTPS.</p>
+            <p className="mt-2">The portal is designed to run on servers in Botswana. Data is not transferred abroad unless the Act allows it. Files are encrypted at rest and all traffic uses HTTPS.</p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-navy-900">Your rights</h2>

@@ -9,6 +9,7 @@ import { declareConflict } from "@/app/actions/evaluation";
 import { PageHeader, Req } from "@/components/ui";
 import { AnswerList } from "@/components/submission-parts";
 import { ScoringPanel } from "@/components/scoring-panel";
+import { PanelBrief } from "@/components/panel-brief";
 import type { FormField } from "@/lib/domain";
 
 // Fields that reveal identity are hidden in blind review.
@@ -67,6 +68,7 @@ export default async function Review({ params }: { params: Promise<{ id: string 
         title={sub.title}
         subtitle={`${sub.call.title} · ${a.stage.name} · ${sub.sector}`}
       />
+      <div className="mb-6"><PanelBrief submissionId={sub.id} /></div>
       <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
         <section className="card p-6">
           <h2 className="mb-1 font-semibold text-navy-900">The idea</h2>

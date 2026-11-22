@@ -84,6 +84,9 @@ model Call {
   status      String   @default("OPEN") // DRAFT | OPEN | REVIEW | CLOSED
   formSchema  String // JSON array of field definitions
   colour      String   @default("sky")
+  // Where this call template sits in CEDA's sector x venture-stage matrix.
+  sector       String   @default("Cross-sector")
+  ventureStage String   @default("Idea")
   createdAt   DateTime @default(now())
   stages      Stage[]
   criteria    Criterion[]

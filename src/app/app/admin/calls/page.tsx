@@ -21,7 +21,7 @@ export default async function CallsAdmin() {
             <section key={c.id} className="card p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <div className="eyebrow text-sky-700">{c.theme}</div>
+                  <div className="eyebrow text-sky-700">{c.theme} · Template: {c.sector} × {c.ventureStage}</div>
                   <h2 className="text-lg font-semibold text-navy-900">{c.title}</h2>
                   <div className="text-sm text-slate-500">{fmtDate(c.opensAt)} to {fmtDate(c.closesAt)} · {pula(c.prizePool)} · {c._count.submissions} ideas</div>
                 </div>

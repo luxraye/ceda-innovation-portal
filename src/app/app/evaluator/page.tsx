@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Callout, Empty, PageHeader, Req, Stat, Tone } from "@/components/ui";
+import { Callout, Empty, NightEyebrow, Req, Stat, Tone, WorkspaceHero } from "@/components/ui";
+import { PHOTOS } from "@/lib/photos";
 import { daysUntil, fmtDate } from "@/lib/format";
 
 export const metadata = { title: "Review queue" };
@@ -21,12 +22,21 @@ export default async function EvaluatorHome({ searchParams }: { searchParams: Pr
     include: { submission: { include: { call: true } }, stage: true },
     orderBy: [{ status: "asc" }, { dueAt: "asc" }],
   });
+  // Work still to do comes first, then scored ideas, then conflicts.
+  const rank: Record<string, number> = { IN_PROGRESS: 0, PENDING: 1, DONE: 2, CONFLICT: 3 };
+  list.sort((x, y) => (rank[x.status] ?? 9) - (rank[y.status] ?? 9));
   const open = list.filter((a) => a.status === "PENDING" || a.status === "IN_PROGRESS");
   const done = list.filter((a) => a.status === "DONE");
   const overdue = open.filter((a) => a.dueAt && daysUntil(a.dueAt) < 0);
   return (
     <div>
-      <PageHeader eyebrow={<><Req k="b" /><Req k="d" /></>} title="Your review queue" subtitle="Ideas assigned to you. Review is blind: you see the idea, not who submitted it. Declare any conflict of interest before you start." />
+      <WorkspaceHero
+        photo={PHOTOS.keyboard}
+        eyebrow={<><NightEyebrow>Review queue</NightEyebrow><Req k="b" /><Req k="d" /></>}
+        title={open.length ? `${open.length} idea${open.length === 1 ? "" : "s"} to review,` : "You're all caught up,"}
+        accent={`${user.name.replace(/^(Dr|Mr|Ms|Mrs|Prof)\.?\s+/i, "").split(" ")[0]}.`}
+        subtitle="Review is blind: you see the idea, not who submitted it. Declare any conflict of interest before you start, and use the panel brief to read faster. You make the call."
+      />
       {conflict && <div className="mb-6"><Callout tone="sky" title="Conflict recorded">Thank you. The programme team has been notified and will reassign this idea.</Callout></div>}
       <div className="grid gap-4 sm:grid-cols-3">
         <Stat label="To review" value={open.length} accent />

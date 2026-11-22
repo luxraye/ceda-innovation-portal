@@ -13,6 +13,7 @@ import { StageTracker } from "./stage-tracker";
 import { AnswerList, ReceiptCard, Timeline, VersionDiff } from "./submission-parts";
 import type { FormField } from "@/lib/domain";
 import { DecisionForm } from "./decision-form";
+import { PanelBrief } from "./panel-brief";
 
 export async function StaffSubmission({ user, id, back, error, done }: { user: CurrentUser; id: string; back: string; error?: string; done?: string }) {
   const sub = await prisma.submission.findUnique({
@@ -59,6 +60,7 @@ export async function StaffSubmission({ user, id, back, error, done }: { user: C
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
         <div className="space-y-6">
+          {latest && ["ADJUDICATOR", "ADMIN"].includes(user.role) && <PanelBrief submissionId={sub.id} />}
           <section className="card p-6">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 className="font-semibold text-navy-900">Panel scores</h2>

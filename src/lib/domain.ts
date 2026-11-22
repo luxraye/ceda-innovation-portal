@@ -119,6 +119,19 @@ export const SECTORS = [
   "Logistics",
 ] as const;
 
+/** Rows of the call matrix: a call can target one sector or be open to all. */
+export const CALL_SECTORS = ["Cross-sector", ...SECTORS] as const;
+
+/** Columns of the call matrix: how far along the ventures a call is meant for are. */
+export const VENTURE_STAGES = ["Idea", "Prototype", "Pilot", "Early revenue", "Growth"] as const;
+export const VENTURE_STAGE_HINT: Record<(typeof VENTURE_STAGES)[number], string> = {
+  Idea: "Grant to test an idea",
+  Prototype: "Build a first version",
+  Pilot: "Prove it with real users",
+  "Early revenue": "Loan or grant to start selling",
+  Growth: "Finance to scale up",
+};
+
 // Form builder field definition stored as JSON on each call.
 export type FieldType = "text" | "textarea" | "select" | "number" | "url" | "file";
 export type FormField = {
